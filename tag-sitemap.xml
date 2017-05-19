@@ -2,15 +2,8 @@
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
     <url>
-        <loc>http://andfanswzp.pw/tags/Hexo/</loc>
-        <lastmod>2017-05-18T17:04:21.235Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>http://andfanswzp.pw/tags/Blog/</loc>
-        <lastmod>2017-05-18T17:04:21.235Z</lastmod>
+        <loc>http://andfanswzp.pw/tags/%E9%9A%8F%E7%AC%94/</loc>
+        <lastmod>2017-05-19T05:59:15.985Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
