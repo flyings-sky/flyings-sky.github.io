@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          开篇 - Andfans
+          加速Android项目构建 - Andfans
         
     </title>
 
-    <link rel="canonical" href="http://andfanswzp.pw/2017/05/19/my-first-blog/">
+    <link rel="canonical" href="http://andfanswzp.pw/2017/05/19/加速Android项目构建/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -90,11 +90,13 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#随笔" title="随笔">随笔</a>
+                              <a class="tag" href="/tags/#Android" title="Android">Android</a>
+                            
+                              <a class="tag" href="/tags/#Gradle" title="Gradle">Gradle</a>
                             
                         </div>
-                        <h1>开篇</h1>
-                        <h2 class="subheading">新博客搭建完成的第一篇文章</h2>
+                        <h1>加速Android项目构建</h1>
+                        <h2 class="subheading">Gradle编译速度优化</h2>
                         <span class="meta">
                             Posted by Andfans on
                             2017-05-19
@@ -214,8 +216,25 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <p>经过大半天的折腾，新博客终于搭建的差不多了。瞬间感觉动力满满，希望能尽快把博客搬迁过来，否则显得空荡荡的，最近有项目要赶，可能博客更新有限。</p>
-<p>时间宝贵，这篇博客就到这吧，等有时间再扯闲篇。</p>
+                <h2 id="开启gradle单独的守护进程">开启Gradle单独的守护进程</h2>
+<h3 id="只优化单个项目">只优化单个项目</h3>
+<p>修改项目下的gradle.properties文件:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"># Project-wide Gradle settings.</div><div class="line"># IDE (e.g. Android Studio) users:</div><div class="line"># Settings specified in this file will override any Gradle settings</div><div class="line"># configured through the IDE.</div><div class="line"># For more details on how to configure your build environment visit</div><div class="line"># http://www.gradle.org/docs/current/userguide/build_environment.html</div><div class="line"># The Gradle daemon aims to improve the startup and execution time of Gradle.</div><div class="line"># When set to true the Gradle daemon is to run the build.</div><div class="line"># TODO: disable daemon on CI, since builds should be clean and reliable on servers</div><div class="line">org.gradle.daemon=true</div><div class="line"># Specifies the JVM arguments used for the daemon process.</div><div class="line"># The setting is particularly useful for tweaking memory settings.</div><div class="line"># Default value: -Xmx10248m -XX:MaxPermSize=256m</div><div class="line">org.gradle.jvmargs=-Xmx2048m -XX:MaxPermSize=512m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8</div><div class="line"># When configured, Gradle will run in incubating parallel mode.</div><div class="line"># This option should only be used with decoupled projects. More details, visit</div><div class="line"># http://www.gradle.org/docs/current/userguide/multi_project_builds.html#sec:decoupled_projects</div><div class="line">org.gradle.parallel=true</div><div class="line"># Enables new incubating mode that makes Gradle selective when configuring projects. </div><div class="line"># Only relevant projects are configured which results in faster builds for large multi-projects.</div><div class="line"># http://www.gradle.org/docs/current/userguide/multi_project_builds.html#sec:configuration_on_demand</div><div class="line">org.gradle.configureondemand=true</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<h3 id="同时优化所有项目">同时优化所有项目</h3>
+<p>在下面的目录下创建gradle.properties文件</p>
+<ul>
+<li>/home/<username>/.gradle/ (Linux)</username></li>
+<li>/Users/<username>/.gradle/ (Mac)</username></li>
+<li>C:\Users&lt;username&gt;.gradle (Windows)</li>
+</ul>
+<p>在文件中增加:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"># Project-wide Gradle settings.</div><div class="line"># IDE (e.g. Android Studio) users:</div><div class="line"># Settings specified in this file will override any Gradle settings</div><div class="line"># configured through the IDE.</div><div class="line"># For more details on how to configure your build environment visit</div><div class="line"># http://www.gradle.org/docs/current/userguide/build_environment.html</div><div class="line"># The Gradle daemon aims to improve the startup and execution time of Gradle.</div><div class="line"># When set to true the Gradle daemon is to run the build.</div><div class="line"># TODO: disable daemon on CI, since builds should be clean and reliable on servers</div><div class="line">org.gradle.daemon=true</div><div class="line"># Specifies the JVM arguments used for the daemon process.</div><div class="line"># The setting is particularly useful for tweaking memory settings.</div><div class="line"># Default value: -Xmx10248m -XX:MaxPermSize=256m</div><div class="line">org.gradle.jvmargs=-Xmx2048m -XX:MaxPermSize=512m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8</div><div class="line"># When configured, Gradle will run in incubating parallel mode.</div><div class="line"># This option should only be used with decoupled projects. More details, visit</div><div class="line"># http://www.gradle.org/docs/current/userguide/multi_project_builds.html#sec:decoupled_projects</div><div class="line">org.gradle.parallel=true</div><div class="line"># Enables new incubating mode that makes Gradle selective when configuring projects. </div><div class="line"># Only relevant projects are configured which results in faster builds for large multi-projects.</div><div class="line"># http://www.gradle.org/docs/current/userguide/multi_project_builds.html#sec:configuration_on_demand</div><div class="line">org.gradle.configureondemand=true</div></pre></td></tr></table></figure>
+<h3 id="修改android-studio配置">修改Android Studio配置</h3>
+<p>File  -&gt;  settings  -&gt;  Build Tools  -&gt;  Gradle</p>
+<p>开启offline模式</p>
+<h3 id="命令行构建">命令行构建</h3>
+<p>在命令后面加入参数:–daemon --parallel --offline</p>
 
                 
 
@@ -223,10 +242,10 @@
                 <!-- Pager -->
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2017/05/19/加速Android项目构建/" data-toggle="tooltip" data-placement="top" title="加速Android项目构建">&larr; Previous Post</a>
-                        </li>
                     
+                        <li class="next">
+                            <a href="/2017/05/19/my-first-blog/" data-toggle="tooltip" data-placement="top" title="开篇">Next Post &rarr;</a>
+                        </li>
                     
                 </ul>
 
@@ -255,7 +274,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="nav">none</ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#开启gradle单独的守护进程"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">开启Gradle单独的守护进程</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#只优化单个项目"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">只优化单个项目</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#同时优化所有项目"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text">同时优化所有项目</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#修改android-studio配置"><span class="toc-nav-number">1.3.</span> <span class="toc-nav-text">修改Android Studio配置</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#命令行构建"><span class="toc-nav-number">1.4.</span> <span class="toc-nav-text">命令行构建</span></a></li></ol></li></ol>
         
         </div>
       </aside>
@@ -275,7 +294,9 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#随笔" title="随笔">随笔</a>
+                          <a class="tag" href="/tags/#Android" title="Android">Android</a>
+                        
+                          <a class="tag" href="/tags/#Gradle" title="Gradle">Gradle</a>
                         
                     </div>
                 </section>
@@ -310,8 +331,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "your-disqus-ID";
-    var disqus_identifier = "http://andfanswzp.pw/2017/05/19/my-first-blog/";
-    var disqus_url = "http://andfanswzp.pw/2017/05/19/my-first-blog/";
+    var disqus_identifier = "http://andfanswzp.pw/2017/05/19/加速Android项目构建/";
+    var disqus_url = "http://andfanswzp.pw/2017/05/19/加速Android项目构建/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
