@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          加速Android项目构建 - Andfans
+          Android中子线程更新UI之惑 - Andfans
         
     </title>
 
-    <link rel="canonical" href="http://andfanswzp.pw/2017/05/19/加速Android项目构建/">
+    <link rel="canonical" href="http://andfanswzp.pw/2017/05/23/Android中子线程更新UI之惑/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -69,7 +69,7 @@
 <style type="text/css">
     header.intro-header{
         
-            background-image: url('http://i1.piimg.com/588926/14c9e94b1c44706b.png')
+            background-image: url('Android')
             /*post*/
         
     }
@@ -92,14 +92,12 @@
                             
                               <a class="tag" href="/tags/#Android" title="Android">Android</a>
                             
-                              <a class="tag" href="/tags/#Gradle" title="Gradle">Gradle</a>
-                            
                         </div>
-                        <h1>加速Android项目构建</h1>
-                        <h2 class="subheading">Gradle编译速度优化</h2>
+                        <h1>Android中子线程更新UI之惑</h1>
+                        <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by Andfans on
-                            2017-05-19
+                            2017-05-23
                         </span>
                     </div>
                 
@@ -216,25 +214,26 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h2 id="开启gradle单独的守护进程">开启Gradle单独的守护进程</h2>
-<h3 id="只优化单个项目">只优化单个项目</h3>
-<p>修改项目下的gradle.properties文件:</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"># Project-wide Gradle settings.</div><div class="line"># IDE (e.g. Android Studio) users:</div><div class="line"># Settings specified in this file will override any Gradle settings</div><div class="line"># configured through the IDE.</div><div class="line"># For more details on how to configure your build environment visit</div><div class="line"># http://www.gradle.org/docs/current/userguide/build_environment.html</div><div class="line"># The Gradle daemon aims to improve the startup and execution time of Gradle.</div><div class="line"># When set to true the Gradle daemon is to run the build.</div><div class="line"># TODO: disable daemon on CI, since builds should be clean and reliable on servers</div><div class="line">org.gradle.daemon=true</div><div class="line"># Specifies the JVM arguments used for the daemon process.</div><div class="line"># The setting is particularly useful for tweaking memory settings.</div><div class="line"># Default value: -Xmx10248m -XX:MaxPermSize=256m</div><div class="line">org.gradle.jvmargs=-Xmx2048m -XX:MaxPermSize=512m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8</div><div class="line"># When configured, Gradle will run in incubating parallel mode.</div><div class="line"># This option should only be used with decoupled projects. More details, visit</div><div class="line"># http://www.gradle.org/docs/current/userguide/multi_project_builds.html#sec:decoupled_projects</div><div class="line">org.gradle.parallel=true</div><div class="line"># Enables new incubating mode that makes Gradle selective when configuring projects. </div><div class="line"># Only relevant projects are configured which results in faster builds for large multi-projects.</div><div class="line"># http://www.gradle.org/docs/current/userguide/multi_project_builds.html#sec:configuration_on_demand</div><div class="line">org.gradle.configureondemand=true</div></pre></td></tr></table></figure>
-<a id="more"></a>
-<h3 id="同时优化所有项目">同时优化所有项目</h3>
-<p>在下面的目录下创建gradle.properties文件</p>
-<ul>
-<li>/home/<username>/.gradle/ (Linux)</username></li>
-<li>/Users/<username>/.gradle/ (Mac)</username></li>
-<li>C:\Users&lt;username&gt;.gradle (Windows)</li>
-</ul>
-<p>在文件中增加:</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"># Project-wide Gradle settings.</div><div class="line"># IDE (e.g. Android Studio) users:</div><div class="line"># Settings specified in this file will override any Gradle settings</div><div class="line"># configured through the IDE.</div><div class="line"># For more details on how to configure your build environment visit</div><div class="line"># http://www.gradle.org/docs/current/userguide/build_environment.html</div><div class="line"># The Gradle daemon aims to improve the startup and execution time of Gradle.</div><div class="line"># When set to true the Gradle daemon is to run the build.</div><div class="line"># TODO: disable daemon on CI, since builds should be clean and reliable on servers</div><div class="line">org.gradle.daemon=true</div><div class="line"># Specifies the JVM arguments used for the daemon process.</div><div class="line"># The setting is particularly useful for tweaking memory settings.</div><div class="line"># Default value: -Xmx10248m -XX:MaxPermSize=256m</div><div class="line">org.gradle.jvmargs=-Xmx2048m -XX:MaxPermSize=512m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8</div><div class="line"># When configured, Gradle will run in incubating parallel mode.</div><div class="line"># This option should only be used with decoupled projects. More details, visit</div><div class="line"># http://www.gradle.org/docs/current/userguide/multi_project_builds.html#sec:decoupled_projects</div><div class="line">org.gradle.parallel=true</div><div class="line"># Enables new incubating mode that makes Gradle selective when configuring projects. </div><div class="line"># Only relevant projects are configured which results in faster builds for large multi-projects.</div><div class="line"># http://www.gradle.org/docs/current/userguide/multi_project_builds.html#sec:configuration_on_demand</div><div class="line">org.gradle.configureondemand=true</div></pre></td></tr></table></figure>
-<h3 id="修改android-studio配置">修改Android Studio配置</h3>
-<p>File  -&gt;  settings  -&gt;  Build Tools  -&gt;  Gradle</p>
-<p>开启offline模式</p>
-<h3 id="命令行构建">命令行构建</h3>
-<p>在命令后面加入参数:–daemon --parallel --offline</p>
+                <h2 id="前言">前言</h2>
+<p>今天在上课刷博客时，看了一篇略让我感到<strong>震惊</strong>的博客，这篇博客中写到“在Activity的OnResume生命周期之前的方法，直接在子线程中操作UI并不会报错”，这句话简直吊炸天有没有，我带着一丝怀疑去查阅各种资料，最终算是搞清楚了这件事情，特发此文留作记录。</p>
+<h2 id="正文">正文</h2>
+<h3 id="小测试">小测试</h3>
+<p>首先，我尝试了一下下面这段代码:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">    <span class="keyword">super</span>.onCreate(savedInstanceState);</div><div class="line">    setContentView(R.layout.activity_main);</div><div class="line">    textView = (TextView) findViewById(R.id.text_view);</div><div class="line">    <span class="keyword">new</span> Thread()&#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">            <span class="comment">// 子线程中操作 UI</span></div><div class="line">            textView.setText(<span class="string">"text_view_thread"</span> + <span class="string">"--"</span> + Thread.currentThread().getName());</div><div class="line">            Log.e(<span class="string">"IM"</span>,textView.getText().toString());</div><div class="line">        &#125;</div><div class="line">    &#125;.start();</div><div class="line">&#125;</div><div class="line"><span class="comment">//Log</span></div><div class="line"><span class="comment">//text_view_thread--Thread-数字(数字不确定)</span></div></pre></td></tr></table></figure>
+<p>由此可以看出，TextView确实在子线程中更新UI成功了，而且没有抛出异常。</p>
+<p>简直一脸懵逼啊，有木有！！！</p>
+<p>然后我又在子线程中加了延迟，又尝试运行了这段程序。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> Thread()&#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">                <span class="comment">// 子线程中操作 UI</span></div><div class="line">                <span class="keyword">try</span> &#123;</div><div class="line">                    Thread.sleep(<span class="number">2000</span>);</div><div class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</div><div class="line">                    e.printStackTrace();</div><div class="line">                &#125;</div><div class="line">                textView.setText(<span class="string">"text_view_thread"</span> + <span class="string">"--"</span> + Thread.currentThread().getName());</div><div class="line">                Log.e(<span class="string">"IM"</span>,textView.getText().toString());</div><div class="line">            &#125;</div><div class="line">        &#125;.start();</div></pre></td></tr></table></figure>
+<p>这次果然不负众望，程序崩了，抛出了如下的异常信息:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">android.view.ViewRootImpl$CalledFromWrongThreadException: Only the original thread that created a view hierarchy can touch its views.</div><div class="line">           at android.view.ViewRootImpl.checkThread(ViewRootImpl.java:<span class="number">6030</span>)</div><div class="line">           at android.view.ViewRootImpl.requestLayout(ViewRootImpl.java:<span class="number">820</span>)</div><div class="line">           at android.view.View.requestLayout(View.java:<span class="number">16431</span>)</div><div class="line">           at android.view.View.requestLayout(View.java:<span class="number">16431</span>)</div><div class="line">           at android.view.View.requestLayout(View.java:<span class="number">16431</span>)</div><div class="line">           at android.view.View.requestLayout(View.java:<span class="number">16431</span>)</div><div class="line">           at android.view.View.requestLayout(View.java:<span class="number">16431</span>)</div><div class="line">           at android.view.View.requestLayout(View.java:<span class="number">16431</span>)</div><div class="line">           at android.support.constraint.ConstraintLayout.requestLayout(ConstraintLayout.java:<span class="number">1959</span>)</div><div class="line">           at android.view.View.requestLayout(View.java:<span class="number">16431</span>)</div><div class="line">           at android.widget.TextView.checkForRelayout(TextView.java:<span class="number">6600</span>)</div><div class="line">           at android.widget.TextView.setText(TextView.java:<span class="number">3813</span>)</div><div class="line">           at android.widget.TextView.setText(TextView.java:<span class="number">3671</span>)</div><div class="line">           at android.widget.TextView.setText(TextView.java:<span class="number">3646</span>)</div><div class="line">           at andfans.com.kotlinim.MainActivity$<span class="number">1</span>.run(MainActivity.java:<span class="number">24</span>)</div></pre></td></tr></table></figure>
+<h3 id="原因剖析">原因剖析</h3>
+<p>于是我就猜想，这个崩溃肯定与Activity启动过程中某个类实例化的时间有关。</p>
+<p>从这段异常信息来看，异常类是ViewRootImpl$CalledFromWrongThreadException，并且可以根据第三行的提示可以看出，这个异常是在ViewRootImpl类的checkThread()方法里面抛出的，那接下来我们来看看在这个方法里面都做了些什么工作：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">checkThread</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (mThread != Thread.currentThread()) &#123;</div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> CalledFromWrongThreadException(</div><div class="line">                <span class="string">"Only the original thread that created a view hierarchy can touch its views."</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这个方法主要是检查一下当前线程(Thread.currentThread())是不是&quot;创建视图层次结构的原始线程(mThread)&quot;，所谓创建视图层次结构的原始线程，就是指创建ViewRootImpl的线程，如果创建ViewRootImpl的线程和当前线程不同，则会抛出异常:CalledFromWrongThreadException。</p>
+<p>因为一般默认ViewRootImpl都是由系统自动创建的，所以mThread一般来说都是主线程，ViewRootImpl 中和 UI 操作相关的方法都调用了 checkThread() 来检测当前线程是主线程。这就是为什么不能在子线程中操作 UI 的原因。</p>
+<p>但是话又说回来，为什么第一次测试时，可以成功在子线程修改TextView的文本呢？那就只有一种解释了：执行setText()方法时，ViewRootImpl还未被创建，因此checkThread()方法也就无从调用了，所以也就不会抛出异常了，我们接下来去看一下ViewRootImpl是什么时候被创建的。</p>
+<h3 id="viewrootimpl的创建过程">ViewRootImpl的创建过程</h3>
 
                 
 
@@ -243,12 +242,12 @@
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/2017/05/20/记一次令人崩溃的Android踩坑之旅/" data-toggle="tooltip" data-placement="top" title="Android Studio创建项目直接编译出错的解决办法">&larr; Previous Post</a>
+                            <a href="/2017/05/24/浅谈APP的启动过程/" data-toggle="tooltip" data-placement="top" title="浅谈APP的启动过程">&larr; Previous Post</a>
                         </li>
                     
                     
                         <li class="next">
-                            <a href="/2017/05/19/my-first-blog/" data-toggle="tooltip" data-placement="top" title="开篇">Next Post &rarr;</a>
+                            <a href="/2017/05/20/Android-Studio中Kotlin开发环境配置/" data-toggle="tooltip" data-placement="top" title="Android Studio中Kotlin开发环境配置">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -278,7 +277,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#开启gradle单独的守护进程"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">开启Gradle单独的守护进程</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#只优化单个项目"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">只优化单个项目</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#同时优化所有项目"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text">同时优化所有项目</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#修改android-studio配置"><span class="toc-nav-number">1.3.</span> <span class="toc-nav-text">修改Android Studio配置</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#命令行构建"><span class="toc-nav-number">1.4.</span> <span class="toc-nav-text">命令行构建</span></a></li></ol></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#前言"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">前言</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#正文"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">正文</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#小测试"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text">小测试</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#原因剖析"><span class="toc-nav-number">2.2.</span> <span class="toc-nav-text">原因剖析</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#viewrootimpl的创建过程"><span class="toc-nav-number">2.3.</span> <span class="toc-nav-text">ViewRootImpl的创建过程</span></a></li></ol></li></ol>
         
         </div>
       </aside>
@@ -299,8 +298,6 @@
                     <div class="tags">
                        
                           <a class="tag" href="/tags/#Android" title="Android">Android</a>
-                        
-                          <a class="tag" href="/tags/#Gradle" title="Gradle">Gradle</a>
                         
                     </div>
                 </section>
@@ -331,8 +328,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "your-disqus-ID";
-    var disqus_identifier = "http://andfanswzp.pw/2017/05/19/加速Android项目构建/";
-    var disqus_url = "http://andfanswzp.pw/2017/05/19/加速Android项目构建/";
+    var disqus_identifier = "http://andfanswzp.pw/2017/05/23/Android中子线程更新UI之惑/";
+    var disqus_url = "http://andfanswzp.pw/2017/05/23/Android中子线程更新UI之惑/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
