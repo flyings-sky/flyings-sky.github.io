@@ -151,14 +151,14 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -240,7 +240,7 @@
 <h4 id="创建被观察者observable">创建被观察者Observable</h4>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">Observable observable = Observable.create(<span class="keyword">new</span> Observable.OnSubscribe&lt;String&gt;() &#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">call</span><span class="params">(Subscriber&lt;? <span class="keyword">super</span> String&gt; subscriber)</span> </span>&#123;</div><div class="line">        subscriber.onNext(<span class="string">"Hello!"</span>);</div><div class="line">        subscriber.onNext(<span class="string">"Hi!"</span>);</div><div class="line">        subscriber.onNext(<span class="string">"Ha!"</span>);</div><div class="line">        subscriber.onCompleted();</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
 <p>这里传入了一个<code>OnSubscribe</code>对象作为参数。<code>OnSubscribe</code>会被存储在返回的<code>Observable</code>对象中，它的作用相当于一个计划表，当<code>Observable</code>被订阅时，<code>OnSubscribe</code>的<code>call()</code>方法会被自动调用，事件序列就会按照设定依次触发。这样，由被观察者调用了观察者的回调方法，就实现了由被观察者向观察者的事件传递，即观察者模式。</p>
-<h5 id="其他方式">其他方式</h5>
+<p>除此之外，使用下面的方式也可以创建Observable</p>
 <ul>
 <li>just(T…):将传入的参数依次发送出来</li>
 <li>from(T[])/from(Iterable&lt;? extends T&gt;):将传入的数组或<code>Iterable</code>拆分成具体对象后，依次发送出来</li>
@@ -311,7 +311,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#前言"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">前言</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#正文"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">正文</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#rxjava到底是什么"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text">RxJava到底是什么？</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#为什么要使用rxjava"><span class="toc-nav-number">2.2.</span> <span class="toc-nav-text">为什么要使用RxJava?</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#rxjava中的四个概念"><span class="toc-nav-number">2.3.</span> <span class="toc-nav-text">RxJava中的四个概念</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#rxjava中的回调方法"><span class="toc-nav-number">2.4.</span> <span class="toc-nav-text">RxJava中的回调方法</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#创建观察者observer"><span class="toc-nav-number">2.4.1.</span> <span class="toc-nav-text">创建观察者Observer</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#创建被观察者observable"><span class="toc-nav-number">2.4.2.</span> <span class="toc-nav-text">创建被观察者Observable</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#其他方式"><span class="toc-nav-number">2.4.2.1.</span> <span class="toc-nav-text">其他方式</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#subscribe订阅"><span class="toc-nav-number">2.4.3.</span> <span class="toc-nav-text">Subscribe订阅</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#rxjava的线程控制"><span class="toc-nav-number">2.5.</span> <span class="toc-nav-text">RxJava的线程控制</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#参考"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">参考</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#前言"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">前言</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#正文"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">正文</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#rxjava到底是什么"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text">RxJava到底是什么？</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#为什么要使用rxjava"><span class="toc-nav-number">2.2.</span> <span class="toc-nav-text">为什么要使用RxJava?</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#rxjava中的四个概念"><span class="toc-nav-number">2.3.</span> <span class="toc-nav-text">RxJava中的四个概念</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#rxjava中的回调方法"><span class="toc-nav-number">2.4.</span> <span class="toc-nav-text">RxJava中的回调方法</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#创建观察者observer"><span class="toc-nav-number">2.4.1.</span> <span class="toc-nav-text">创建观察者Observer</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#创建被观察者observable"><span class="toc-nav-number">2.4.2.</span> <span class="toc-nav-text">创建被观察者Observable</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#subscribe订阅"><span class="toc-nav-number">2.4.3.</span> <span class="toc-nav-text">Subscribe订阅</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#rxjava的线程控制"><span class="toc-nav-number">2.5.</span> <span class="toc-nav-text">RxJava的线程控制</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#参考"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">参考</span></a></li></ol>
         
         </div>
       </aside>
