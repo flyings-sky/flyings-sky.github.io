@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          谢希仁版计算机网络读书笔记(未完待续) - Andfans
+        
+    </title>
+
+    <link rel="canonical" href="http://andfanswzp.pw/2017/05/26/谢希仁版计算机网络读书笔记/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('http://i1.piimg.com/588926/14c9e94b1c44706b.png')
+            /*post*/
+        
+    }
+    
+    #signature{
+        background-image: url('/img/signature/BeanTechSign-white.png');
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#读书笔记" title="读书笔记">读书笔记</a>
+                            
+                              <a class="tag" href="/tags/#基础" title="基础">基础</a>
+                            
+                        </div>
+                        <h1>谢希仁版计算机网络读书笔记(未完待续)</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by Andfans on
+                            2017-05-26
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Andfans</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h1 id="第一章">第一章</h1>
+<h2 id="计算机网络的功能">计算机网络的功能</h2>
+<ol>
+<li>连通性:计算机网络使上网的用户可以彼此交换信息。</li>
+<li>共享:上网的用户可以共享网上的所有资源。</li>
+</ol>
+<h2 id="若干概念">若干概念</h2>
+<p>网络由若干结点和连接这些结点的链路组成。网络中的结点可以是计算机、集线器、交换机或路由器。</p>
+<p>网络和网络可以通过路由器互连起来，因此互联网就是指&quot;网络的网络&quot;。</p>
+<p>因特网是世界上最大的互连网络，习惯上，大家把连接在因特网上的计算机都称为主机。</p>
+<p>网络把许多计算机连接在一起，而因特网则把许多网络连接在一起。</p>
+<p>包含有计算机的网络，以及用这样的网络加上许多路由器组成的互联网，都可以称为计算机网络。</p>
+<h2 id="因特网发展的三个阶段">因特网发展的三个阶段</h2>
+<ol>
+<li>从单个网络ARPANET向互联网发展的过程：期间于1983年TCP/IP协议成为ARPANET上的标准协议。</li>
+<li>建成了三级结构的因特网：主干网、地区网和校园网(企业网)。</li>
+<li>逐渐形成了多层次ISP(因特网服务提供者)结构的因特网。</li>
+</ol>
+<h2 id="internet和internet的区别">internet和Internet的区别</h2>
+<p>internet:是一个通用名词，它泛指由多个计算机网络互连而成的网络。这些网络间的通信协议可以是任意的。</p>
+<p>Internet:是一个专用名词，它指当前全球最大的、开放的、由众多网络相互连接而成的特定计算机网络，它采用TCP/IP协议族作为通信规则。</p>
+<h2 id="isp的分类">ISP的分类</h2>
+<p>第一层ISP:服务面积最大，并且拥有高速主干网。</p>
+<p>第二层ISP:是第一层ISP的用户。</p>
+<p>第三层ISP:又称为本地ISP，只拥有本地范围的网络，是第二层ISP的用户。</p>
+<h2 id="网络接入点nap">(网络接入点)NAP</h2>
+<p>网络接入点(NAP):用来交换因特网上的流量，NAP算是最高等级的接入点，主要向各ISP提供交换设施，使他们能够相互通信。</p>
+<p>NAP又称为对等点，表示接入到NAP的设备不存在从属关系，都是平等的。</p>
+<p>现在有一种趋势:比较大的第一层ISP愿意绕过NAP而直接通过高速通信线路和其他第一层的ISP交换大量的数据，这样可以使第一层ISP之间的通信更加快捷。</p>
+<h2 id="因特网标准化的四个阶段">因特网标准化的四个阶段</h2>
+<ol>
+<li>因特网草案</li>
+<li>建议标准：从这个阶段开始成为RFC文档。</li>
+<li>草案标准</li>
+<li>因特网标准</li>
+</ol>
+<h2 id="因特网的组成">因特网的组成</h2>
+<ul>
+<li>边缘部分：由所有连接在因特网上的主机组成，这部分是用户直接使用的，用来进行通信和资源共享。</li>
+<li>核心部分：由大量网络和连接这些网络的路由器组成，这部分是为边缘部分提供服务的(提供连通性和交换)。</li>
+</ul>
+<h3 id="边缘部分">边缘部分</h3>
+<p>处在因特网边缘部分的所有主机又称为端系统。</p>
+<p>计算机之间通信:主机A的某个进程和主机B的另一个进程进行通信。</p>
+<p>边缘部分的端系统之间的通信方式:</p>
+<ol>
+<li>
+<p>客户服务器方式(C/S方式)：客户和服务器都是指通信中涉及的两个应用进程，这种方式描述的是进程之间服务和被服务的关系，客户是服务请求方，服务器是服务提供方。</p>
+<p>客户程序:</p>
+<ul>
+<li>被用户调用后运行，在通信时主动向远程服务器发起请求服务。因此，客户程序必须知道服务器程序的地址。</li>
+<li>不需要特殊的硬件和很复杂的操作系统。</li>
+</ul>
+<p>服务器程序:</p>
+<ul>
+<li>是一种专门用来提供某种服务的程序，可同时处理多个远地或本地客户的请求。</li>
+<li>系统启动后自动调用并一直不断地运行着，被动的等待并接受来自各地的客户的通信请求。因此服务器程序不需要知道客户程序的地址。</li>
+<li>一般需要强大的硬件和高级的操作系统支持。</li>
+</ul>
+</li>
+<li>
+<p>对等方式(P2P方式)</p>
+</li>
+</ol>
+<p>对等连接是指两个主机通信时并不区分哪一个是服务请求方还是服务提供方，只要两个主机都运行了对等连接软件，它们就可以进行平等的、对等连接通信。</p>
+<p>对等连接工作方式可支持大量对等用户同时工作。</p>
+<h3 id="核心部分">核心部分</h3>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/2017/05/25/RxJava从放弃到入门/" data-toggle="tooltip" data-placement="top" title="RxJava从放弃到入门">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                    <div class="comment">
+                        <div id="disqus_thread" class="disqus-thread"></div>
+                    </div>
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#第一章"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">第一章</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#计算机网络的功能"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">计算机网络的功能</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#若干概念"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text">若干概念</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#因特网发展的三个阶段"><span class="toc-nav-number">1.3.</span> <span class="toc-nav-text">因特网发展的三个阶段</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#internet和internet的区别"><span class="toc-nav-number">1.4.</span> <span class="toc-nav-text">internet和Internet的区别</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#isp的分类"><span class="toc-nav-number">1.5.</span> <span class="toc-nav-text">ISP的分类</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#网络接入点nap"><span class="toc-nav-number">1.6.</span> <span class="toc-nav-text">(网络接入点)NAP</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#因特网标准化的四个阶段"><span class="toc-nav-number">1.7.</span> <span class="toc-nav-text">因特网标准化的四个阶段</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#因特网的组成"><span class="toc-nav-number">1.8.</span> <span class="toc-nav-text">因特网的组成</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#边缘部分"><span class="toc-nav-number">1.8.1.</span> <span class="toc-nav-text">边缘部分</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#核心部分"><span class="toc-nav-number">1.8.2.</span> <span class="toc-nav-text">核心部分</span></a></li></ol></li></ol></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#读书笔记" title="读书笔记">读书笔记</a>
+                        
+                          <a class="tag" href="/tags/#基础" title="基础">基础</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://blog.kaijun.rocks" target="_blank">Kaijun&#39;s Blog</a></li>
+                    
+                        <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus embedded js code start (one page only need to embed once) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "your-disqus-ID";
+    var disqus_identifier = "http://andfanswzp.pw/2017/05/26/谢希仁版计算机网络读书笔记/";
+    var disqus_url = "http://andfanswzp.pw/2017/05/26/谢希仁版计算机网络读书笔记/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus embedded js code start end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/flyings-sky">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Andfans 2017 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://andfanswzp.pw/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-XXXXXXXX-X';
+    var _gaDomain = 'yoursite';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="http://andfanswzp.pw/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
