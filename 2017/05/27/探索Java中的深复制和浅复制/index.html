@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          图解Java中的深拷贝和浅拷贝 - Andfans
+        
+    </title>
+
+    <link rel="canonical" href="http://andfanswzp.pw/2017/05/27/探索Java中的深复制和浅复制/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('http://i1.piimg.com/588926/14c9e94b1c44706b.png')
+            /*post*/
+        
+    }
+    
+    #signature{
+        background-image: url('/img/signature/BeanTechSign-white.png');
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#Java" title="Java">Java</a>
+                            
+                        </div>
+                        <h1>图解Java中的深拷贝和浅拷贝</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by Andfans on
+                            2017-05-27
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Andfans</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h2 id="概念">概念</h2>
+<ul>
+<li>浅拷贝：仅仅拷贝基本类型的值，如果不是基本类型则只拷贝其对象的引用。</li>
+<li>深拷贝：拷贝生成的对象和原来对象中的值完全相同，如果拷贝时遇到非基本类型的情况，会给非基本类型的对象重新分配内存空间，将对象的引用指向新分配的空间。</li>
+<li>Java中的clone()方法
+<ul>
+<li>对任何的对象x，都有x.clone() !=x//克隆对象与原对象不是同一个对象</li>
+<li>对任何的对象x，都有x.clone().getClass()= =x.getClass()//克隆对象与原对象的类型一样</li>
+<li>如果对象x的equals()方法定义恰当(equals方法比较的是值而不是地址的情况)，那么x.clone().equals(x)应该成立。</li>
+</ul>
+</li>
+</ul>
+<p>注意:String对象是无法实现深拷贝的。</p>
+<p>为了讲解方便，现假设已经给A类实现了Cloneable接口，拷贝之前的对象实例为a1，拷贝之后的对象实例为a2</p>
+<h2 id="浅拷贝demo1">浅拷贝：Demo1</h2>
+<p>当A类中的成员变量都是基本类型时，a1执行完clone()方法后，会给a2对象重新在堆中新开辟一块空间，并将a1中的所有成员变量的值赋到给a2对象新开辟空间的对应位置中。</p>
+<h3 id="代码">代码：</h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DeepAndShallowCopy</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> CloneNotSupportedException </span>&#123;</div><div class="line">        A a1 = <span class="keyword">new</span> A(<span class="number">22</span>,<span class="number">0.6</span>);</div><div class="line">        A a2 = (A) a1.clone();</div><div class="line">        a2.setAge(<span class="number">25</span>);</div><div class="line">        a2.setPer(<span class="number">0.8</span>);</div><div class="line">        System.out.println(<span class="string">"age:"</span>+a1.getAge()+<span class="string">"   per:"</span>+a1.getPer());</div><div class="line">        System.out.println(<span class="string">"age:"</span>+a2.getAge()+<span class="string">"   per:"</span>+a2.getPer());</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> <span class="keyword">implements</span> <span class="title">Cloneable</span></span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">double</span> per;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">A</span><span class="params">(<span class="keyword">int</span> age, <span class="keyword">double</span> per)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.age = age;</div><div class="line">        <span class="keyword">this</span>.per = per;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getAge</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> age;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAge</span><span class="params">(<span class="keyword">int</span> age)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.age = age;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">getPer</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> per;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPer</span><span class="params">(<span class="keyword">double</span> per)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.per = per;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">clone</span><span class="params">()</span> <span class="keyword">throws</span> CloneNotSupportedException </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.clone();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">/*</span></div><div class="line">执行结果：</div><div class="line">age:22   per:0.6</div><div class="line">age:25   per:0.8</div><div class="line">*/</div></pre></td></tr></table></figure>
+<h3 id="图解">图解：</h3>
+<p><img src="http://oqnfoupsj.bkt.clouddn.com/17-5-28/98468042.jpg" alt="Dem01"></p>
+<h2 id="浅拷贝demo2">浅拷贝：Demo2</h2>
+<p>当类中的成员变量除了包含基本类型变量以外，还包含String类型时，对象a1执行Clone()方法之后，a1，a2两个对象的String变量的存储地址是相同的，但是由于String对象具有<strong>不可变性</strong>，所以当调用了对象a2的setName()方法修改了name的值时，a1，a2两个对象String变量的存储地址就不再相同了，所以String虽然是对象，但是在调用Clone()方法时仍然可以当做基本类型看待。</p>
+<h3 id="代码">代码：</h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DeepAndShallowCopy</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> CloneNotSupportedException </span>&#123;</div><div class="line">        A a1 = <span class="keyword">new</span> A(<span class="string">"a1"</span>,<span class="number">22</span>,<span class="number">0.6</span>);</div><div class="line">        A a2 = (A) a1.clone();</div><div class="line">        <span class="comment">//判断Clone后a1和a2的name字符串的地址是否相同</span></div><div class="line">        System.out.println(a1.getName() == a2.getName());</div><div class="line">        a2.setAge(<span class="number">25</span>);</div><div class="line">        a2.setPer(<span class="number">0.8</span>);</div><div class="line">        a2.setName(<span class="string">"a2"</span>);</div><div class="line">        <span class="comment">//判断Set后a1和a2的name字符串的地址是否相同</span></div><div class="line">        System.out.println(a1.getName() == a2.getName());</div><div class="line">        System.out.println(<span class="string">"age:"</span>+a1.getAge()+<span class="string">"   per:"</span>+a1.getPer()+<span class="string">"    name:"</span>+a1.getName());</div><div class="line">        System.out.println(<span class="string">"age:"</span>+a2.getAge()+<span class="string">"   per:"</span>+a2.getPer()+<span class="string">"    name:"</span>+a2.getName());</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> <span class="keyword">implements</span> <span class="title">Cloneable</span></span>&#123;</div><div class="line">    <span class="keyword">private</span> String name;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">double</span> per;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">A</span><span class="params">(String name, <span class="keyword">int</span> age, <span class="keyword">double</span> per)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.name = name;</div><div class="line">        <span class="keyword">this</span>.age = age;</div><div class="line">        <span class="keyword">this</span>.per = per;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> name;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.name = name;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getAge</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> age;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAge</span><span class="params">(<span class="keyword">int</span> age)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.age = age;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">getPer</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> per;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPer</span><span class="params">(<span class="keyword">double</span> per)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.per = per;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">clone</span><span class="params">()</span> <span class="keyword">throws</span> CloneNotSupportedException </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.clone();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">/*</span></div><div class="line">执行结果:</div><div class="line">true</div><div class="line">false</div><div class="line">age:22   per:0.6    name:a1</div><div class="line">age:25   per:0.8    name:a2</div><div class="line">*/</div></pre></td></tr></table></figure>
+<h3 id="图解">图解：</h3>
+<p><img src="http://oqnfoupsj.bkt.clouddn.com/17-5-28/10087170.jpg" alt="Demo2"></p>
+<h2 id="浅拷贝demo3">浅拷贝：Demo3</h2>
+<p>当类中的成员变量包含除了字符串以外的其他对象(在这里的Demo中是类B的对象)时，a1对象执行完Clone()方法后，a1，a2两个对象成员变量里面的对象类型B只是拷贝了一份对象的引用，并没有给对象类型重新分配内存并且赋值，所以当使用B对象的Set修改B对象类型的值时，a1，a2的对应的B类对象的值都将改变。</p>
+<h3 id="代码">代码：</h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DeepAndShallowCopy</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> CloneNotSupportedException </span>&#123;</div><div class="line">        A a1 = <span class="keyword">new</span> A(<span class="string">"a1"</span>,<span class="number">22</span>,<span class="number">0.6</span>,<span class="keyword">new</span> B(<span class="string">'b'</span>));</div><div class="line">        A a2 = (A) a1.clone();</div><div class="line">        <span class="comment">//判断Clone后a1和a2中对象B的地址是否相同</span></div><div class="line">        System.out.println(a1.getSex() == a2.getSex());</div><div class="line">        a2.setAge(<span class="number">25</span>);</div><div class="line">        a2.setPer(<span class="number">0.8</span>);</div><div class="line">        a2.setName(<span class="string">"a2"</span>);</div><div class="line">        a2.getSex().setSex(<span class="string">'g'</span>);</div><div class="line">        <span class="comment">//判断Set后a1和a2中对象B的地址是否相同</span></div><div class="line">        System.out.println(a1.getSex() == a2.getSex());</div><div class="line">        System.out.println(a1.toString());</div><div class="line">        System.out.println(a2.toString());</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> <span class="keyword">implements</span> <span class="title">Cloneable</span></span>&#123;</div><div class="line">    <span class="keyword">private</span> String name;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">double</span> per;</div><div class="line">    <span class="keyword">private</span> B sex;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">A</span><span class="params">(String name, <span class="keyword">int</span> age, <span class="keyword">double</span> per, B sex)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.name = name;</div><div class="line">        <span class="keyword">this</span>.age = age;</div><div class="line">        <span class="keyword">this</span>.per = per;</div><div class="line">        <span class="keyword">this</span>.sex = sex;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> name;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.name = name;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getAge</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> age;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAge</span><span class="params">(<span class="keyword">int</span> age)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.age = age;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">getPer</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> per;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPer</span><span class="params">(<span class="keyword">double</span> per)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.per = per;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> B <span class="title">getSex</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> sex;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setSex</span><span class="params">(B sex)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.sex = sex;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</div><div class="line">        System.out.println();</div><div class="line">        <span class="keyword">return</span> <span class="string">"age:"</span>+getAge()+<span class="string">"   per:"</span>+getPer()+<span class="string">"    name:"</span>+getName()+<span class="string">"  sex:"</span>+getSex().getSex();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">clone</span><span class="params">()</span> <span class="keyword">throws</span> CloneNotSupportedException </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.clone();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span></span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">char</span> sex;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">B</span><span class="params">(<span class="keyword">char</span> sex)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.sex = sex;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">char</span> <span class="title">getSex</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> sex;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setSex</span><span class="params">(<span class="keyword">char</span> sex)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.sex = sex;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">/*</span></div><div class="line">运行结果:</div><div class="line">true</div><div class="line">true</div><div class="line">age:22   per:0.6    name:a1  sex:g</div><div class="line">age:25   per:0.8    name:a2  sex:g</div><div class="line">*/</div></pre></td></tr></table></figure>
+<h3 id="图解">图解：</h3>
+<p><img src="http://oqnfoupsj.bkt.clouddn.com/17-5-28/37680148.jpg" alt="Demo3"></p>
+<p>那么，如何让执行完clone()方法后，a1的sex(A的成员变量类B的名称)和a2的sex指向不同的内存空间呢，想知道答案的话，那就看第四个Demo吧。</p>
+<h2 id="深拷贝demo4">深拷贝：Demo4</h2>
+<p>与Demo3的代码相比，主要修改了三个部分</p>
+<ol>
+<li>让B类实现Cloneable接口</li>
+<li>重写B类的clone()方法</li>
+<li>重写A类的clone()方法</li>
+</ol>
+<h3 id="代码">代码：</h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DeepAndShallowCopy</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> CloneNotSupportedException </span>&#123;</div><div class="line">        A a1 = <span class="keyword">new</span> A(<span class="number">22</span>,<span class="number">0.6</span>,<span class="keyword">new</span> B(<span class="string">'b'</span>));</div><div class="line">        A a2 = (A) a1.clone();</div><div class="line">        <span class="comment">//判断Clone后a1和a2中对象B的地址是否相同</span></div><div class="line">        System.out.println(a1.getSex() == a2.getSex());</div><div class="line">        a2.setAge(<span class="number">25</span>);</div><div class="line">        a2.setPer(<span class="number">0.8</span>);</div><div class="line">        a2.getSex().setSex(<span class="string">'g'</span>);</div><div class="line">        <span class="comment">//判断Set后a1和a2中对象B的地址是否相同</span></div><div class="line">        System.out.println(a1.getSex() == a2.getSex());</div><div class="line">        System.out.println(a1.toString());</div><div class="line">        System.out.println(a2.toString());</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> <span class="keyword">implements</span> <span class="title">Cloneable</span></span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">double</span> per;</div><div class="line">    <span class="keyword">private</span> B sex;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">A</span><span class="params">(<span class="keyword">int</span> age, <span class="keyword">double</span> per, B sex)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.age = age;</div><div class="line">        <span class="keyword">this</span>.per = per;</div><div class="line">        <span class="keyword">this</span>.sex = sex;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getAge</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> age;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAge</span><span class="params">(<span class="keyword">int</span> age)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.age = age;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">getPer</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> per;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPer</span><span class="params">(<span class="keyword">double</span> per)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.per = per;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> B <span class="title">getSex</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> sex;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setSex</span><span class="params">(B sex)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.sex = sex;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</div><div class="line">        System.out.println();</div><div class="line">        <span class="keyword">return</span> <span class="string">"age:"</span>+age+<span class="string">"   per:"</span>+per+<span class="string">"   sex:"</span>+sex.getSex();</div><div class="line">    &#125;</div><div class="line">	</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">clone</span><span class="params">()</span> <span class="keyword">throws</span> CloneNotSupportedException </span>&#123;</div><div class="line">        A afterCopy = (A) <span class="keyword">super</span>.clone();</div><div class="line">        afterCopy.sex = (B) sex.clone();<span class="comment">//修改3</span></div><div class="line">        <span class="keyword">return</span> afterCopy;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> <span class="keyword">implements</span> <span class="title">Cloneable</span></span>&#123;<span class="comment">//修改2</span></div><div class="line">    <span class="keyword">private</span> <span class="keyword">char</span> sex;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">B</span><span class="params">(<span class="keyword">char</span> sex)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.sex = sex;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">char</span> <span class="title">getSex</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> sex;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setSex</span><span class="params">(<span class="keyword">char</span> sex)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.sex = sex;</div><div class="line">    &#125;</div><div class="line">	<span class="comment">//修改1</span></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> Object <span class="title">clone</span><span class="params">()</span> <span class="keyword">throws</span> CloneNotSupportedException </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.clone();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">/*</span></div><div class="line">运行结果：</div><div class="line">false</div><div class="line">false</div><div class="line">age:22   per:0.6   sex:b</div><div class="line">age:25   per:0.8   sex:g</div><div class="line">*/</div></pre></td></tr></table></figure>
+<h3 id="图解">图解：</h3>
+<p><img src="http://oqnfoupsj.bkt.clouddn.com/17-5-28/35464627.jpg" alt="Demo4"></p>
+<h2 id="使用序列化来实现深拷贝">使用序列化来实现深拷贝</h2>
+<p>为了避免重写复杂对象的clone()方法，我们可以通过序列化的方式来实现深拷贝。</p>
+<p>序列化的过程是把对象写到流里的过程，反序列化是把对象从流中读出来的过程。</p>
+<p>写在流里的是对象的一个拷贝，原对象仍然存在于JVM中。</p>
+<p>在Java语言里深拷贝一个对象的过程：先使对象实现Serializable接口，然后把对象(实际上只是对象的一个拷贝)写到一个流里，再从流里读出来，便可以重建对象。</p>
+<p>这样做的前提是对象以及对象内部所有引用到的对象都是可序列化的，否则，就需要仔细考虑那些不可序列化的对象或属性能否设置成transient，从而将之排除在复制过程之外。</p>
+<p>注意Cloneable与Serializable接口都是marker Interface，也就是说它们只是标识接口，没有定义任何方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.io.*;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DeepAndShallowCopy</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> CloneNotSupportedException </span>&#123;</div><div class="line">        A a1 = <span class="keyword">new</span> A(<span class="number">22</span>,<span class="number">0.6</span>,<span class="keyword">new</span> B(<span class="string">'b'</span>));</div><div class="line">        A a2 = (A) a1.clone();</div><div class="line">        <span class="comment">//判断Clone后a1和a2对象B的地址是否相同</span></div><div class="line">        System.out.println(a1.getSex() == a2.getSex());</div><div class="line">        a2.setAge(<span class="number">25</span>);</div><div class="line">        a2.setPer(<span class="number">0.8</span>);</div><div class="line">        a2.getSex().setSex(<span class="string">'g'</span>);</div><div class="line">        <span class="comment">//判断Set后a1和a2对象B的地址是否相同</span></div><div class="line">        System.out.println(a1.getSex() == a2.getSex());</div><div class="line">        System.out.println(a1.toString());</div><div class="line">        System.out.println(a2.toString());</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> <span class="keyword">implements</span> <span class="title">Serializable</span></span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">double</span> per;</div><div class="line">    <span class="keyword">private</span> B sex;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">A</span><span class="params">(<span class="keyword">int</span> age, <span class="keyword">double</span> per, B sex)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.age = age;</div><div class="line">        <span class="keyword">this</span>.per = per;</div><div class="line">        <span class="keyword">this</span>.sex = sex;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getAge</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> age;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAge</span><span class="params">(<span class="keyword">int</span> age)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.age = age;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">getPer</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> per;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPer</span><span class="params">(<span class="keyword">double</span> per)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.per = per;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> B <span class="title">getSex</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> sex;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setSex</span><span class="params">(B sex)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.sex = sex;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</div><div class="line">        System.out.println();</div><div class="line">        <span class="keyword">return</span> <span class="string">"age:"</span>+age+<span class="string">"   per:"</span>+per+<span class="string">"   sex:"</span>+sex.getSex();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">clone</span><span class="params">()</span> <span class="keyword">throws</span> CloneNotSupportedException </span>&#123;</div><div class="line">        <span class="comment">//序列化</span></div><div class="line">        ByteArrayOutputStream bos = <span class="keyword">new</span> ByteArrayOutputStream();</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            ObjectOutputStream oos = <span class="keyword">new</span> ObjectOutputStream(bos);</div><div class="line">            oos.writeObject(<span class="keyword">this</span>);</div><div class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//反序列化</span></div><div class="line">        ByteArrayInputStream bis = <span class="keyword">new</span> ByteArrayInputStream(bos.toByteArray());</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            ObjectInputStream ois = <span class="keyword">new</span> ObjectInputStream(bis);</div><div class="line">            <span class="keyword">return</span> ois.readObject();</div><div class="line">        &#125; <span class="keyword">catch</span> (IOException|ClassNotFoundException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> <span class="keyword">implements</span> <span class="title">Serializable</span></span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">char</span> sex;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">B</span><span class="params">(<span class="keyword">char</span> sex)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.sex = sex;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">char</span> <span class="title">getSex</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> sex;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setSex</span><span class="params">(<span class="keyword">char</span> sex)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.sex = sex;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> Object <span class="title">clone</span><span class="params">()</span> <span class="keyword">throws</span> CloneNotSupportedException </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.clone();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">/*</span></div><div class="line">执行结果:</div><div class="line">false</div><div class="line">false</div><div class="line">age:22   per:0.6   sex:b</div><div class="line">age:25   per:0.8   sex:g</div><div class="line">*/</div></pre></td></tr></table></figure>
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/2017/05/26/谢希仁版计算机网络读书笔记/" data-toggle="tooltip" data-placement="top" title="谢希仁版计算机网络读书笔记(未完待续)">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                    <div class="comment">
+                        <div id="disqus_thread" class="disqus-thread"></div>
+                    </div>
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#概念"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">概念</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#浅拷贝demo1"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">浅拷贝：Demo1</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#代码"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text">代码：</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#图解"><span class="toc-nav-number">2.2.</span> <span class="toc-nav-text">图解：</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#浅拷贝demo2"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">浅拷贝：Demo2</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#代码"><span class="toc-nav-number">3.1.</span> <span class="toc-nav-text">代码：</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#图解"><span class="toc-nav-number">3.2.</span> <span class="toc-nav-text">图解：</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#浅拷贝demo3"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">浅拷贝：Demo3</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#代码"><span class="toc-nav-number">4.1.</span> <span class="toc-nav-text">代码：</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#图解"><span class="toc-nav-number">4.2.</span> <span class="toc-nav-text">图解：</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#深拷贝demo4"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">深拷贝：Demo4</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#代码"><span class="toc-nav-number">5.1.</span> <span class="toc-nav-text">代码：</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#图解"><span class="toc-nav-number">5.2.</span> <span class="toc-nav-text">图解：</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#使用序列化来实现深拷贝"><span class="toc-nav-number">6.</span> <span class="toc-nav-text">使用序列化来实现深拷贝</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#Java" title="Java">Java</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://blog.kaijun.rocks" target="_blank">Kaijun&#39;s Blog</a></li>
+                    
+                        <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus embedded js code start (one page only need to embed once) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "your-disqus-ID";
+    var disqus_identifier = "http://andfanswzp.pw/2017/05/27/探索Java中的深复制和浅复制/";
+    var disqus_url = "http://andfanswzp.pw/2017/05/27/探索Java中的深复制和浅复制/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus embedded js code start end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/flyings-sky">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Andfans 2017 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://andfanswzp.pw/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-XXXXXXXX-X';
+    var _gaDomain = 'yoursite';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="http://andfanswzp.pw/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
