@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          Intellij idea快速查看Java类字节码 - Andfans
+          生词本 - Andfans
         
     </title>
 
-    <link rel="canonical" href="http://andfanswzp.pw/2017/05/29/Intellij-idea快速查看Java类字节码/">
+    <link rel="canonical" href="http://andfanswzp.pw/2017/06/07/生词本/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -90,16 +90,14 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#Tools" title="Tools">Tools</a>
-                            
-                              <a class="tag" href="/tags/#Java" title="Java">Java</a>
+                              <a class="tag" href="/tags/#Word" title="Word">Word</a>
                             
                         </div>
-                        <h1>Intellij idea快速查看Java类字节码</h1>
+                        <h1>生词本</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by Andfans on
-                            2017-05-29
+                            2017-06-07
                         </span>
                     </div>
                 
@@ -216,25 +214,49 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h2 id="前言">前言</h2>
-<p>最近在研究String类在堆中的对象和常量池中的对象的联系，然而在网上没有找到可以详细显示程序运行时内存变化状况的工具，所以就决定将代码反编译，从微观字节码角度来探索Java中的String对象的内存分配的详细情况，每次在cmd使用反编译命令javap来得到字节码，过程太过繁琐，于是就到网上找到了直接在Intellij idea中查看字节码的方法。</p>
-<h2 id="实现方式">实现方式</h2>
-<p>在idea内直接执行javap，将内容打印在idea的Console中。</p>
-<h2 id="实现方式">实现方式</h2>
-<p>1.打开File-Settings</p>
-<p><img src="http://ghost-blog.b0.upaiyun.com/image/9/2e/33bd6ca7fd4dc4da6a420a78f6fa7.jpg" alt="pic1"></p>
-<p>2.打开Tools-External Tools，右侧点击绿色的&quot;+&quot;号</p>
-<p><img src="http://ghost-blog.b0.upaiyun.com/image/4/75/0b13d82d4665425a8654314887e24.png" alt="pic2"></p>
-<p>3.添加规则如下</p>
-<p><img src="http://ghost-blog.b0.upaiyun.com/image/c/8c/63b58920dc5923ce68a2bf510e0c7.png" alt="pic3"></p>
-<p>4.代码处右键，即可找到添加的功能</p>
-<p><img src="http://ghost-blog.b0.upaiyun.com/image/7/c1/4e96cd4e3c89c3e4776d86951345e.png" alt="pic4"></p>
-<p>5.效果如下</p>
-<p><img src="http://oqnfoupsj.bkt.clouddn.com/17-5-29/51837374.jpg" alt="pic5"></p>
-<h2 id="注意">注意</h2>
-<p>每次代码修改完之后，如果立即使用步骤4的操作，得到的字节码还是修改之前的文件生成的字节码，因为反编译是对.class文件进行的，修改完之后并没有重新生成.class文件，所以如果想得到修改后文件的字节码，需要在使用步骤4之前，先运行一遍修改过的代码。</p>
-<h2 id="参考">参考</h2>
-<p><a href="http://allan.li/intellij-ideakuai-su-cha-kan-javalei-zi-jie-ma/" target="_blank" rel="external">Intellij idea快速查看Java类字节码</a></p>
+                <table>
+<thead>
+<tr>
+<th style="text-align:center">adoption：采用，采纳</th>
+<th style="text-align:center">expressive：具有表现力的</th>
+<th style="text-align:center">concise：简洁的</th>
+<th style="text-align:center">in terms of：在…方面</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>nullability：空性</strong></td>
+<td style="text-align:center"><strong>immutability：不变性</strong></td>
+<td style="text-align:center"><strong>performant：高性能</strong></td>
+<td style="text-align:center"><strong>interoperable：互操作性</strong></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>bi-directionally：双向</strong></td>
+<td style="text-align:center"><strong>crucial：关键</strong></td>
+<td style="text-align:center"><strong>inherit：继承</strong></td>
+<td style="text-align:center"><strong>bundled：捆绑</strong></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>primarily：主要</strong></td>
+<td style="text-align:center"><strong>reaffirm：重申</strong></td>
+<td style="text-align:center"><strong>ecosystem：生态系统</strong></td>
+<td style="text-align:center"><strong>evolve：发展</strong></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>ongoing：不断的</strong></td>
+<td style="text-align:center"><strong>profiling：分析</strong></td>
+<td style="text-align:center"><strong>addition：补充</strong></td>
+<td style="text-align:center"><strong>alternatively：另外</strong></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>seamlessly：无缝</strong></td>
+<td style="text-align:center"><strong>preferred：首选</strong></td>
+<td style="text-align:center"><strong>strive：努力</strong></td>
+<td style="text-align:center"><strong>semantic：语义</strong></td>
+</tr>
+</tbody>
+</table>
+<p>最后编辑时间:2017.6.8  0:53</p>
 
                 
 
@@ -242,13 +264,9 @@
                 <!-- Pager -->
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2017/06/07/生词本/" data-toggle="tooltip" data-placement="top" title="生词本">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/2017/05/27/探索Java中的深复制和浅复制/" data-toggle="tooltip" data-placement="top" title="图解Java中的深拷贝和浅拷贝">Next Post &rarr;</a>
+                            <a href="/2017/05/29/Intellij-idea快速查看Java类字节码/" data-toggle="tooltip" data-placement="top" title="Intellij idea快速查看Java类字节码">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -278,7 +296,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#前言"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">前言</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#实现方式"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">实现方式</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#实现方式"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">实现方式</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#注意"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">注意</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#参考"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">参考</span></a></li></ol>
+          <ol class="nav">none</ol>
         
         </div>
       </aside>
@@ -298,9 +316,7 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#Tools" title="Tools">Tools</a>
-                        
-                          <a class="tag" href="/tags/#Java" title="Java">Java</a>
+                          <a class="tag" href="/tags/#Word" title="Word">Word</a>
                         
                     </div>
                 </section>
@@ -331,8 +347,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "your-disqus-ID";
-    var disqus_identifier = "http://andfanswzp.pw/2017/05/29/Intellij-idea快速查看Java类字节码/";
-    var disqus_url = "http://andfanswzp.pw/2017/05/29/Intellij-idea快速查看Java类字节码/";
+    var disqus_identifier = "http://andfanswzp.pw/2017/06/07/生词本/";
+    var disqus_url = "http://andfanswzp.pw/2017/06/07/生词本/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
