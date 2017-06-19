@@ -72,13 +72,6 @@
     </url>
 
     <url>
-        <loc>http://andfanswzp.pw/tags/Java/</loc>
-        <lastmod>2017-05-29T10:50:44.312Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>http://andfanswzp.pw/tags/Word/</loc>
         <lastmod>2017-06-07T17:09:39.811Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -88,6 +81,20 @@
     <url>
         <loc>http://andfanswzp.pw/tags/%E7%AE%97%E6%B3%95%E9%A2%98/</loc>
         <lastmod>2017-06-09T04:41:24.702Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://andfanswzp.pw/tags/Java/</loc>
+        <lastmod>2017-06-19T10:03:10.032Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://andfanswzp.pw/tags/Jvm/</loc>
+        <lastmod>2017-06-19T10:03:10.032Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

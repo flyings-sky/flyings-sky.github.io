@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          JAVA虚拟机之内存区域 - Andfans
+        
+    </title>
+
+    <link rel="canonical" href="http://andfanswzp.pw/2017/06/17/JAVA虚拟机之内存区域/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('http://i1.piimg.com/588926/14c9e94b1c44706b.png')
+            /*post*/
+        
+    }
+    
+    #signature{
+        background-image: url('/img/signature/BeanTechSign-white.png');
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#Java" title="Java">Java</a>
+                            
+                              <a class="tag" href="/tags/#Jvm" title="Jvm">Jvm</a>
+                            
+                        </div>
+                        <h1>JAVA虚拟机之内存区域</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by Andfans on
+                            2017-06-17
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Andfans</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h2 id="java的运行时数据区域">Java的运行时数据区域</h2>
+<p>Java虚拟机会在执行Java程序时把它所管理的内存划分为若干个不同的数据区域：程序计数器，Java虚拟机栈，本地方法栈，方法区(包含常量池)，堆，直接内存。</p>
+<h3 id="程序计数器">程序计数器</h3>
+<p>程序计数器是当前线程所执行字节码指令的行号指示器，字节码解释器就是通过改变这个计数器的值来选择下一条要执行的字节码指令。</p>
+<p>由于Java虚拟机的多线程是通过线程轮流切换并分配处理器执行时间的方式来实现的，在任何一个确定的时刻，一个处理器(对于多核处理器来说是一个内核)都会执行一条线程中的指令。为了线程切换后能恢复到上次执行的位置，每条线程都要有一个独立的程序计数器，每条线程间的计数器互不影响，独立存储，这类内存区域称为&quot;线程私有内存&quot;。</p>
+<p>如果线程正在执行的是一个Java方法，这个计数器记录的是正在执行的虚拟机字节码指令的地址，如果正在执行的是Native方法，这个计数器值则为空，一般来说，在此内存区域不会发生任何内存溢出异常。</p>
+<h3 id="java虚拟机栈">Java虚拟机栈</h3>
+<p>与程序计数器类似，Java虚拟机栈也是存在于线程的私有内存中，生命周期与线程相同。</p>
+<p>虚拟机栈描述的是Java方法执行的内存模型:每个方法在被调用开始执行前，会创建一个栈帧，并将其入栈，执行完毕后，又会将栈帧出栈，因此，一个方法从调用到执行完毕的过程，就对应着一个栈帧在虚拟机栈中从入栈到出栈的过程。在栈帧中存放着方法的局部变量表、操作数栈、动态链接、方法出口等信息。</p>
+<p>我们经常说的栈内存、堆内存中的栈内存就是指的虚拟机栈，更准确一点，指的是虚拟机栈的局部变量表部分。</p>
+<p>局部变量表存放了编译期可知的各种基本数据类型、对象引用(可能是一个指向对象起始地址的引用指针，或者是指向一个代表对象的句柄)和returnAddress类型数据(指向了一条字节码指令的地址)。</p>
+<p>64位长度的long和double类型的数据会占用两个局部变量空间(Slot)，其余的数据类型只占一个Slot，局部变量表的内存空间在编译期间完成分配，在方法运行期间栈帧的大小不会再改变。</p>
+<p>当线程请求的栈深度大于虚拟机允许的深度，将抛出StackOverflowError异常；如果无法申请到足够的内存，将抛出OutOfMemoryError(OOM)异常。</p>
+<h3 id="本地方法栈">本地方法栈</h3>
+<p>与虚拟机栈的区别是:虚拟机栈为虚拟机执行的Java方法(也就是字节码)服务，本地方法栈为虚拟机使用到的Native方法服务。在HotSpot虚拟机中，直接把本地方法栈和虚拟机栈合二为一，二者会发生的内存泄漏异常也完全一样。</p>
+<h3 id="java堆">Java堆</h3>
+<p>Java堆是被所有线程共享的一块内存区域，在虚拟机启动时创建，此内存区域的唯一目的就是:存放对象实例。</p>
+<p>在之前所有对象以及数组都要在堆上分配，但是随着JIT编译器的发展与逃逸分析技术逐渐成熟，栈上分配、标量替换等优化技术也让对象实例存放到非堆的线程私有内存空间成为可能。</p>
+<p>这个内存区域是垃圾收集器管理的主要区域，在Java堆中可以细分为:新生代和老年代。从内存分配角度来看，线程共享的Java堆中可能划分出多个线程私有的分配缓冲区(TLAB)，进一步划分的目的是为了更好的回收内存或者更快的分配内存。</p>
+<p>Java堆可以处于物理上不连续的内存空间中，只要是逻辑上连续即可。如果在堆中没有内存完成实例分配，并且堆也无法再扩展时，会抛出OOM异常。</p>
+<h3 id="方法区">方法区</h3>
+<p>与Java堆一样，也是各个线程共享的内存区域，它用于存储已被虚拟机加载的类信息、常量、静态变量、即时编译器编译的代码等数据，这个区域使用永久代来实现。</p>
+<p>在Jdk1.7的HotSpot虚拟机中，已经把存放在永久代的字符串常量池移出了。</p>
+<p>相对而言，垃圾收集在这个区域是较少出现的，这个区域内存回收的目标主要是:针对常量池的回收和对类型的卸载。</p>
+<p>当方法区无法满足内存分配需求时，将抛出OOM。</p>
+<h3 id="运行时常量池">运行时常量池</h3>
+<p>是方法区的一部分，Class文件除了有类的版本、字段、方法、接口等信息外，还有常量池这项信息，常量池是用于存放编译期生成的各种字面量和符号引用的区域，这部分内容(字面量和符号引用)将在类加载后进入方法区的运行时常量池。一般来说，除了保存Class文件中描述的符号引用外，还会把翻译出来的直接引用也存储在运行时常量池中。</p>
+<p>运行时常量池相对于Class文件中的常量池的另外一个重要的特征是具备动态性，除了预置入Class文件中常量池的内容，运行期间新产生的常量也可以放入池中，例如：String类的intern()方法。</p>
+<p>当常量池无法再申请到内存时会抛出OOM异常。</p>
+<h4 id="intern方法">intern()方法</h4>
+<p>String.intern()是一个Native方法，它的作用是：如果字符串常量池中已经包含了一个等于String对象的字符串，则返回代表池中这个字符串的String对象；否则，将此String对象包含的字符串添加到常量池中，并且返回此String对象的引用。</p>
+<h3 id="直接内存">直接内存</h3>
+<p>不是虚拟机运行时数据区的一部分。</p>
+<p>在jdk1.4中引入的NIO，引入了一种基于通道与缓冲区的I/O方式，它可以使用Native函数库直接分配堆外内存，然后通过一个存储在Java堆中的DirectByteBuffer对象作为这块内存的引用进行操作，这样避免了在Java堆和Native堆中来回复制数据，可以提高性能。</p>
+<p>直接内存不会受到Java堆大小的限制，但是会受到本机总内存大小以及处理器寻址空间的限制。</p>
+<p>如果无法申请到足够的内存，将抛出OutOfMemoryError(OOM)异常。</p>
+<h2 id="java中的对象">Java中的对象</h2>
+<h3 id="对象的创建过程">对象的创建过程</h3>
+<p><img src="http://oqnfoupsj.bkt.clouddn.com/17-6-19/13484401.jpg" alt="对象的创建过程"></p>
+<p>虚拟机遇到一条new指令时，首先去检查这个指令的参数是否能在常量池中定位到一个类的符号引用，并且检查这个符号引用代表的类是否已被加载、解析和初始化过，如果没有，先执行这个类的类加载过程，在类加载检查通过后，接下来虚拟机将为新生对象分配内存。对象所需内存的大小在类加载完成后即可确定，为对象分配空间的任务等同于把一块确定大小的内存从Java堆中划分出来。</p>
+<h4 id="在堆中分配内存的两种方式">在堆中分配内存的两种方式</h4>
+<ol>
+<li>指针碰撞：如果Java堆中的内存是绝对规整的，所有已经用过的内存放在一边，空闲的内存放在另一边，中间放着一个指针作为分界点的指示器，那样分配内存就仅仅是将那个指针向空闲空间那边挪动一段与对象大小相等的距离。</li>
+<li>空闲列表：如果Java堆中的内存并不是规整的，所有已使用的内存和空闲内存交错存在，虚拟机就必须维护一个列表，记录堆中哪些内存是可用的，在分配的时候从列表中找到一块足够大的空间划分给对象实例，并更新列表上的记录。</li>
+</ol>
+<p>分配对象是选取哪种方式取决于堆内存是否规整，堆内存是否规整又与所采用的垃圾收集算法有关。</p>
+<p>因为对象的创建在Java虚拟机中是非常频繁的行为，即使是仅仅修改一个指针的指向，在并发的情况下也不能保证是线程安全的。</p>
+<p>解决这种问题有两种方案：</p>
+<ol>
+<li>对分配内存空间的动作进行同步处理---------实际上虚拟机采用CAS配上失败重试的方式来保证更新操作的原子性；</li>
+<li>把内存分配的动作按照线程划分在不同的空间中进行，即每个线程在Java堆中预先分配一小块内存，称为本地线程分配缓冲（TLAB），之后，哪个线程需要分配内存，就在哪个线程的TLAB上分配，只有TLAB用完并分配新的TLAB时，才需要同步锁定。虚拟机是否使用TLAB，可以通过-XX:+/-UseTLAB参数来设定。</li>
+</ol>
+<p>内存分配完成后，虚拟机需要将分配到的内存空间初始化为零值(不包括对象头)，如果使用TLAB，这一工作也可以提前至TLAB分配时进行。这一步骤保证了对象的实例字段在Java代码中可以不赋初值就直接使用，程序能访问到这些字段的数据类型所对应的零值。</p>
+<p>接下来，设置对象的对象头(存放着元数据信息、对象的哈希码、对象的GC分代年龄等信息)。</p>
+<p>从虚拟机视角来看，到现在为止，一个新的对象已经产生了，但从Java程序的角度来看，对象的创建才刚刚开始---------&lt;init&gt;方法还没有执行，所有的字段还为零。一般来说(由字节码中是否跟随着invokespecial指令所决定)，执行new指令之后会接着执行&lt;init&gt;方法，把对象按照程序员的意愿进行初始化，这样一个真正可用的对象才算完全产生出来。</p>
+<h3 id="对象的内存布局">对象的内存布局</h3>
+<p>在HotSpot虚拟机中，对象在内存中存储的布局分为3块区域:对象头，实例数据和对齐填充。</p>
+<ol>
+<li>
+<p>对象头：由两部分信息组成</p>
+<ul>
+<li>用于存储对象自身的运行时数据：如哈希码、GC分代年龄、锁状态标志、线程持有的锁、偏向线程ID、偏向时间戳，这部分数据的长度在32位和64位虚拟机中分别为32bit和64bit，官方称之为&quot;Mark Word&quot;，Mark Word被设计成一个非固定的数据结构，以便能在极小的空间内存储尽量多的信息，它会根据对象的状态复用自己的存储空间。</li>
+<li>类型指针：对象指向它的类元数据的指针，虚拟机通过这个指针来确定这个对象是哪个类的实例和对象的大小(数组对象除外)。因为查找对象的元数据信息并不一定要经过对象本身，所以这部分信息不是必须存在的。另外，如果对象是一个数组，对象头中还必须有一块用于记录数组长度的数据。</li>
+</ul>
+<center>HotSpot虚拟机对象头Mark Word</center>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">存储内容</th>
+<th style="text-align:center">标志位</th>
+<th style="text-align:center">状态</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">对象哈希码、对象分代年龄</td>
+<td style="text-align:center">01</td>
+<td style="text-align:center">未锁定</td>
+</tr>
+<tr>
+<td style="text-align:center">指向锁记录的指针</td>
+<td style="text-align:center">00</td>
+<td style="text-align:center">轻量级锁定</td>
+</tr>
+<tr>
+<td style="text-align:center">指向重量级锁的指针</td>
+<td style="text-align:center">10</td>
+<td style="text-align:center">膨胀(重量级锁定)</td>
+</tr>
+<tr>
+<td style="text-align:center">空，不需要记录信息</td>
+<td style="text-align:center">11</td>
+<td style="text-align:center">GC标记</td>
+</tr>
+<tr>
+<td style="text-align:center">偏向线程ID、偏向时间戳、对象分代年龄</td>
+<td style="text-align:center">01</td>
+<td style="text-align:center">可偏向</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>实例数据：存储对象中真正有效的信息(对象中各种类型的字段内容)，存储顺序会受到虚拟机分配策略参数和字段在Java源码中的定义顺序的影响。默认分配策略为:longs/doubles、ints、shorts/chars、bytes/booleans、oops(Ordinary Object pointers)，相同宽度的字段总是被分配到一起。在满足这个前提条件的情况下，在父类中定义的变量会出现在子类之前，如果CompactFields参数值为true(默认值)，那么子类中较窄的变量也可能会插入到父类变量的空隙之中。</p>
+</li>
+<li>
+<p>对齐填充：仅仅起着占位符的作用，无实际含义。因为HotSpot虚拟机的自动内存管理系统要求对象的起始地址必须是8字节的整数倍，而且对象头恰好是8字节的整数倍，所以当对象的实例数据部分不是8字节的整数倍时，就需要对齐填充来补全。</p>
+</li>
+</ol>
+<h3 id="对象的访问定位">对象的访问定位</h3>
+<p>Java程序一般会通过栈上的reference数据来操作堆上的具体对象，目前主流的实现方式有两种:使用句柄和使用直接指针</p>
+<ul>
+<li>使用句柄：java堆中将会划分出一块内存作为句柄池，reference中存储的就是对象的句柄地址，句柄中包含了对象实例数据与类型数据各自的具体地址信息。</li>
+</ul>
+<p><img src="http://oqnfoupsj.bkt.clouddn.com/17-6-19/21566351.jpg" alt="句柄访问"></p>
+<ul>
+<li>使用直接指针：如果使用这种方式，那么 Java堆对象的布局中就必须考虑如何放置访问类型数据的相关信息，而reference中存储的直接就是对象地址。</li>
+</ul>
+<p><img src="http://oqnfoupsj.bkt.clouddn.com/17-6-19/18920323.jpg" alt="直接指针访问"></p>
+<p>这两种方式各有优缺点：</p>
+<p>使用句柄来访问的好处就是reference中存储的是稳定的句柄地址，在对象被移动(多发生在垃圾回收时)时只会改变句柄中的实例数据指针，reference本身不需要修改。</p>
+<p>使用直接指针来访问的好处是速度更快，它节省了一次指针定位的时间开销。在HotSpot虚拟机中，是采用直接指针的方式来进行对象访问的。</p>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/2017/06/09/Algorithm-1/" data-toggle="tooltip" data-placement="top" title="Algorithm_1">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                    <div class="comment">
+                        <div id="disqus_thread" class="disqus-thread"></div>
+                    </div>
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#java的运行时数据区域"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">Java的运行时数据区域</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#程序计数器"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">程序计数器</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#java虚拟机栈"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text">Java虚拟机栈</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#本地方法栈"><span class="toc-nav-number">1.3.</span> <span class="toc-nav-text">本地方法栈</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#java堆"><span class="toc-nav-number">1.4.</span> <span class="toc-nav-text">Java堆</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#方法区"><span class="toc-nav-number">1.5.</span> <span class="toc-nav-text">方法区</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#运行时常量池"><span class="toc-nav-number">1.6.</span> <span class="toc-nav-text">运行时常量池</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#intern方法"><span class="toc-nav-number">1.6.1.</span> <span class="toc-nav-text">intern()方法</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#直接内存"><span class="toc-nav-number">1.7.</span> <span class="toc-nav-text">直接内存</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#java中的对象"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">Java中的对象</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#对象的创建过程"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text">对象的创建过程</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#在堆中分配内存的两种方式"><span class="toc-nav-number">2.1.1.</span> <span class="toc-nav-text">在堆中分配内存的两种方式</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#对象的内存布局"><span class="toc-nav-number">2.2.</span> <span class="toc-nav-text">对象的内存布局</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#对象的访问定位"><span class="toc-nav-number">2.3.</span> <span class="toc-nav-text">对象的访问定位</span></a></li></ol></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#Java" title="Java">Java</a>
+                        
+                          <a class="tag" href="/tags/#Jvm" title="Jvm">Jvm</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://blog.kaijun.rocks" target="_blank">Kaijun&#39;s Blog</a></li>
+                    
+                        <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus embedded js code start (one page only need to embed once) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "your-disqus-ID";
+    var disqus_identifier = "http://andfanswzp.pw/2017/06/17/JAVA虚拟机之内存区域/";
+    var disqus_url = "http://andfanswzp.pw/2017/06/17/JAVA虚拟机之内存区域/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus embedded js code start end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/flyings-sky">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Andfans 2017 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://andfanswzp.pw/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-XXXXXXXX-X';
+    var _gaDomain = 'yoursite';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="http://andfanswzp.pw/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
