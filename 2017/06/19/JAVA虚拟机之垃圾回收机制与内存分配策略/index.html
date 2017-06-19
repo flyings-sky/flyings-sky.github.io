@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          Intellij idea快速查看Java类字节码 - Andfans
+          JAVA虚拟机之垃圾回收机制与内存分配策略 - Andfans
         
     </title>
 
-    <link rel="canonical" href="http://andfanswzp.pw/2017/05/29/Intellij-idea快速查看Java类字节码/">
+    <link rel="canonical" href="http://andfanswzp.pw/2017/06/19/JAVA虚拟机之垃圾回收机制与内存分配策略/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -90,16 +90,16 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#Tools" title="Tools">Tools</a>
-                            
                               <a class="tag" href="/tags/#Java" title="Java">Java</a>
                             
+                              <a class="tag" href="/tags/#Jvm" title="Jvm">Jvm</a>
+                            
                         </div>
-                        <h1>Intellij idea快速查看Java类字节码</h1>
+                        <h1>JAVA虚拟机之垃圾回收机制与内存分配策略</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by Andfans on
-                            2017-05-29
+                            2017-06-19
                         </span>
                     </div>
                 
@@ -216,25 +216,63 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h2 id="前言">前言</h2>
-<p>最近在研究String类在堆中的对象和常量池中的对象的联系，然而在网上没有找到可以详细显示程序运行时内存变化状况的工具，所以就决定将代码反编译，从微观字节码角度来探索Java中的String对象的内存分配的详细情况，每次在cmd使用反编译命令javap来得到字节码，过程太过繁琐，于是就到网上找到了直接在Intellij idea中查看字节码的方法。</p>
-<h2 id="实现方式">实现方式</h2>
-<p>在idea内直接执行javap，将内容打印在idea的Console中。</p>
-<h2 id="实现方式">实现方式</h2>
-<p>1.打开File-Settings</p>
-<p><img src="http://ghost-blog.b0.upaiyun.com/image/9/2e/33bd6ca7fd4dc4da6a420a78f6fa7.jpg" alt="pic1"></p>
-<p>2.打开Tools-External Tools，右侧点击绿色的&quot;+&quot;号</p>
-<p><img src="http://ghost-blog.b0.upaiyun.com/image/4/75/0b13d82d4665425a8654314887e24.png" alt="pic2"></p>
-<p>3.添加规则如下</p>
-<p><img src="http://ghost-blog.b0.upaiyun.com/image/c/8c/63b58920dc5923ce68a2bf510e0c7.png" alt="pic3"></p>
-<p>4.代码处右键，即可找到添加的功能</p>
-<p><img src="http://ghost-blog.b0.upaiyun.com/image/7/c1/4e96cd4e3c89c3e4776d86951345e.png" alt="pic4"></p>
-<p>5.效果如下</p>
-<p><img src="http://oqnfoupsj.bkt.clouddn.com/17-5-29/51837374.jpg" alt="pic5"></p>
-<h2 id="注意">注意</h2>
-<p>每次代码修改完之后，如果立即使用步骤4的操作，得到的字节码还是修改之前的文件生成的字节码，因为反编译是对.class文件进行的，修改完之后并没有重新生成.class文件，所以如果想得到修改后文件的字节码，需要在使用步骤4之前，先运行一遍修改过的代码。</p>
-<h2 id="参考">参考</h2>
-<p><a href="http://allan.li/intellij-ideakuai-su-cha-kan-javalei-zi-jie-ma/" target="_blank" rel="external">Intellij idea快速查看Java类字节码</a></p>
+                <h2 id="对象已死吗">对象已死吗？</h2>
+<h3 id="引用计数法">引用计数法</h3>
+<p>算法思想:给对象添加一个引用计数器，每当有一个地方引用它时，计数器值就加1；当引用失效时，计数器值就减1；任何时刻计数器为0的对象就是不可能被再使用的对象。</p>
+<p>这个算法虽然实现简单，判定效率也很高，但是它很难解决对象之间循环引用的问题，所以目前主流的Java虚拟机里面并未采用这种算法来管理内存。</p>
+<h3 id="可达性分析算法">可达性分析算法</h3>
+<p>算法思想:通过一系列的称为“GC Roots”的对象作为起始点，从这些节点开始往下搜索，搜索走过的路径称为引用链，当一个对象到GC Roots没有任何引用链相连时，则证明此对象是不可用的。</p>
+<p>在Java语言中，可作为GC Roots的对象包括:</p>
+<ul>
+<li>虚拟机栈(栈帧的本地变量表)中引用的对象；</li>
+<li>方法区中类静态属性引用的对象；</li>
+<li>方法区中常量引用的对象；</li>
+<li>本地方法栈中JNI(即一般说的Native方法)引用的对象；</li>
+</ul>
+<h3 id="java中引用的类型">java中引用的类型</h3>
+<p>在jdk1.2之后，java对引用的概念进行了扩充，将引用分为四种:强引用、软引用、弱引用、虚引用。</p>
+<ol>
+<li>强引用：只要强引用还存在，垃圾收集器永远不会回收掉被引用的对象；</li>
+<li>软引用：用来修饰一些还有用但并非必须的对象。在系统将要发生内存溢出异常之前，将会把这些对象列进回收范围之中进行第二次回收。如果这次回收后还没有足够的内存，才会抛出内存泄漏异常；</li>
+<li>弱引用：用来修饰非必需的对象，强度比弱引用更弱一些，被弱引用关联的对象只能生存到下一次垃圾收集之前。当垃圾收集器工作时，无论当前内存是否充足，都会将这类对象回收。</li>
+<li>虚引用：也称为幽灵引用，是最弱的一种引用关系，无法通过虚引用来取得一个对象实例。为一个对象设置虚引用关联的唯一目的就是能在这个对象被收集器回收时收到一个系统通知。</li>
+</ol>
+<h3 id="濒死对象的自我拯救">濒死对象的自我拯救</h3>
+<p>要真正回收一个对象，至少要经历两次标记过程：如果对象在进行可达性分析时，发现没有与GC Roots相连接的引用链，那么将会进行第一次标记并且进行一次筛选，筛选的条件是此对象是否有必要执行finalize()方法，当对象没有覆盖finalize()方法或者finalize()方法已经被虚拟机调用过了，虚拟机将这两种情况都视为&quot;没有必要执行&quot;，那么此时对象就会被回收。</p>
+<p>如果这个对象被判定为有必要执行finalize()方法，那么这个对象会被放置在一个叫做F-Queue的队列之中，并在稍后由一个虚拟机自动建立的，低优先级的Finalizer线程去执行它。这里说的执行是指虚拟机会调用这个方法，但并不承诺会等待它运行结束，这样做的原因是，如果一个对象在finalize()方法中执行缓慢，或者发生了死循环，很可能会导致F-Queue队列中的其他对象永久处于等待，甚至导致整个内存回收系统崩溃。finalize()方法是对象自救的最后机会，稍后GC将对F-Queue中的对象进行第二次标记，如果对象在finalize()中重新与引用链上的任何一个对象建立了关联，那么在第二次标记时，它将会被移出&quot;即将回收&quot;的集合，完成自救，否则，它将被回收。</p>
+<p>不过值得注意的是，每个对象的finalize()方法只能被系统自动调用一次，也就是说每个对象只有一次自救机会。</p>
+<h3 id="回收方法区">回收方法区</h3>
+<p>方法区的垃圾回收，其实也就是我们常说的永久代垃圾回收(Major GC)，永久代垃圾回收主要回收两部分内容:废弃常量和无用的类。</p>
+<p>判断一个常量是否是无用的与判断一个对象是否是无用的过程类似，这里就不再赘述。</p>
+<p>只有当一个类同时满足下面的三个条件时，才可以称之为无用的类：</p>
+<ol>
+<li>该类所有的实例都已经被回收，也就是Java堆中不存在该类的任何实例；</li>
+<li>加载该类的ClassLoader已经被回收；</li>
+<li>该类对应的java.lang.Class对象没有在任何地方被引用，无法在任何地方通过反射访问该类的方法。</li>
+</ol>
+<p>满足上面三个条件的无用类可以被回收，是否对类进行回收，可以使用-Xnoclassgc参数来进行控制。</p>
+<h2 id="垃圾收集算法">垃圾收集算法</h2>
+<h3 id="标记-清除算法">标记-清除算法</h3>
+<p>算法描述：首先标记出所有需要回收的对象，在标记完成后统一回收所有被标记的对象。</p>
+<p>不足：1.标记和清除两个过程的效率都不高；2.标记清除后会产生大量不连续的内存碎片，导致再分配较大的对象时，无法找到足够的连续的内存而不得不提前触发另一次垃圾收集动作。</p>
+<p><img src="http://oqnfoupsj.bkt.clouddn.com/17-6-19/75715995.jpg" alt="标记-清除算法"></p>
+<h3 id="复制算法">复制算法</h3>
+<p>为了解决标记-清除算法存在的问题，一种称为复制的收集算法出现了。</p>
+<p>算法描述：它将可用内存按容量划分为大小相等的两块，每次只使用其中的一块，当这一块内存用完了，就将还存活着的对象复制到另一块上面，然后把已使用的内存空间一次清理掉。</p>
+<p>不足:空间利用率低。</p>
+<p>因此，在商业虚拟机中，并不按照1:1来划分内存空间，而是按照Eden:Survivor = 8:1的比例，将整块内存划分为一块较大的Eden空间和两块较小的Survivor空间，每次使用Eden和其中一块Survivor，当回收时，将Eden和Survivor中还存活着的对象一次性地复制到另外一块Survivor空间上，最后清理掉刚才用过的Eden和Survivor空间。当每次存活的对象所需空间大于Survivor空间时，可以使用老年代进行分配担保。</p>
+<p><img src="http://oqnfoupsj.bkt.clouddn.com/17-6-19/29688935.jpg" alt="复制算法"></p>
+<h4 id="空间分配担保">空间分配担保</h4>
+<p>在发生Minor GC之前，虚拟机会先检查老年代最大可用的连续空间是否大于新生代所有对象的总空间，如果这个条件成立，那么则可以确保这次Minor GC可以确保是安全的。如果不成立，则虚拟机会查看HandlePromotionFailure设置值是否允许担保失败。如果允许，那么会继续检查老年代的最大可用连续空间是否大于历次晋升到老年代对象的平均大小，如果大于，则尝试着进行一次Minor GC，尽管这次GC时有风险的；如果小于，或者HandlePromotionFailure设置为不允许冒险，那这时也会改为进行一次Full GC.</p>
+<p>在JDK1.6 Update24之后，HandlePromotionFailure参数已经不再使用，只要老年代的连续空间大于新生代对象的总大小或者历次晋升的平均大小就会进行Minor GC，否则将进行Full GC。</p>
+<h3 id="标记-整理算法">标记-整理算法</h3>
+<p>复制收集算法在对象存活率较高时就要进行较多的复制操作，效率将变低。</p>
+<p>因此，又引入了一种“标记-整理”算法。</p>
+<p>算法描述：标记过程与标记-清除算法一致，整理时是让所有存活的对象都向一端移动，然后直接清理掉边界以外的内存。</p>
+<p><img src="http://oqnfoupsj.bkt.clouddn.com/17-6-19/34460358.jpg" alt="标记-整理算法"></p>
+<h3 id="分代收集算法">分代收集算法</h3>
+<p>只是根据对象存活周期的不同将内存划分为几块，一般是把Java堆分为新生代和老年代，然后根据各个代的特点采用最适当的收集算法，在新生代中，一般每次GC都有大批对象死去，所以一般采用复制算法，老年代中因为对象存活率高、没有额外空间对它进行分配担保，就必须使用标记-整理算法或者标记-清除算法来进行回收。</p>
+<h2 id="hotspot的算法实现">HotSpot的算法实现</h2>
 
                 
 
@@ -242,13 +280,9 @@
                 <!-- Pager -->
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2017/06/07/生词本/" data-toggle="tooltip" data-placement="top" title="生词本">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/2017/05/27/探索Java中的深复制和浅复制/" data-toggle="tooltip" data-placement="top" title="图解Java中的深拷贝和浅拷贝">Next Post &rarr;</a>
+                            <a href="/2017/06/17/JAVA虚拟机之内存区域/" data-toggle="tooltip" data-placement="top" title="JAVA虚拟机之内存区域">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -278,7 +312,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#前言"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">前言</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#实现方式"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">实现方式</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#实现方式"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">实现方式</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#注意"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">注意</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#参考"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">参考</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#对象已死吗"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">对象已死吗？</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#引用计数法"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">引用计数法</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#可达性分析算法"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text">可达性分析算法</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#java中引用的类型"><span class="toc-nav-number">1.3.</span> <span class="toc-nav-text">java中引用的类型</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#濒死对象的自我拯救"><span class="toc-nav-number">1.4.</span> <span class="toc-nav-text">濒死对象的自我拯救</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#回收方法区"><span class="toc-nav-number">1.5.</span> <span class="toc-nav-text">回收方法区</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#垃圾收集算法"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">垃圾收集算法</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#标记-清除算法"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text">标记-清除算法</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#复制算法"><span class="toc-nav-number">2.2.</span> <span class="toc-nav-text">复制算法</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#空间分配担保"><span class="toc-nav-number">2.2.1.</span> <span class="toc-nav-text">空间分配担保</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#标记-整理算法"><span class="toc-nav-number">2.3.</span> <span class="toc-nav-text">标记-整理算法</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#分代收集算法"><span class="toc-nav-number">2.4.</span> <span class="toc-nav-text">分代收集算法</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#hotspot的算法实现"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">HotSpot的算法实现</span></a></li></ol>
         
         </div>
       </aside>
@@ -298,9 +332,9 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#Tools" title="Tools">Tools</a>
-                        
                           <a class="tag" href="/tags/#Java" title="Java">Java</a>
+                        
+                          <a class="tag" href="/tags/#Jvm" title="Jvm">Jvm</a>
                         
                     </div>
                 </section>
@@ -331,8 +365,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "your-disqus-ID";
-    var disqus_identifier = "http://andfanswzp.pw/2017/05/29/Intellij-idea快速查看Java类字节码/";
-    var disqus_url = "http://andfanswzp.pw/2017/05/29/Intellij-idea快速查看Java类字节码/";
+    var disqus_identifier = "http://andfanswzp.pw/2017/06/19/JAVA虚拟机之垃圾回收机制与内存分配策略/";
+    var disqus_url = "http://andfanswzp.pw/2017/06/19/JAVA虚拟机之垃圾回收机制与内存分配策略/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
