@@ -153,14 +153,14 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -272,7 +272,40 @@
 <p><img src="http://oqnfoupsj.bkt.clouddn.com/17-6-19/34460358.jpg" alt="标记-整理算法"></p>
 <h3 id="分代收集算法">分代收集算法</h3>
 <p>只是根据对象存活周期的不同将内存划分为几块，一般是把Java堆分为新生代和老年代，然后根据各个代的特点采用最适当的收集算法，在新生代中，一般每次GC都有大批对象死去，所以一般采用复制算法，老年代中因为对象存活率高、没有额外空间对它进行分配担保，就必须使用标记-整理算法或者标记-清除算法来进行回收。</p>
+<p>一般情况下，新生代使用复制算法，老年代采用标记-整理算法。</p>
 <h2 id="hotspot的算法实现">HotSpot的算法实现</h2>
+<h3 id="枚举根节点">枚举根节点</h3>
+<p>可作为GC Roots的节点主要在全局性的引用(例如常量或类静态属性)与执行上下文(例如栈帧中的本地变量表)中。</p>
+<p>由于在进行可达性分析时，必须要在一个能确保一致性(在整个分析期间整个执行系统看起来像被冻结在某个时间点上，不会出现在分析过程中对象引用关系还在不断变化的情况)的快照中进行，这点是导致GC进行时，必须停顿所有Java执行线程(Stop The World)的一个重要原因，即使是在号称几乎不会发生停顿的CMS收集器中，枚举根节点也是必须要停顿的。</p>
+<p>准确式GC：当执行系统停顿下来以后，并不需要一个不漏的检查完所有执行上下文和全局的引用位置，虚拟机会有办法直接得知哪些地方存着对象引用。在HotSpot的实现中，是使用一组称为OopMap的数据结构来达到这个目的的，在类加载完成时，HotSpot就把对象内什么偏移量上是什么类型的数据计算出来，在JIT编译过程中，也会在特定的位置记录下栈和寄存器中哪些位置是引用。这样，GC在扫描时就可以直接得知这些信息了。</p>
+<h3 id="安全点">安全点</h3>
+<p>在OopMap的协助下，HotSpot可以快速且准确地完成GC Roots枚举，但是如果为每一条指令都生成对应的OopMap，那将会需要大量的额外空间，这样GC的空间成本将会变得很高。实际上GC没有为每条指令都生成OopMap，只在特定的位置记录了这些信息，这些位置称为安全点，即程序运行时并非在所有地方都能停顿下来开始GC，只有在到达安全点时才能暂停，安全点的选定既不能太多也不能太少(太少会让GC等待的时间过长，太多会让GC过于频繁增大运行时负荷)，安全点的选定基本上是以程序&quot;是否具有让程序长时间运行的特征&quot;为标准选定的，因为每条指令的执行时间都非常短暂，所以程序不太可能因为指令流长度太长这个原因而过长时间运行，“长时间执行”的最明显特征就是指令序列复用，例如:方法调用，循环跳转，异常跳转，所以具备这些功能的指令才会产生安全点。</p>
+<p>对于安全点，另一个需要考虑的问题是如何在GC发生时让所有线程(这里不包括执行JNI调用的线程)都跑到最近的安全点再停顿下来，</p>
+<p>有两种方法:</p>
+<ol>
+<li>抢先式中断(这种方式基本已经不再使用)：在GC发生时，首先把所有线程全部中断，如果发现有线程中断的地方不在安全点上，就恢复线程，让它跑到安全点上再中断；</li>
+<li>主动式中断：当GC需要中断线程时，不直接对线程操作，仅仅简单的设置一个标志，各个线程执行时主动去轮询这个标志，发现中断标志为真时，就自己中断挂起。轮询标志的地方是和安全点重合的，另外再加上创建对象需要分配内存的地方。</li>
+</ol>
+<p>test指令是HotSpot生成的轮询指令，当需要暂停线程时，虚拟机把指定地址的内存页设置为不可读，线程执行到test指令时，就会产生一个自陷异常信号，在预先注册的异常处理器中暂停线程实现等待，这样一条编译指令便完成了安全点轮询和触发线程中断。</p>
+<h3 id="安全区域">安全区域</h3>
+<p>安全点机制保证了程序执行时，在不长的时间内就会遇到可进入GC的安全点，但是，如果程序不执行时，或者说没有分配CPU时间时(例如线程Sleep状态或者Blocked状态，这个时候线程无法响应JVM的中断请求)，这种情况就需要安全区域来解决。</p>
+<p>安全区域是指在一段代码片段中，引用关系不会发生变化。在这个区域的任意地方开始GC都是安全的。在线程执行到安全区中的代码时，首先要标识自己已经进入了安全区域，当在这段时间内JVM要发起GC时，就不用管标识自己为安全区域状态的线程了，在线程要离开安全区域时，它要检查系统是否已经完成了根节点枚举(或者整个GC过程)，如果完成了，那线程就继续执行，否则它就必须等待直到收到了可以安全离开安全区域的信号为止。</p>
+<h2 id="垃圾收集器">垃圾收集器</h2>
+<h3 id="serial收集器">Serial收集器</h3>
+<p>这个收集器是一个单线程的收集器，但它的&quot;单线程&quot;的意义并不仅仅说明它只会使用一个CPU或一条工作线程去完成垃圾回收，更重要的是，在它进行垃圾收集时，必须暂停其他所有的工作线程，直到它收集结束。</p>
+<p>特点:简单而高效（与其他收集器的单线程情况相比），对于限定单个CPU的环境来说，Serial收集器没有线程交互的开销，专心做垃圾收集，所以可以获得最高的单线程收集效率。</p>
+<p>Serial收集器目前仍然是虚拟机运行在Client模式下的默认新生代收集器。</p>
+<p>新生代使用复制算法，老年代采用标记-整理算法。</p>
+<h3 id="parnew收集器">ParNew收集器</h3>
+<p>ParNew收集器其实就是Serial收集器的多线程版本，除了使用多条线程进行垃圾收集之外，其余行为与Serial完全相同。</p>
+<p>除了Serial之外，只有ParNew能与CMS收集器配合工作。</p>
+<p>是使用-XX:UseConcMarkSweepGC选项的默认新生代收集器。</p>
+<p>-XX:UseParNewGC可以强制来使用它。</p>
+<p>它默认开启的收集线程数与CPU的数量相同，在CPU非常多的情况下，可以使用-XX:ParallelGCThreads参数来限制垃圾收集的线程数。</p>
+<h4 id="并行和并发">并行和并发</h4>
+<p>并行(同一时刻)：指多条垃圾收集线程并行工作，但此时用户线程仍然处于等待状态。</p>
+<p>并发(同一时间段)：指用户线程与垃圾收集线程同时执行(但不一定是并行的，可能会交替执行)，用户程序在继续运行，而垃圾收集程序运行于另一个CPU上。</p>
+<h3 id="parallel-scavenge收集器">Parallel Scavenge收集器</h3>
 
                 
 
@@ -312,7 +345,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#对象已死吗"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">对象已死吗？</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#引用计数法"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">引用计数法</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#可达性分析算法"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text">可达性分析算法</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#java中引用的类型"><span class="toc-nav-number">1.3.</span> <span class="toc-nav-text">java中引用的类型</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#濒死对象的自我拯救"><span class="toc-nav-number">1.4.</span> <span class="toc-nav-text">濒死对象的自我拯救</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#回收方法区"><span class="toc-nav-number">1.5.</span> <span class="toc-nav-text">回收方法区</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#垃圾收集算法"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">垃圾收集算法</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#标记-清除算法"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text">标记-清除算法</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#复制算法"><span class="toc-nav-number">2.2.</span> <span class="toc-nav-text">复制算法</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#空间分配担保"><span class="toc-nav-number">2.2.1.</span> <span class="toc-nav-text">空间分配担保</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#标记-整理算法"><span class="toc-nav-number">2.3.</span> <span class="toc-nav-text">标记-整理算法</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#分代收集算法"><span class="toc-nav-number">2.4.</span> <span class="toc-nav-text">分代收集算法</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#hotspot的算法实现"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">HotSpot的算法实现</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#对象已死吗"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">对象已死吗？</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#引用计数法"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">引用计数法</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#可达性分析算法"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text">可达性分析算法</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#java中引用的类型"><span class="toc-nav-number">1.3.</span> <span class="toc-nav-text">java中引用的类型</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#濒死对象的自我拯救"><span class="toc-nav-number">1.4.</span> <span class="toc-nav-text">濒死对象的自我拯救</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#回收方法区"><span class="toc-nav-number">1.5.</span> <span class="toc-nav-text">回收方法区</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#垃圾收集算法"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">垃圾收集算法</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#标记-清除算法"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text">标记-清除算法</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#复制算法"><span class="toc-nav-number">2.2.</span> <span class="toc-nav-text">复制算法</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#空间分配担保"><span class="toc-nav-number">2.2.1.</span> <span class="toc-nav-text">空间分配担保</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#标记-整理算法"><span class="toc-nav-number">2.3.</span> <span class="toc-nav-text">标记-整理算法</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#分代收集算法"><span class="toc-nav-number">2.4.</span> <span class="toc-nav-text">分代收集算法</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#hotspot的算法实现"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">HotSpot的算法实现</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#枚举根节点"><span class="toc-nav-number">3.1.</span> <span class="toc-nav-text">枚举根节点</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#安全点"><span class="toc-nav-number">3.2.</span> <span class="toc-nav-text">安全点</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#安全区域"><span class="toc-nav-number">3.3.</span> <span class="toc-nav-text">安全区域</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#垃圾收集器"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">垃圾收集器</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#serial收集器"><span class="toc-nav-number">4.1.</span> <span class="toc-nav-text">Serial收集器</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#parnew收集器"><span class="toc-nav-number">4.2.</span> <span class="toc-nav-text">ParNew收集器</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#并行和并发"><span class="toc-nav-number">4.2.1.</span> <span class="toc-nav-text">并行和并发</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#parallel-scavenge收集器"><span class="toc-nav-number">4.3.</span> <span class="toc-nav-text">Parallel Scavenge收集器</span></a></li></ol></li></ol>
         
         </div>
       </aside>
