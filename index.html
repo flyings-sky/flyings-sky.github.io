@@ -213,6 +213,40 @@
 
 <div class="post-preview">
 
+    <a href="/2017/06/22/JAVA虚拟机之Full-GC/">
+        <h2 class="post-title">
+            JAVA虚拟机之Full GC
+        </h2>
+        <h3 class="post-subtitle">
+            Full GC的触发条件以及减少Full GC的方法
+        </h3>
+        <div class="post-content-preview">
+            
+System.gc()方法的调用
+
+这个方法会建议虚拟机做一些工作来努力回收没有用的对象，以便能够快速的重用这些对象当前占用的内存。当控制权从方法调用中返回时，虚拟机已经尽最大努力从所有没有用的对象中回收了空间。因此，可以简单地认为，System.gc()方法的调用会建议虚拟机调用一次Full GC，从而增加Full GC的频率，也增加了间歇性停顿的次数。
+减少这种Full GC发生的方法......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Andfans on
+            2017-06-22
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Java" title="Java">Java</a>
+            
+              <a href="/tags/#Jvm" title="Jvm">Jvm</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
     <a href="/2017/06/19/JAVA虚拟机之垃圾回收机制与内存分配策略/">
         <h2 class="post-title">
             JAVA虚拟机之垃圾回收机制与内存分配策略
@@ -533,38 +567,6 @@ Java中的clone()方法
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2017/05/24/浅谈APP的启动过程(未完)/">
-        <h2 class="post-title">
-            浅谈APP的启动过程(未完待续)
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            APP的启动方式
-冷启动
-在启动程序时，后台没有该应用的进程，这时系统会重新创建一个新的进程去运行该应用，冷启动会先创建和初始化Application类，再创建和初始化主Activity类(测量、布局、绘制)。
-热启动
-在启动应用时，后台已经有该应用的进程(如:按back键、home键)，这种启动会从已有的进程中来启动应用。热启动的过程只需要执行对Activity的创建和初始化，因为一个应用......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Andfans on
-            2017-05-24
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Android" title="Android">Android</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -680,6 +682,10 @@ Java中的clone()方法
     <ul>
       
         <li>
+          <a href="/2017/06/22/JAVA虚拟机之Full-GC/">JAVA虚拟机之Full GC</a>
+        </li>
+      
+        <li>
           <a href="/2017/06/19/JAVA虚拟机之垃圾回收机制与内存分配策略/">JAVA虚拟机之垃圾回收机制与内存分配策略</a>
         </li>
       
@@ -695,10 +701,6 @@ Java中的clone()方法
           <a href="/2017/06/07/生词本/">生词本</a>
         </li>
       
-        <li>
-          <a href="/2017/05/29/Intellij-idea快速查看Java类字节码/">Intellij idea快速查看Java类字节码</a>
-        </li>
-      
     </ul>
   </div>
 
@@ -707,7 +709,7 @@ Java中的clone()方法
         
     <h5>ARCHIVES</h5>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">11</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">11</span></li></ul>
     </div>
 
         <hr>
