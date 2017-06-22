@@ -291,11 +291,13 @@
 <p>安全点机制保证了程序执行时，在不长的时间内就会遇到可进入GC的安全点，但是，如果程序不执行时，或者说没有分配CPU时间时(例如线程Sleep状态或者Blocked状态，这个时候线程无法响应JVM的中断请求)，这种情况就需要安全区域来解决。</p>
 <p>安全区域是指在一段代码片段中，引用关系不会发生变化。在这个区域的任意地方开始GC都是安全的。在线程执行到安全区中的代码时，首先要标识自己已经进入了安全区域，当在这段时间内JVM要发起GC时，就不用管标识自己为安全区域状态的线程了，在线程要离开安全区域时，它要检查系统是否已经完成了根节点枚举(或者整个GC过程)，如果完成了，那线程就继续执行，否则它就必须等待直到收到了可以安全离开安全区域的信号为止。</p>
 <h2 id="垃圾收集器">垃圾收集器</h2>
+<p><img src="http://oqnfoupsj.bkt.clouddn.com/17-6-22/37687921.jpg" alt=""></p>
 <h3 id="serial收集器">Serial收集器</h3>
 <p>这个收集器是一个单线程的收集器，但它的&quot;单线程&quot;的意义并不仅仅说明它只会使用一个CPU或一条工作线程去完成垃圾回收，更重要的是，在它进行垃圾收集时，必须暂停其他所有的工作线程，直到它收集结束。</p>
 <p>特点:简单而高效（与其他收集器的单线程情况相比），对于限定单个CPU的环境来说，Serial收集器没有线程交互的开销，专心做垃圾收集，所以可以获得最高的单线程收集效率。</p>
 <p>Serial收集器目前仍然是虚拟机运行在Client模式下的默认新生代收集器。</p>
 <p>新生代使用复制算法，老年代采用标记-整理算法。</p>
+<p><img src="http://oqnfoupsj.bkt.clouddn.com/17-6-22/37921285.jpg" alt=""></p>
 <h3 id="parnew收集器">ParNew收集器</h3>
 <p>ParNew收集器其实就是Serial收集器的多线程版本，除了使用多条线程进行垃圾收集之外，其余行为与Serial完全相同。</p>
 <p>除了Serial之外，只有ParNew能与CMS收集器配合工作。</p>
@@ -305,6 +307,7 @@
 <h4 id="并行和并发">并行和并发</h4>
 <p>并行(同一时刻)：指多条垃圾收集线程并行工作，但此时用户线程仍然处于等待状态。</p>
 <p>并发(同一时间段)：指用户线程与垃圾收集线程同时执行(但不一定是并行的，可能会交替执行)，用户程序在继续运行，而垃圾收集程序运行于另一个CPU上。</p>
+<p><img src="http://oqnfoupsj.bkt.clouddn.com/17-6-22/39496930.jpg" alt=""></p>
 <h3 id="parallel-scavenge收集器">Parallel Scavenge收集器</h3>
 <p>是新生代收集器，使用复制算法，并行的多线程收集器，是一个吞吐量优先收集器。</p>
 <p>这个收集器的目标是达到一个可控制的吞吐量(CPU用于运行用户代码的时间与CPU总消耗时间的比值)。</p>
@@ -312,6 +315,7 @@
 <p>-XX:MaxGCPauseMillis控制最大垃圾收集的停顿时间(大于0的毫秒数)，这个参数设置的小，并不会使得系统的垃圾收集速度变快，GC停顿时间的缩短是以牺牲吞吐量(降低)和新生代空间(变小)来换取的。</p>
 <p>-XX:GCTimeRatio直接设置吞吐量的大小（大于0小于100的整数）:垃圾收集时间占总时间的比率，相当于吞吐量的倒数，默认为99，就是最大允许1%(1/(1+99))的垃圾收集时间。</p>
 <p>-XX:UseAdaptiveSizePolicy这是一个开关参数，这个参数打开以后，就不需要手工指定新生代的大小(-Xmn)、Eden和Survivor区的比例(-XX:SurvivorRatio)、晋升老年代对象大小(-XX:PretenureSizeThreshold)等细节参数了，虚拟机会根据当前系统的运行情况收集性能监控信息，动态调整这些参数以提供最合适的停顿时间或最大吞吐量，这种调节方式称为GC自适应的调节策略。</p>
+<p><img src="http://oqnfoupsj.bkt.clouddn.com/17-6-22/16603111.jpg" alt=""></p>
 <h3 id="serial-old收集器">Serial Old收集器</h3>
 <p>是Serial收集器的老年代版本，也是一个单线程收集器，使用标记-整理算法，给Client模式下的虚拟机使用。</p>
 <p>在Server模式下的用途:</p>
@@ -339,6 +343,7 @@
 <li>CMS无法处理浮动垃圾，可能出现Concurrent Mode Failure失败而导致另一次Full GC的产生。在并发清理阶段产生的垃圾称为浮动垃圾。由于在垃圾收集阶段用户线程还需要运行，那也就还需要留有足够的空间给用户线程使用，不能像其他收集器一样等到老年代几乎完全被填满了再进行垃圾回收。在jdk1.5的默认设置下，CMS在老年代使用了68%的控件后就会被激活，我们可以使用-XX:CMSInitiatingOccupancyFraction的值来提高触发百分比，来降低内存回收的次数从而获取更好的性能。在jdk1.6中，CMS收集器的启动阈值已经提升至92%，要是CMS在运行期间预留的内存无法满足程序需要，就会出现&quot;Concurrent Mode Failure&quot;失败，这时虚拟机会启动后备预案，临时启用Serial Old收集器来重新进行老年代的垃圾回收，这样停顿的时间反而会变长。所以说-XX:CMSInitiatingOccupancyFraction设置过高，会导致大量的“Concurrent Mode Failure”失败，性能反而会降低。</li>
 <li>CMS是基于标记清除算法来实现的，所以垃圾回收会产生大量的空间碎片，会导致在給大对象分配空间时，分配失败，不得不提前触发一次Full GC。为了解决这个问题，CMS收集器提供了一个-XX:UseCMSCompactAtFullCollection开关参数(默认开启)，用于在CMS收集器要进行Full GC时，开启内存碎片的合并整理过程，内存整理的过程是无法并发的，停顿时间不得不变长，-XX:CMSFullGCsBeforeCompaction，这个参数是用于执行多少次不压缩的Full GC后，跟着来一次带压缩的(默认为0，表示每次进入Full GC时都进行碎片整理)Full GC。</li>
 </ol>
+<p><img src="http://oqnfoupsj.bkt.clouddn.com/17-6-22/14314013.jpg" alt=""></p>
 <h3 id="g1收集器">G1收集器</h3>
 <p>G1是一款面向服务端应用的垃圾收集器。</p>
 <h4 id="g1的特点">G1的特点</h4>
@@ -361,6 +366,7 @@
 <li>最终标记：为了修正并发标记期间因用户程序继续运行而导致标记产生变动的那部分标记记录，虚拟机将这段时间对象变化记录在线程的Remembered Set Logs里面，最终标记阶段需要把Remembered Set Logs的数据合并到Remembered Set中，这个阶段需要停顿线程，但是可以并行执行。</li>
 <li>筛选回收：首先对各个Region的回收价值和成本进行排序，根据用户所期望的GC停顿时间来制定回收计划，这一阶段也可以和用户线程并发执行。</li>
 </ol>
+<p><img src="http://oqnfoupsj.bkt.clouddn.com/17-6-22/44301316.jpg" alt=""></p>
 <h3 id="理解gc日志">理解GC日志</h3>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="number">33.125</span>:[GC  [DefNew:<span class="number">3324</span>k-&gt;<span class="number">152</span>k(<span class="number">3712</span>k),<span class="number">0.0025925</span> secs] <span class="number">3324</span>k-&gt;<span class="number">152</span>k(<span class="number">11904</span>k),<span class="number">0.0031680</span> secs]</div><div class="line"><span class="number">100.667</span>:[Full GC [Tenured:<span class="number">0</span>k-&gt;<span class="number">210</span>k(<span class="number">10240</span>k),<span class="number">0.0149142</span>secs] <span class="number">4603</span>k-&gt;<span class="number">210</span>k(<span class="number">19456</span>k),[Perm:<span class="number">2999</span>k-&gt;<span class="number">2999</span>k(<span class="number">21248</span>k)],<span class="number">0.0150007</span> secs][Times:user=<span class="number">0.01</span> sys=<span class="number">0.00</span>,real=<span class="number">0.02</span> secs]</div><div class="line"><span class="comment">//1.最前面的数字:33.125和100.667:代表了GC发生的时间，这个数字的含义是从Java虚拟机启动以来经过的秒数。</span></div><div class="line"><span class="comment">//2.GC日志开头的[GC和[Full GC说明了这次垃圾收集的类型，而不是用来区分新生代GC还是老年代GC的。如果有Full，说明这次GC是发生了Stop-The-World的，新生代收集器的日志有时也会出现Full GC(这一般是因为出现了分配担保失败之类的问题)。如果是调用System.gc()方法所触发的收集，那么GC日志将显示[Full GC(System)</span></div><div class="line"><span class="comment">//3.接下来的[DefNew](新生代)、[Tenured](老年代)、[Perm](永久代)表示GC发生的区域，这里显示的区域名称与使用的GC收集器是密切相关的</span></div><div class="line"><span class="comment">//4.后面方括号里面的3324K-&gt;152K(3712K)的含义是:GC前该区域已经使用的容量-&gt;GC后该内存区域已使用的容量(该内存区域总容量)。而在方括号之外的"3324k-152k(11904k)"表示:GC前Java堆已经使用的容量-&gt;GC后Java堆已使用的容量(Java堆总容量)</span></div><div class="line"><span class="comment">//5.再往后0.0025925 secs表示该内存区域GC所占用的时间，单位是秒</span></div><div class="line"><span class="comment">//6.[Times:user=0.01 sys=0.00,real=0.02 secs],这里的user,sys和real分别代表用户态消耗的CPU时间、内核态消耗的CPU时间和操作从开始到结束所经过的墙钟时间。</span></div><div class="line"><span class="comment">//7.CPU时间和墙钟时间的区别是：墙钟时间包括各种非运算的等待耗时,CPU时间不包括这些耗时，但当CPU有多个或者有多核的话，么多线程操作会叠加这些CPU时间，因此user或者sys时间超过real时间是完全正常的。</span></div></pre></td></tr></table></figure>
 <h3 id="垃圾回收参数总结">垃圾回收参数总结</h3>
