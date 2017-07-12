@@ -144,6 +144,13 @@
 
                         
                         <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
                             <a href="/archive/">Archives</a>
                         </li>
                         
@@ -152,13 +159,6 @@
                         
                         <li>
                             <a href="/tags/">Tags</a>
-                        </li>
-                        
-                    
-
-                        
-                        <li>
-                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -223,12 +223,16 @@
 <h3 id="重点代码解释">重点代码解释</h3>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//循环遍历单链表</span></div><div class="line"><span class="keyword">while</span>(pNode != <span class="keyword">null</span>)&#123;</div><div class="line">  			<span class="comment">//将pNext指向pNode的后继结点</span></div><div class="line">            pNext = pNode.next;</div><div class="line">  			<span class="comment">//当pNext为空时，表示pNode没有后继结点，pNode已经是最后一个结点了，所以pNode就是反转链表的头</span></div><div class="line">            <span class="keyword">if</span>(pNext == <span class="keyword">null</span>)&#123;</div><div class="line">                pNewHead = pNode;</div><div class="line">            &#125;</div><div class="line">  			<span class="comment">//将当前结点指向它的前驱结点</span></div><div class="line">            pNode.next = pPre;</div><div class="line">  			<span class="comment">//将前驱结点更新为当前结点</span></div><div class="line">            pPre = pNode;</div><div class="line">  			<span class="comment">//将当前节点更新为它的后继结点，开始下一次循环</span></div><div class="line">            pNode = pNext;</div><div class="line">        &#125;</div></pre></td></tr></table></figure>
 <h2 id="实现代码">实现代码</h2>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line">public class ListNode &#123;</div><div class="line">    int val;</div><div class="line">    ListNode next = null;</div><div class="line"></div><div class="line">    ListNode(int val) &#123;</div><div class="line">        this.val = val;</div><div class="line">    &#125;</div><div class="line">&#125;*/</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">ReverseList</span><span class="params">(ListNode head)</span> </span>&#123;</div><div class="line">		ListNode pNewHead = <span class="keyword">null</span>,pNode,pNext,pPre = <span class="keyword">null</span>;</div><div class="line">        pNode = head;</div><div class="line">        <span class="keyword">while</span>(pNode != <span class="keyword">null</span>)&#123;</div><div class="line">            pNext = pNode.next;</div><div class="line">            <span class="keyword">if</span>(pNext == <span class="keyword">null</span>)&#123;</div><div class="line">                pNewHead = pNode;</div><div class="line">            &#125;</div><div class="line">            pNode.next = pPre;</div><div class="line">            pPre = pNode;</div><div class="line">            pNode = pNext;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> pNewHead;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line">public class ListNode &#123;</div><div class="line">    int val;</div><div class="line">    ListNode next = null;</div><div class="line"></div><div class="line">    ListNode(int val) &#123;</div><div class="line">        this.val = val;</div><div class="line">    &#125;</div><div class="line">&#125;*/</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">ReverseList</span><span class="params">(ListNode head)</span> </span>&#123;</div><div class="line">      	<span class="keyword">if</span>(head == <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">      	&#125;</div><div class="line">		ListNode pNewHead = <span class="keyword">null</span>,pNode,pNext,pPre = <span class="keyword">null</span>;</div><div class="line">        pNode = head;</div><div class="line">        <span class="keyword">while</span>(pNode != <span class="keyword">null</span>)&#123;</div><div class="line">            pNext = pNode.next;</div><div class="line">            <span class="keyword">if</span>(pNext == <span class="keyword">null</span>)&#123;</div><div class="line">                pNewHead = pNode;</div><div class="line">            &#125;</div><div class="line">            pNode.next = pPre;</div><div class="line">            pPre = pNode;</div><div class="line">            pNode = pNext;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> pNewHead;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
                 
 
                 <hr>
                 <!-- Pager -->
                 <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2017/07/12/Algorithm-3/" data-toggle="tooltip" data-placement="top" title="Algorithm_3">&larr; Previous Post</a>
+                        </li>
                     
                     
                         <li class="next">
