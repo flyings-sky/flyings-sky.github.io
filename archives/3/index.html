@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          JAVA虚拟机之Full GC - Andfans
+          Andfans
         
     </title>
 
-    <link rel="canonical" href="http://andfanswzp.pw/2017/06/22/JAVA虚拟机之Full-GC/">
+    <link rel="canonical" href="http://andfanswzp.pw/archives/3/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -69,8 +69,8 @@
 <style type="text/css">
     header.intro-header{
         
-            background-image: url('http://i1.piimg.com/588926/14c9e94b1c44706b.png')
-            /*post*/
+            background-image: url('/img/header_img/home-bg-2-dark.png') 
+            /*config*/
         
     }
     
@@ -87,20 +87,10 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 
-                    <div class="post-heading">
-                        <div class="tags">
-                            
-                              <a class="tag" href="/tags/#Java" title="Java">Java</a>
-                            
-                              <a class="tag" href="/tags/#Jvm" title="Jvm">Jvm</a>
-                            
-                        </div>
-                        <h1>JAVA虚拟机之Full GC</h1>
-                        <h2 class="subheading">Full GC的触发条件以及减少Full GC的方法</h2>
-                        <span class="meta">
-                            Posted by Andfans on
-                            2017-06-22
-                        </span>
+                    <div class="site-heading">
+                        <h1>Andfans</h1>
+                        <!--<hr class="small">-->
+                        <span class="subheading">Create the future with code!</span>
                     </div>
                 
 
@@ -203,180 +193,212 @@
 
 
     <!-- Main Content -->
-    <!-- Modify by Yu-Hsuan Yen -->
+    <!-- Main Content -->
+<div class="container">
+    <div class="row">
+        
 
-<!-- Post Content -->
-<article>
-    <div class="container">
-        <div class="row">
-
-            <!-- Post Container -->
+<!-- USE SIDEBAR -->
+    <!-- Post Container -->
             <div class="
-                col-lg-8 col-lg-offset-2
-                col-md-10 col-md-offset-1
-                post-container">
-
-                <p>1.System.gc()方法的调用</p>
-<p>这个方法会建议虚拟机做一些工作来努力回收没有用的对象，以便能够快速的重用这些对象当前占用的内存。当控制权从方法调用中返回时，虚拟机已经尽最大努力从所有没有用的对象中回收了空间。因此，可以简单地认为，System.gc()方法的调用会建议虚拟机调用一次Full GC，从而增加Full GC的频率，也增加了间歇性停顿的次数。</p>
-<p>减少这种Full GC发生的方法：可以使用-XX:DisableExplicitGC来禁止RMI调用System.gc()。</p>
-<p>2.新生代对象转入老年代以及创建大数组、大对象时，导致老年代空间不足</p>
-<p>减少这种Full GC发生的方法：让对象在新生代多存活一段时间以及不要创建过大的对象和数组，减少空间浪费。</p>
-<p>3.当系统中要加载的类、反射的类和调用的方法较多时，导致永久代空间不足</p>
-<p>减少这种Full GC发生的方法：增大Perm Gen空间或使用CMS作为垃圾收集器。</p>
-<p>4.CMS GC时出现promotion failed和Concurrent Mode Failure</p>
-<ul>
-<li>promotion failed(担保失败)：老年代的最大可用连续空间小于新生代晋升到老年代所有对象所占总空间的大小，会导致担保失败</li>
-<li>Concurrent Mode Failure：在并发执行垃圾收集和程序运行的过程中，老年代的预留空间无法满足程序运行的需要时([已使用空间+运行时占用空间]/老年代总空间 &gt; -XX:CMSInitiatingOccupancyFraction参数的大小)，会发生Concurrent Mode Failure</li>
-</ul>
-<p>减少这种Full GC发生的方法：增大Survivor space、老年代的空间或调低CMSInitiatingOccupancyFraction</p>
-<p>5.统计得到的每次Minor GC从新生代晋升到老年代的平均大小大于老年代的最大可用连续空间(jdk6 Update24)</p>
-<h3 id="参考">参考</h3>
-<p><a href="http://blog.csdn.net/chenleixing/article/details/46706039" target="_blank" rel="external">触发JVM进行Full GC的情况及应对策略</a></p>
-<p><a href="http://blog.csdn.net/scugxl/article/details/50935863" target="_blank" rel="external">触发Full GC的条件</a></p>
-
-                
-
-                <hr>
-                <!-- Pager -->
-                <ul class="pager">
-                    
-                        <li class="previous">
-                            <a href="/2017/06/23/JAVA虚拟机之性能监控与故障处理工具/" data-toggle="tooltip" data-placement="top" title="JAVA虚拟机之性能监控与故障处理工具">&larr; Previous Post</a>
-                        </li>
-                    
-                    
-                        <li class="next">
-                            <a href="/2017/06/19/JAVA虚拟机之垃圾回收机制与内存分配策略/" data-toggle="tooltip" data-placement="top" title="JAVA虚拟机之垃圾回收机制与内存分配策略">Next Post &rarr;</a>
-                        </li>
-                    
-                </ul>
-
-                <!-- duoshuo Share start -->
-                
-                <!-- 多说 Share end-->
-
-                <!-- 多说评论框 start -->
-                
-                <!-- 多说评论框 end -->
-
-                <!-- disqus comment start -->
-                
-                    <div class="comment">
-                        <div id="disqus_thread" class="disqus-thread"></div>
-                    </div>
-                
-                <!-- disqus comment end -->
-            </div>
+                col-lg-8 col-lg-offset-1
+                col-md-8 col-md-offset-1
+                col-sm-12
+                col-xs-12
+                post-container
+            ">
             
-            <!-- Tabe of Content -->
-            <!-- Table of Contents -->
+                <!-- Main Content -->
 
-    
-      <aside id="sidebar">
-        <div id="toc" class="toc-article">
-        <strong class="toc-title">Contents</strong>
-        
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#参考"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">参考</span></a></li></ol>
-        
+
+<div class="post-preview">
+
+    <a href="/2017/05/19/my-first-blog/">
+        <h2 class="post-title">
+            开篇
+        </h2>
+        <h3 class="post-subtitle">
+            新博客搭建完成的第一篇文章
+        </h3>
+        <div class="post-content-preview">
+            经过大半天的折腾，新博客终于搭建的差不多了。瞬间感觉动力满满，希望能尽快把博客搬迁过来，否则显得空荡荡的，最近有项目要赶，可能博客更新有限。
+时间宝贵，这篇博客就到这吧，等有时间再扯闲篇。
+...
         </div>
-      </aside>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Andfans on
+            2017-05-19
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#随笔" title="随笔">随笔</a>
+            
+        </div>
     
 
-                
-            <!-- Sidebar Container -->
-            <div class="
-                col-lg-8 col-lg-offset-2
-                col-md-10 col-md-offset-1
-                sidebar-container">
+</div>
+<hr>
 
-                <!-- Featured Tags -->
-                
-                <section>
-                    <!-- no hr -->
-                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
-                    <div class="tags">
-                       
-                          <a class="tag" href="/tags/#Java" title="Java">Java</a>
-                        
-                          <a class="tag" href="/tags/#Jvm" title="Jvm">Jvm</a>
-                        
-                    </div>
-                </section>
-                
 
-                <!-- Friends Blog -->
-                
-                <hr>
-                <h5>FRIENDS</h5>
-                <ul class="list-inline">
 
-                    
-                        <li><a href="http://blog.kaijun.rocks" target="_blank">Kaijun&#39;s Blog</a></li>
-                    
-                        <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
-                    
-                </ul>
+<!-- Pager -->
+
+<ul class="pager">
+    
+        <li class="previous">
+            <a href="/archives/2/">&larr; Newer Posts</a>
+        </li>
+    
+    
+</ul>
+
+
+
+                <!-- 如果开启评论功能 -->
                 
             </div>
-        </div>
+
+          <!-- Sidebar Container -->
+<div class="
+    col-lg-3 col-lg-offset-0
+    col-md-3 col-md-offset-0
+    col-sm-12
+    col-xs-12
+    sidebar-container
+">
+    
+        <!-- Featured Tags -->
+
+<section>
+    <!-- no hr -->
+    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+    <div class="tags">
+        
+            
+        
+            
+        
+            
+        
+            
+            <a href="/tags/#Java" title="Java" rel="6">Java</a>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
     </div>
-</article>
+</section>
 
+        <hr>
+    
+        <!-- Short About -->
+<section class="visible-md visible-lg">
+    <h5><a href="/about/">ABOUT ME</a></h5>
+    <div class="short-about">
 
+        
+            <img id = "avatar_pic" src="/img/head.jpg" />
+        
 
+        
+            <p>I&#39;m a coder farmer</p>
+        
 
-<!-- disqus embedded js code start (one page only need to embed once) -->
-<script type="text/javascript">
-    /* * * CONFIGURATION VARIABLES * * */
-    var disqus_shortname = "your-disqus-ID";
-    var disqus_identifier = "http://andfanswzp.pw/2017/06/22/JAVA虚拟机之Full-GC/";
-    var disqus_url = "http://andfanswzp.pw/2017/06/22/JAVA虚拟机之Full-GC/";
+        <!-- SNS Link -->
+        <ul class="list-inline">
+            
+            
+            
 
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-</script>
-<!-- disqus embedded js code start end -->
+            
 
+            
 
+            
+                <li>
+                    <a target="_blank"  href="https://github.com/flyings-sky">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+            
+            
+            
+            
+        </ul>
+    </div>
+</section>
+        <hr>
+    
+        
+  <h5>RECENT POSTS</h3>
+  <div class="widget">
+    <ul>
+      
+        <li>
+          <a href="/2017/07/14/Algorithm-5/">Algorithm_5</a>
+        </li>
+      
+        <li>
+          <a href="/2017/07/13/Algorithm-4/">Algorithm_4</a>
+        </li>
+      
+        <li>
+          <a href="/2017/07/12/Algorithm-3/">Algorithm_3</a>
+        </li>
+      
+        <li>
+          <a href="/2017/07/12/Algorithm-2/">Algorithm_2</a>
+        </li>
+      
+        <li>
+          <a href="/2017/06/23/JAVA虚拟机之性能监控与故障处理工具/">JAVA虚拟机之性能监控与故障处理工具</a>
+        </li>
+      
+    </ul>
+  </div>
 
+        <hr>
+    
+        
+    <h5>ARCHIVES</h5>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">11</span></li></ul>
+    </div>
 
-<!-- async load function -->
-<script>
-    function async(u, c) {
-      var d = document, t = 'script',
-          o = d.createElement(t),
-          s = d.getElementsByTagName(t)[0];
-      o.src = u;
-      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
-      s.parentNode.insertBefore(o, s);
-    }
-</script>
-<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
-<script>
-    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
-        anchors.options = {
-          visible: 'hover',
-          placement: 'left',
-          icon: 'ℬ'
-        };
-        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
-    })
-</script>
-<style>
-    /* place left on bigger screen */
-    @media all and (min-width: 800px) {
-        .anchorjs-link{
-            position: absolute;
-            left: -0.75em;
-            font-size: 1.1em;
-            margin-top : -0.1em;
-        }
-    }
-</style>
+        <hr>
+    
+        <!-- Categories -->
 
+        <hr>
+    
+</div>
+
+        
+    </div>
+</div>
 
 
     <!-- Footer -->
