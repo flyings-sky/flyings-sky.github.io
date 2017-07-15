@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          Algorithm_6 - Andfans
+          Algorithm_7 - Andfans
         
     </title>
 
-    <link rel="canonical" href="http://andfanswzp.pw/2017/07/14/Algorithm-6/">
+    <link rel="canonical" href="http://andfanswzp.pw/2017/07/15/Algorithm-7/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -93,11 +93,11 @@
                               <a class="tag" href="/tags/#算法题" title="算法题">算法题</a>
                             
                         </div>
-                        <h1>Algorithm_6</h1>
-                        <h2 class="subheading">栈的压入、弹出序列</h2>
+                        <h1>Algorithm_7</h1>
+                        <h2 class="subheading">树的子结构</h2>
                         <span class="meta">
                             Posted by Andfans on
-                            2017-07-14
+                            2017-07-15
                         </span>
                     </div>
                 
@@ -215,26 +215,22 @@
                 post-container">
 
                 <h2 id="题目描述">题目描述</h2>
-<p>输入两个整数序列，第一个序列表示栈的压入顺序，请判断第二个序列是否为该栈的弹出顺序。假设压入栈的所有数字均不相等。例如序列1,2,3,4,5是某栈的压入顺序，序列4,5,3,2,1是该压栈序列对应的一个弹出序列，但4,3,5,1,2就不可能是该压栈序列的弹出序列。（注意：这两个序列的长度是相等的）</p>
+<p>输入两棵二叉树A，B，判断B是不是A的子结构。(ps：约定空树不是任意一个树的子结构)</p>
 <h2 id="题目考点">题目考点</h2>
-<p>栈的特点及基本操作</p>
+<p>二叉树的遍历，递归</p>
 <h2 id="解题思路">解题思路</h2>
-<p>将pushA中的数字一个一个的入栈，每入栈一个数，判断当前栈顶和当前出栈序列下标j对应的那个值是否相等，相等的话出栈，将下标加一，如果整个操作执行完后，栈为空，则表示第二个序列是该栈的一个弹出顺序，返回true，否则返回false；</p>
+<p>遍历二叉树A的每个结点，每次遍历一个结点后，判断该结点的值是否与二叉树B的根节点是否相同，如果A树遍历完成后，仍无与B树根节点值相同的结点，则B不是A的子树，返回false，如果找到了与B树根节点值相同的结点C，则递归判断A的左子树与树B结点C的左、右子树结点的值是否对应相同，如果相同，则B是A的子结构，返回true，否则B不是A的子结构，返回false。</p>
 <h2 id="实现代码">实现代码</h2>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.Stack;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">IsPopOrder</span><span class="params">(<span class="keyword">int</span> [] pushA,<span class="keyword">int</span> [] popA)</span> </span>&#123;</div><div class="line">   		<span class="keyword">int</span> len = pushA.length;</div><div class="line">        <span class="keyword">if</span>(len == <span class="number">0</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">        &#125;</div><div class="line">        Stack&lt;Integer&gt; s = <span class="keyword">new</span> Stack&lt;Integer&gt;();</div><div class="line">        <span class="keyword">int</span> j = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; len;i++)&#123;</div><div class="line">            s.push(pushA[i]);</div><div class="line">            <span class="keyword">while</span>(j &lt; len&amp;&amp;popA[j] == s.peek())&#123;</div><div class="line">                s.pop();</div><div class="line">                j++;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> s.empty()?<span class="keyword">true</span>:<span class="keyword">false</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">public class TreeNode &#123;</div><div class="line">    int val = 0;</div><div class="line">    TreeNode left = null;</div><div class="line">    TreeNode right = null;</div><div class="line"></div><div class="line">    public TreeNode(int val) &#123;</div><div class="line">        this.val = val;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line">*/</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">HasSubtree</span><span class="params">(TreeNode root1,TreeNode root2)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(root1 == <span class="keyword">null</span>||root2 == <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> isSubTree(root1,root2)||HasSubtree(root1.left,root2)||HasSubtree(root1.right,root2);</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isSubTree</span><span class="params">(TreeNode root1,TreeNode root2)</span></span>&#123;</div><div class="line">        <span class="keyword">if</span>(root2 == <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(root1 == <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(root1.val == root2.val)&#123;</div><div class="line">            <span class="keyword">return</span> isSubTree(root1.left,root2.left)&amp;&amp;isSubTree(root1.right,root2.right);</div><div class="line">        &#125;<span class="keyword">else</span>&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
                 
 
                 <hr>
                 <!-- Pager -->
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2017/07/15/Algorithm-7/" data-toggle="tooltip" data-placement="top" title="Algorithm_7">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/2017/07/14/Algorithm-5/" data-toggle="tooltip" data-placement="top" title="Algorithm_5">Next Post &rarr;</a>
+                            <a href="/2017/07/14/Algorithm-6/" data-toggle="tooltip" data-placement="top" title="Algorithm_6">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -315,8 +311,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "your-disqus-ID";
-    var disqus_identifier = "http://andfanswzp.pw/2017/07/14/Algorithm-6/";
-    var disqus_url = "http://andfanswzp.pw/2017/07/14/Algorithm-6/";
+    var disqus_identifier = "http://andfanswzp.pw/2017/07/15/Algorithm-7/";
+    var disqus_url = "http://andfanswzp.pw/2017/07/15/Algorithm-7/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
