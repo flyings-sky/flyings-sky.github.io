@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          Algorithm_9 - Andfans
+          Algorithm_10 - Andfans
         
     </title>
 
-    <link rel="canonical" href="http://andfanswzp.pw/2017/07/15/Algorithm-9/">
+    <link rel="canonical" href="http://andfanswzp.pw/2017/07/15/Algorithm-10/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -93,8 +93,8 @@
                               <a class="tag" href="/tags/#算法题" title="算法题">算法题</a>
                             
                         </div>
-                        <h1>Algorithm_9</h1>
-                        <h2 class="subheading">层次遍历二叉树</h2>
+                        <h1>Algorithm_10</h1>
+                        <h2 class="subheading">二叉搜索树的后序遍历序列</h2>
                         <span class="meta">
                             Posted by Andfans on
                             2017-07-15
@@ -215,26 +215,24 @@
                 post-container">
 
                 <h2 id="题目描述">题目描述</h2>
-<p>从上到下打印出二叉树的各个节点，同层节点从左到右打印。</p>
+<p>输入一个整数数组，判断该数组是不是某二叉搜索树的后序遍历结果，如果是则返回true，否则返回false，假设输入的数组任意两个数字都互不相同。</p>
 <h2 id="题目考点">题目考点</h2>
-<p>二叉树的层次遍历</p>
+<p>二叉搜索树的特点，后序遍历的特点</p>
 <h2 id="解题思路">解题思路</h2>
-<p>从根节点开始，每打印一个节点的值，就将这个结点左右孩子入队(先入左后入右)，因为队是先进先出的结构，所以从队里取出元素的时候，就是按照同层从左到右，下一层在上层后面的顺序取出的。</p>
+<p>二叉搜索树的特点:左子树节点的值都小于根节点的值，右子树节点的值都大于根节点的值。</p>
+<p>后序遍历的特点：先遍历左子树，然后遍历右子树，最后遍历根。</p>
+<p>由后序遍历的特点可知：输入序列的最后一个数字应该是树的根节点对应的值，所以可以根据这个值划分出左子树部分和右子树部分，判断左右子树部分的值是否符合二叉搜索树的特点，将左子树部分和右子树部分递归，直到输入序列无法再分，结束，如果输入序列的值都符合二叉搜索树的特点，则返回true，否则返回false</p>
 <h2 id="实现代码">实现代码</h2>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.ArrayList;</div><div class="line"><span class="comment">/**</span></div><div class="line">public class TreeNode &#123;</div><div class="line">    int val = 0;</div><div class="line">    TreeNode left = null;</div><div class="line">    TreeNode right = null;</div><div class="line"></div><div class="line">    public TreeNode(int val) &#123;</div><div class="line">        this.val = val;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line">*/</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> ArrayList&lt;Integer&gt; <span class="title">PrintFromTopToBottom</span><span class="params">(TreeNode root)</span> </span>&#123;</div><div class="line">        ArrayList&lt;Integer&gt; result = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">        <span class="keyword">if</span>(root == <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span> result;</div><div class="line">        &#125;</div><div class="line">        ArrayList&lt;TreeNode&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">        list.add(root);</div><div class="line">        <span class="keyword">int</span> index = <span class="number">0</span>;</div><div class="line">        <span class="keyword">while</span>(index &lt; list.size())&#123;</div><div class="line">            TreeNode temp = list.get(index);</div><div class="line">            result.add(temp.val);</div><div class="line">            <span class="keyword">if</span>(temp.left != <span class="keyword">null</span>)&#123;</div><div class="line">                list.add(temp.left);</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span>(temp.right != <span class="keyword">null</span>)&#123;</div><div class="line">                list.add(temp.right);</div><div class="line">            &#125;</div><div class="line">            index++;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> result;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">VerifySquenceOfBST</span><span class="params">(<span class="keyword">int</span> [] sequence)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> len = sequence.length;</div><div class="line">        <span class="keyword">if</span>(len == <span class="number">0</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">int</span> i = <span class="number">0</span>,root = sequence[len - <span class="number">1</span>];</div><div class="line">        <span class="keyword">for</span>(;i &lt; len - <span class="number">1</span>;i++)&#123;</div><div class="line">            <span class="keyword">if</span>(sequence[i] &gt; root)&#123;</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">int</span> j = i;</div><div class="line">        <span class="keyword">for</span>(;j &lt; len - <span class="number">1</span>;j++)&#123;</div><div class="line">            <span class="keyword">if</span>(sequence[j] &lt; root)&#123;</div><div class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">boolean</span> left = <span class="keyword">true</span>;</div><div class="line">        <span class="keyword">if</span>(i &gt; <span class="number">0</span>)&#123;</div><div class="line">            <span class="keyword">int</span> [] lefts = <span class="keyword">new</span> <span class="keyword">int</span>[i];</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> t = <span class="number">0</span>;t &lt; i;t++)&#123;</div><div class="line">                lefts[t] = sequence[t];</div><div class="line">            &#125;</div><div class="line">            left = VerifySquenceOfBST(lefts);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">boolean</span> right = <span class="keyword">true</span>;</div><div class="line">        <span class="keyword">if</span>(i &lt; len - <span class="number">1</span>)&#123;</div><div class="line">            <span class="keyword">int</span> [] rights = <span class="keyword">new</span> <span class="keyword">int</span>[len-i-<span class="number">1</span>];</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> t = <span class="number">0</span>;t &lt; len-i-<span class="number">1</span>;t++)&#123;</div><div class="line">                rights[t] = sequence[t+i];</div><div class="line">            &#125;</div><div class="line">            right = VerifySquenceOfBST(rights);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> left&amp;&amp;right;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
                 
 
                 <hr>
                 <!-- Pager -->
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2017/07/15/Algorithm-10/" data-toggle="tooltip" data-placement="top" title="Algorithm_10">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/2017/07/15/Algorithm-8/" data-toggle="tooltip" data-placement="top" title="Algorithm_8">Next Post &rarr;</a>
+                            <a href="/2017/07/15/Algorithm-9/" data-toggle="tooltip" data-placement="top" title="Algorithm_9">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -315,8 +313,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "your-disqus-ID";
-    var disqus_identifier = "http://andfanswzp.pw/2017/07/15/Algorithm-9/";
-    var disqus_url = "http://andfanswzp.pw/2017/07/15/Algorithm-9/";
+    var disqus_identifier = "http://andfanswzp.pw/2017/07/15/Algorithm-10/";
+    var disqus_url = "http://andfanswzp.pw/2017/07/15/Algorithm-10/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
