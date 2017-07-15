@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          Andfans
+          Algorithm_8 - Andfans
         
     </title>
 
-    <link rel="canonical" href="http://andfanswzp.pw/archives/3/">
+    <link rel="canonical" href="http://andfanswzp.pw/2017/07/15/Algorithm-8/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -69,8 +69,8 @@
 <style type="text/css">
     header.intro-header{
         
-            background-image: url('/img/header_img/home-bg-2-dark.png') 
-            /*config*/
+            background-image: url('http://i1.piimg.com/588926/14c9e94b1c44706b.png')
+            /*post*/
         
     }
     
@@ -87,10 +87,18 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 
-                    <div class="site-heading">
-                        <h1>Andfans</h1>
-                        <!--<hr class="small">-->
-                        <span class="subheading">Create the future with code!</span>
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#算法题" title="算法题">算法题</a>
+                            
+                        </div>
+                        <h1>Algorithm_8</h1>
+                        <h2 class="subheading">镜像二叉树</h2>
+                        <span class="meta">
+                            Posted by Andfans on
+                            2017-07-15
+                        </span>
                     </div>
                 
 
@@ -193,311 +201,165 @@
 
 
     <!-- Main Content -->
-    <!-- Main Content -->
-<div class="container">
-    <div class="row">
-        
+    <!-- Modify by Yu-Hsuan Yen -->
 
-<!-- USE SIDEBAR -->
-    <!-- Post Container -->
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
             <div class="
-                col-lg-8 col-lg-offset-1
-                col-md-8 col-md-offset-1
-                col-sm-12
-                col-xs-12
-                post-container
-            ">
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h2 id="题目描述">题目描述</h2>
+<p>操作给定的二叉树，将其变换为源二叉树的镜像。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">二叉树的镜像定义：源二叉树 </div><div class="line">    	    8</div><div class="line">    	   /  \</div><div class="line">    	  6   10</div><div class="line">    	 / \  / \</div><div class="line">    	5  7 9 11</div><div class="line">    	镜像二叉树</div><div class="line">    	    8</div><div class="line">    	   /  \</div><div class="line">    	  10   6</div><div class="line">    	 / \  / \</div><div class="line">    	11 9 7  5</div></pre></td></tr></table></figure>
+<h2 id="题目考点">题目考点</h2>
+<p>二叉树的遍历</p>
+<h2 id="解题思路">解题思路</h2>
+<p>层次遍历该二叉树的每个非叶子结点，并且交换这些节点的左右子树。</p>
+<h2 id="实现代码">实现代码</h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">public class TreeNode &#123;</div><div class="line">    int val = 0;</div><div class="line">    TreeNode left = null;</div><div class="line">    TreeNode right = null;</div><div class="line"></div><div class="line">    public TreeNode(int val) &#123;</div><div class="line">        this.val = val;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line">*/</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Mirror</span><span class="params">(TreeNode root)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(root == <span class="keyword">null</span>||(root.left ==<span class="keyword">null</span> &amp;&amp; root.right == <span class="keyword">null</span>))&#123;</div><div class="line">            <span class="keyword">return</span> ;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        TreeNode temp = root.left;</div><div class="line">        root.left = root.right;</div><div class="line">        root.right = temp;</div><div class="line">        <span class="keyword">if</span>(root.left != <span class="keyword">null</span>)&#123;</div><div class="line">            Mirror(root.left);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(root.right != <span class="keyword">null</span>)&#123;</div><div class="line">            Mirror(root.right);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/2017/07/15/Algorithm-7/" data-toggle="tooltip" data-placement="top" title="Algorithm_7">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                    <div class="comment">
+                        <div id="disqus_thread" class="disqus-thread"></div>
+                    </div>
+                
+                <!-- disqus comment end -->
+            </div>
             
-                <!-- Main Content -->
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
 
-
-<div class="post-preview">
-
-    <a href="/2017/05/20/Android-Studio中Kotlin开发环境配置/">
-        <h2 class="post-title">
-            Android Studio中Kotlin开发环境配置
-        </h2>
-        <h3 class="post-subtitle">
-            2017年5月份Kotlin最新配置情况
-        </h3>
-        <div class="post-content-preview">
-            前言
-在Kotlin语言在今年的谷歌I/O大会上被正式宣布作为Android开发的官方语言之前，只是有部分大牛用自己编写的第三方库来支持在Android Studio上使用Kotlin语言进行开发，所以导致在百度、谷歌上有各种不同的陈旧的关于在Android Studio上配置Kotlin开发环境的方法，这些方法在现在可能已经过时了，不适用了，于是我决定写一篇博客来记录自从2017年5月份以......
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#题目描述"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">题目描述</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#题目考点"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">题目考点</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#解题思路"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">解题思路</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#实现代码"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">实现代码</span></a></li></ol>
+        
         </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Andfans on
-            2017-05-20
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Android" title="Android">Android</a>
-            
-              <a href="/tags/#Kotlin" title="Kotlin">Kotlin</a>
-            
-        </div>
+      </aside>
     
 
-</div>
-<hr>
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
 
-<div class="post-preview">
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#算法题" title="算法题">算法题</a>
+                        
+                    </div>
+                </section>
+                
 
-    <a href="/2017/05/20/记一次令人崩溃的Android踩坑之旅/">
-        <h2 class="post-title">
-            Android Studio创建项目直接编译出错的解决办法
-        </h2>
-        <h3 class="post-subtitle">
-            记一次令人崩溃的Android踩坑之旅
-        </h3>
-        <div class="post-content-preview">
-            错误产生经过
-昨天下午坐到实验里，正准备体验一把最近因为Google I/O大会火的一塌糊涂的Kotlin，我看到网上在Android Studio上Kotlin开发环境配置教程都比较旧了，所以我也做好了踩坑的准备，但是没想到事情远没有那么简单，按照教程配了一波，差不多了以后clean-&gt;rebuild，如我所料，出现了错误，错误信息如下:
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
 
-错误信息里提示我去找Logs，我就傻傻的去......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Andfans on
-            2017-05-20
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Android" title="Android">Android</a>
-            
-              <a href="/tags/#Bugs" title="Bugs">Bugs</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2017/05/19/加速Android项目构建/">
-        <h2 class="post-title">
-            加速Android项目构建
-        </h2>
-        <h3 class="post-subtitle">
-            Gradle编译速度优化
-        </h3>
-        <div class="post-content-preview">
-            开启Gradle单独的守护进程
-只优化单个项目
-修改项目下的gradle.properties文件:
-12345678910111213141516171819202122# Project-wide Gradle settings.# IDE (e.g. Android Studio) users:# Settings specified in this file will overrid......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Andfans on
-            2017-05-19
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Android" title="Android">Android</a>
-            
-              <a href="/tags/#Gradle" title="Gradle">Gradle</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2017/05/19/my-first-blog/">
-        <h2 class="post-title">
-            开篇
-        </h2>
-        <h3 class="post-subtitle">
-            新博客搭建完成的第一篇文章
-        </h3>
-        <div class="post-content-preview">
-            经过大半天的折腾，新博客终于搭建的差不多了。瞬间感觉动力满满，希望能尽快把博客搬迁过来，否则显得空荡荡的，最近有项目要赶，可能博客更新有限。
-时间宝贵，这篇博客就到这吧，等有时间再扯闲篇。
-...
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Andfans on
-            2017-05-19
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#随笔" title="随笔">随笔</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-
-
-<!-- Pager -->
-
-<ul class="pager">
-    
-        <li class="previous">
-            <a href="/archives/2/">&larr; Newer Posts</a>
-        </li>
-    
-    
-</ul>
-
-
-
-                <!-- 如果开启评论功能 -->
+                    
+                        <li><a href="http://blog.kaijun.rocks" target="_blank">Kaijun&#39;s Blog</a></li>
+                    
+                        <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
+                    
+                </ul>
                 
             </div>
-
-          <!-- Sidebar Container -->
-<div class="
-    col-lg-3 col-lg-offset-0
-    col-md-3 col-md-offset-0
-    col-sm-12
-    col-xs-12
-    sidebar-container
-">
-    
-        <!-- Featured Tags -->
-
-<section>
-    <!-- no hr -->
-    <h5><a href="/tags/">FEATURED TAGS</a></h5>
-    <div class="tags">
-        
-            
-            <a href="/tags/#算法题" title="算法题" rel="8">算法题</a>
-            
-        
-            
-        
-            
-        
-            
-        
-            
-            <a href="/tags/#Java" title="Java" rel="6">Java</a>
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
+        </div>
     </div>
-</section>
+</article>
 
-        <hr>
-    
-        <!-- Short About -->
-<section class="visible-md visible-lg">
-    <h5><a href="/about/">ABOUT ME</a></h5>
-    <div class="short-about">
 
-        
-            <img id = "avatar_pic" src="/img/head.jpg" />
-        
 
-        
-            <p>I&#39;m a coder farmer</p>
-        
 
-        <!-- SNS Link -->
-        <ul class="list-inline">
-            
-            
-            
+<!-- disqus embedded js code start (one page only need to embed once) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "your-disqus-ID";
+    var disqus_identifier = "http://andfanswzp.pw/2017/07/15/Algorithm-8/";
+    var disqus_url = "http://andfanswzp.pw/2017/07/15/Algorithm-8/";
 
-            
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus embedded js code start end -->
 
-            
 
-            
-                <li>
-                    <a target="_blank"  href="https://github.com/flyings-sky">
-                        <span class="fa-stack fa-lg">
-                            <i class="fa fa-circle fa-stack-2x"></i>
-                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                        </span>
-                    </a>
-                </li>
-            
-            
-            
-            
-        </ul>
-    </div>
-</section>
-        <hr>
-    
-        
-  <h5>RECENT POSTS</h3>
-  <div class="widget">
-    <ul>
-      
-        <li>
-          <a href="/2017/07/15/Algorithm-8/">Algorithm_8</a>
-        </li>
-      
-        <li>
-          <a href="/2017/07/15/Algorithm-7/">Algorithm_7</a>
-        </li>
-      
-        <li>
-          <a href="/2017/07/14/Algorithm-6/">Algorithm_6</a>
-        </li>
-      
-        <li>
-          <a href="/2017/07/14/Algorithm-5/">Algorithm_5</a>
-        </li>
-      
-        <li>
-          <a href="/2017/07/13/Algorithm-4/">Algorithm_4</a>
-        </li>
-      
-    </ul>
-  </div>
 
-        <hr>
-    
-        
-    <h5>ARCHIVES</h5>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">11</span></li></ul>
-    </div>
 
-        <hr>
-    
-        <!-- Categories -->
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
 
-        <hr>
-    
-</div>
-
-        
-    </div>
-</div>
 
 
     <!-- Footer -->
