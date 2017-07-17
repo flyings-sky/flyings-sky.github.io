@@ -136,13 +136,6 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
-                        </li>
-                        
-                    
-
-                        
-                        <li>
                             <a href="/archive/">Archives</a>
                         </li>
                         
@@ -151,6 +144,13 @@
                         
                         <li>
                             <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -210,6 +210,43 @@
             
                 <!-- Main Content -->
 
+
+<div class="post-preview">
+
+    <a href="/2017/07/17/Algorithm-13/">
+        <h2 class="post-title">
+            Algorithm_13
+        </h2>
+        <h3 class="post-subtitle">
+            复杂链表的复制
+        </h3>
+        <div class="post-content-preview">
+            题目描述
+输入一个复杂链表(每个结点中有节点值，以及两个指针，一个指针(next)指向下一个节点，另一个特殊指针(random)指向任一个节点)，返回结果为复制后复杂链表的head。
+解题思路
+思路1
+
+1.先复制原链表中的每一个节点，用next指针链接起来
+2.以原链表L1中的各个节点作为键，以复制后链表L2中的各个节点作为值，建立哈希表。
+3.查哈希表，完成random指针的复制。
+
+用......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Andfans on
+            2017-07-17
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#算法题" title="算法题">算法题</a>
+            
+        </div>
+    
+
+</div>
+<hr>
 
 <div class="post-preview">
 
@@ -524,39 +561,6 @@ i &lt;= j &lt; n
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2017/07/12/Algorithm-3/">
-        <h2 class="post-title">
-            Algorithm_3
-        </h2>
-        <h3 class="post-subtitle">
-            合并两个排序链表
-        </h3>
-        <div class="post-content-preview">
-            题目描述
-输入两个单调递增的链表，输出两个链表合成后的链表，当然我们需要合成后的链表满足单调不减规则。
-题目考点
-链表的基本操作
-解题思路
-将两个单链表，使用两个指针p1，p2，从头到尾依次遍历，比较每次遍历到的值的大小，将值较小的指针指向的结点连接在新链表的后面，然后更新值较小的指针的位置，将其后移一位，直至p1，p2有一个指针为空，结束遍历，将不为空的那个单链表的剩余部分，连接在新链表尾......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Andfans on
-            2017-07-12
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#算法题" title="算法题">算法题</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -593,7 +597,7 @@ i &lt;= j &lt; n
     <div class="tags">
         
             
-            <a href="/tags/#算法题" title="算法题" rel="12">算法题</a>
+            <a href="/tags/#算法题" title="算法题" rel="13">算法题</a>
             
         
             
@@ -676,6 +680,10 @@ i &lt;= j &lt; n
     <ul>
       
         <li>
+          <a href="/2017/07/17/Algorithm-13/">Algorithm_13</a>
+        </li>
+      
+        <li>
           <a href="/2017/07/16/Algorithm-12/">Algorithm_12</a>
         </li>
       
@@ -691,10 +699,6 @@ i &lt;= j &lt; n
           <a href="/2017/07/15/Algorithm-9/">Algorithm_9</a>
         </li>
       
-        <li>
-          <a href="/2017/07/15/Algorithm-8/">Algorithm_8</a>
-        </li>
-      
     </ul>
   </div>
 
@@ -703,7 +707,7 @@ i &lt;= j &lt; n
         
     <h5>ARCHIVES</h5>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">11</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">11</span></li></ul>
     </div>
 
         <hr>
