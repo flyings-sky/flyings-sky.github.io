@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          Algorithm_13 - Andfans
+          Algorithm_14 - Andfans
         
     </title>
 
-    <link rel="canonical" href="http://andfanswzp.pw/2017/07/17/Algorithm-13/">
+    <link rel="canonical" href="http://andfanswzp.pw/2017/07/17/Algorithm-14/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -93,8 +93,8 @@
                               <a class="tag" href="/tags/#算法题" title="算法题">算法题</a>
                             
                         </div>
-                        <h1>Algorithm_13</h1>
-                        <h2 class="subheading">复杂链表的复制</h2>
+                        <h1>Algorithm_14</h1>
+                        <h2 class="subheading">将二叉搜索树变成一个双向链表</h2>
                         <span class="meta">
                             Posted by Andfans on
                             2017-07-17
@@ -215,37 +215,22 @@
                 post-container">
 
                 <h2 id="题目描述">题目描述</h2>
-<p>输入一个复杂链表(每个结点中有节点值，以及两个指针，一个指针(next)指向下一个节点，另一个特殊指针(random)指向任一个节点)，返回结果为复制后复杂链表的head。</p>
+<p>输入一棵二叉搜索树，将该二叉搜索树转换成一个排序的双向链表。要求不能创建任何新的结点，只能调整树中结点指针的指向。</p>
+<h2 id="题目考点">题目考点</h2>
+<p>二叉树的中序遍历，二叉搜索树的特点</p>
 <h2 id="解题思路">解题思路</h2>
-<h3 id="思路1">思路1</h3>
-<ul>
-<li>1.先复制原链表中的每一个节点，用next指针链接起来</li>
-<li>2.以原链表L1中的各个节点作为键，以复制后链表L2中的各个节点作为值，建立哈希表。</li>
-<li>3.查哈希表，完成random指针的复制。</li>
-</ul>
-<p>用空间换时间，时间复杂度和空间复杂度均为O(n)</p>
-<h3 id="思路2">思路2</h3>
-<ul>
-<li>1.根据原始链表的每个结点N创建对应的N’，并且将N’用next指针链接在N后面</li>
-<li>2.复制原始链表的random指针域。用N的next指针域可以方便的查找到对应的N’结点</li>
-<li>3.将这个链表拆分成两个链表:奇数位置结点组成的链表为复制之后的链表，偶数位置结点组成的链表为复制之前的链表。</li>
-</ul>
-<p>用N的next指针域可以方便的查找到对应的N’结点，不需要使用新的辅助空间即可实现O(n)的时间复杂度</p>
+<p>由于二叉搜索树的特点，二叉搜索树中序遍历的结果是一个递增序列，所以我们只需要按照中序遍历二叉搜索树，并且用每个结点的left指针指向前一个节点，right指针指向后一个节点即可，用一个指针pLast来记录当前遍历到的最后一个节点。</p>
 <h2 id="实现代码">实现代码</h2>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line">public class RandomListNode &#123;</div><div class="line">    int label;</div><div class="line">    RandomListNode next = null;</div><div class="line">    RandomListNode random = null;</div><div class="line"></div><div class="line">    RandomListNode(int label) &#123;</div><div class="line">        this.label = label;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">*/</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> RandomListNode <span class="title">Clone</span><span class="params">(RandomListNode pHead)</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span>(pHead == <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        &#125;</div><div class="line">        CopyNextNode(pHead);</div><div class="line">        CopyRandomNode(pHead);</div><div class="line">        <span class="keyword">return</span> SplitRandomList(pHead);</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//复制结点，并将新节点链接在旧结点后面</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">CopyNextNode</span><span class="params">(RandomListNode pHead)</span></span>&#123;</div><div class="line">        RandomListNode pNode = pHead;</div><div class="line">        <span class="keyword">while</span>(pNode != <span class="keyword">null</span>)&#123;</div><div class="line">            RandomListNode pCopyNode = <span class="keyword">new</span> RandomListNode(pNode.label);</div><div class="line">            pCopyNode.next = pNode.next;</div><div class="line">            pCopyNode.random = <span class="keyword">null</span>;</div><div class="line">            pNode.next = pCopyNode;</div><div class="line">            pNode = pCopyNode.next;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//复制random指针域</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">CopyRandomNode</span><span class="params">(RandomListNode pHead)</span></span>&#123;</div><div class="line">        RandomListNode pNode = pHead;</div><div class="line">        <span class="keyword">while</span>(pNode != <span class="keyword">null</span>)&#123;</div><div class="line">            RandomListNode pCopyNode = pNode.next;</div><div class="line">            <span class="keyword">if</span>(pNode.random != <span class="keyword">null</span>)&#123;</div><div class="line">                pCopyNode.random = pNode.random.next;</div><div class="line">            &#125;</div><div class="line">            pNode = pCopyNode.next;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//拆分链表</span></div><div class="line">    <span class="function"><span class="keyword">public</span> RandomListNode <span class="title">SplitRandomList</span><span class="params">(RandomListNode pHead)</span></span>&#123;</div><div class="line">        RandomListNode pNode = pHead,pCopyNode = <span class="keyword">null</span>,pCopyHead = <span class="keyword">null</span>;</div><div class="line">        <span class="keyword">if</span>(pNode != <span class="keyword">null</span>)&#123;</div><div class="line">            pCopyNode = pCopyHead = pNode.next;</div><div class="line">            pNode.next = pCopyNode.next;</div><div class="line">            pNode = pNode.next;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">while</span>(pNode != <span class="keyword">null</span>)&#123;</div><div class="line">            pCopyNode.next = pNode.next;</div><div class="line">            pCopyNode = pCopyNode.next;</div><div class="line">            pNode.next = pCopyNode.next;</div><div class="line">            pNode = pNode.next;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> pCopyHead;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">public class TreeNode &#123;</div><div class="line">    int val = 0;</div><div class="line">    TreeNode left = null;</div><div class="line">    TreeNode right = null;</div><div class="line"></div><div class="line">    public TreeNode(int val) &#123;</div><div class="line">        this.val = val;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line">*/</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> TreeNode <span class="title">Convert</span><span class="params">(TreeNode pRootOfTree)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(pRootOfTree == <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        &#125;</div><div class="line">        TreeNode pLast = <span class="keyword">null</span>;</div><div class="line">        TreeNode head = CovertNode(pRootOfTree,pLast);</div><div class="line">        <span class="keyword">while</span>(head.left != <span class="keyword">null</span>)&#123;</div><div class="line">            head = head.left;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> head;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> TreeNode <span class="title">CovertNode</span><span class="params">(TreeNode pRoot,TreeNode pLastNode)</span></span>&#123;</div><div class="line">        <span class="keyword">if</span>(pRoot == <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        TreeNode pCurrent = pRoot;</div><div class="line">        <span class="keyword">if</span>(pCurrent.left != <span class="keyword">null</span>)&#123;</div><div class="line">            pLastNode = CovertNode(pCurrent.left,pLastNode);</div><div class="line">        &#125;</div><div class="line">        pCurrent.left = pLastNode;</div><div class="line">        <span class="keyword">if</span>(pLastNode != <span class="keyword">null</span>)&#123;</div><div class="line">            pLastNode.right = pCurrent;</div><div class="line">        &#125;</div><div class="line">        pLastNode = pCurrent;</div><div class="line">        <span class="keyword">if</span>(pCurrent.right != <span class="keyword">null</span>)&#123;</div><div class="line">            pLastNode = CovertNode(pCurrent.right,pLastNode);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> pLastNode;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
                 
 
                 <hr>
                 <!-- Pager -->
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2017/07/17/Algorithm-14/" data-toggle="tooltip" data-placement="top" title="Algorithm_14">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/2017/07/16/Algorithm-12/" data-toggle="tooltip" data-placement="top" title="Algorithm_12">Next Post &rarr;</a>
+                            <a href="/2017/07/17/Algorithm-13/" data-toggle="tooltip" data-placement="top" title="Algorithm_13">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -275,7 +260,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#题目描述"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">题目描述</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#解题思路"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">解题思路</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#思路1"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text">思路1</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#思路2"><span class="toc-nav-number">2.2.</span> <span class="toc-nav-text">思路2</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#实现代码"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">实现代码</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#题目描述"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">题目描述</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#题目考点"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">题目考点</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#解题思路"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">解题思路</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#实现代码"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">实现代码</span></a></li></ol>
         
         </div>
       </aside>
@@ -326,8 +311,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "your-disqus-ID";
-    var disqus_identifier = "http://andfanswzp.pw/2017/07/17/Algorithm-13/";
-    var disqus_url = "http://andfanswzp.pw/2017/07/17/Algorithm-13/";
+    var disqus_identifier = "http://andfanswzp.pw/2017/07/17/Algorithm-14/";
+    var disqus_url = "http://andfanswzp.pw/2017/07/17/Algorithm-14/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
