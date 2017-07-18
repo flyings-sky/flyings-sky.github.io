@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          Algorithm_2 - Andfans
+          Algorithm_16 - Andfans
         
     </title>
 
-    <link rel="canonical" href="http://andfanswzp.pw/2017/07/12/Algorithm-2/">
+    <link rel="canonical" href="http://andfanswzp.pw/2017/07/18/Algorithm-16/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -93,11 +93,11 @@
                               <a class="tag" href="/tags/#算法题" title="算法题">算法题</a>
                             
                         </div>
-                        <h1>Algorithm_2</h1>
-                        <h2 class="subheading">链表逆置</h2>
+                        <h1>Algorithm_16</h1>
+                        <h2 class="subheading">字符串的排列</h2>
                         <span class="meta">
                             Posted by Andfans on
-                            2017-07-12
+                            2017-07-18
                         </span>
                     </div>
                 
@@ -215,28 +215,23 @@
                 post-container">
 
                 <h2 id="题目描述">题目描述</h2>
-<p>输入一个单链表，得到该单链表的反转链表。</p>
-<h2 id="题目考点">题目考点</h2>
-<p>链表的基本操作</p>
+<p>输入一个字符串，打印出该字符串中字符的所有排列。例如输入字符串abc，则打印出由a、b、c所能排列出来的所有字符串abc、acb、bac、bca、cab和cba。</p>
 <h2 id="解题思路">解题思路</h2>
-<p>使用四个引用(即指针)pNode、pPre、pNext、pNewHead，其中pNode用于遍历原链表，pPre用于记录前驱结点，pNext用于记录后继结点，pNewHead用来表示反转之后新链表的头。</p>
-<h3 id="重点代码解释">重点代码解释</h3>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//循环遍历单链表</span></div><div class="line"><span class="keyword">while</span>(pNode != <span class="keyword">null</span>)&#123;</div><div class="line">  			<span class="comment">//将pNext指向pNode的后继结点</span></div><div class="line">            pNext = pNode.next;</div><div class="line">  			<span class="comment">//当pNext为空时，表示pNode没有后继结点，pNode已经是最后一个结点了，所以pNode就是反转链表的头</span></div><div class="line">            <span class="keyword">if</span>(pNext == <span class="keyword">null</span>)&#123;</div><div class="line">                pNewHead = pNode;</div><div class="line">            &#125;</div><div class="line">  			<span class="comment">//将当前结点指向它的前驱结点</span></div><div class="line">            pNode.next = pPre;</div><div class="line">  			<span class="comment">//将前驱结点更新为当前结点</span></div><div class="line">            pPre = pNode;</div><div class="line">  			<span class="comment">//将当前节点更新为它的后继结点，开始下一次循环</span></div><div class="line">            pNode = pNext;</div><div class="line">        &#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>先固定住第一个字符，求剩余字符的全排列，然后将第一个字符与后面的字符依次交换，每交换一次求一次全排列。</li>
+<li>对于剩余字符用相同的方法，固定住第一个字符，求剩余字符的全排列，直至划分到只剩一个字符(即最后一个字符)时，返回这个字符串。</li>
+</ul>
 <h2 id="实现代码">实现代码</h2>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line">public class ListNode &#123;</div><div class="line">    int val;</div><div class="line">    ListNode next = null;</div><div class="line"></div><div class="line">    ListNode(int val) &#123;</div><div class="line">        this.val = val;</div><div class="line">    &#125;</div><div class="line">&#125;*/</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">ReverseList</span><span class="params">(ListNode head)</span> </span>&#123;</div><div class="line">      	<span class="keyword">if</span>(head == <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">      	&#125;</div><div class="line">		ListNode pNewHead = <span class="keyword">null</span>,pNode,pNext,pPre = <span class="keyword">null</span>;</div><div class="line">        pNode = head;</div><div class="line">        <span class="keyword">while</span>(pNode != <span class="keyword">null</span>)&#123;</div><div class="line">            pNext = pNode.next;</div><div class="line">            <span class="keyword">if</span>(pNext == <span class="keyword">null</span>)&#123;</div><div class="line">                pNewHead = pNode;</div><div class="line">            &#125;</div><div class="line">            pNode.next = pPre;</div><div class="line">            pPre = pNode;</div><div class="line">            pNode = pNext;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> pNewHead;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.ArrayList;</div><div class="line"><span class="keyword">import</span> java.util.TreeSet;</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> ArrayList&lt;String&gt; <span class="title">Permutation</span><span class="params">(String str)</span> </span>&#123;</div><div class="line">        ArrayList&lt;String&gt; result = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">        <span class="keyword">if</span>(str == <span class="keyword">null</span>||str.length() == <span class="number">0</span>)&#123;</div><div class="line">            <span class="keyword">return</span> result;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">char</span> [] chars = str.toCharArray();</div><div class="line">        TreeSet&lt;String&gt; temp = <span class="keyword">new</span> TreeSet&lt;&gt;();</div><div class="line">        Permutation(chars,<span class="number">0</span>,temp);</div><div class="line">        result.addAll(temp);</div><div class="line">        <span class="keyword">return</span> result;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Permutation</span><span class="params">(<span class="keyword">char</span> [] chars,<span class="keyword">int</span> begin,TreeSet&lt;String&gt; result)</span></span>&#123;</div><div class="line">        <span class="keyword">if</span>(begin == chars.length-<span class="number">1</span>)&#123;</div><div class="line">            result.add(String.valueOf(chars));</div><div class="line">        &#125;<span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = begin;i &lt; chars.length;i++)&#123;</div><div class="line">                swap(chars,begin,i);</div><div class="line">               	Permutation(chars,begin+<span class="number">1</span>,result);</div><div class="line">                swap(chars,begin,i);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">char</span> [] chars,<span class="keyword">int</span> op1,<span class="keyword">int</span> op2)</span></span>&#123;</div><div class="line">        <span class="keyword">char</span> temp = chars[op1];</div><div class="line">        chars[op1] = chars[op2];</div><div class="line">        chars[op2] = temp;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
                 
 
                 <hr>
                 <!-- Pager -->
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2017/07/12/Algorithm-3/" data-toggle="tooltip" data-placement="top" title="Algorithm_3">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/2017/06/23/JAVA虚拟机之性能监控与故障处理工具/" data-toggle="tooltip" data-placement="top" title="JAVA虚拟机之性能监控与故障处理工具">Next Post &rarr;</a>
+                            <a href="/2017/07/17/Algorithm-15/" data-toggle="tooltip" data-placement="top" title="Algorithm_15">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -266,7 +261,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#题目描述"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">题目描述</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#题目考点"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">题目考点</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#解题思路"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">解题思路</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#重点代码解释"><span class="toc-nav-number">3.1.</span> <span class="toc-nav-text">重点代码解释</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#实现代码"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">实现代码</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#题目描述"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">题目描述</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#解题思路"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">解题思路</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#实现代码"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">实现代码</span></a></li></ol>
         
         </div>
       </aside>
@@ -317,8 +312,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "your-disqus-ID";
-    var disqus_identifier = "http://andfanswzp.pw/2017/07/12/Algorithm-2/";
-    var disqus_url = "http://andfanswzp.pw/2017/07/12/Algorithm-2/";
+    var disqus_identifier = "http://andfanswzp.pw/2017/07/18/Algorithm-16/";
+    var disqus_url = "http://andfanswzp.pw/2017/07/18/Algorithm-16/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
