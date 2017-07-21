@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          Algorithm_2 - Andfans
+          Activity浅析 - Andfans
         
     </title>
 
-    <link rel="canonical" href="http://andfanswzp.pw/2017/07/12/Algorithm-2/">
+    <link rel="canonical" href="http://andfanswzp.pw/2017/07/21/Activity浅析/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -90,14 +90,14 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#算法题" title="算法题">算法题</a>
+                              <a class="tag" href="/tags/#Activity，Android" title="Activity，Android">Activity，Android</a>
                             
                         </div>
-                        <h1>Algorithm_2</h1>
-                        <h2 class="subheading">链表逆置</h2>
+                        <h1>Activity浅析</h1>
+                        <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by Andfans on
-                            2017-07-12
+                            2017-07-21
                         </span>
                     </div>
                 
@@ -214,29 +214,90 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h2 id="题目描述">题目描述</h2>
-<p>输入一个单链表，得到该单链表的反转链表。</p>
-<h2 id="题目考点">题目考点</h2>
-<p>链表的基本操作</p>
-<h2 id="解题思路">解题思路</h2>
-<p>使用四个引用(即指针)pNode、pPre、pNext、pNewHead，其中pNode用于遍历原链表，pPre用于记录前驱结点，pNext用于记录后继结点，pNewHead用来表示反转之后新链表的头。</p>
-<h3 id="重点代码解释">重点代码解释</h3>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//循环遍历单链表</span></div><div class="line"><span class="keyword">while</span>(pNode != <span class="keyword">null</span>)&#123;</div><div class="line">  			<span class="comment">//将pNext指向pNode的后继结点</span></div><div class="line">            pNext = pNode.next;</div><div class="line">  			<span class="comment">//当pNext为空时，表示pNode没有后继结点，pNode已经是最后一个结点了，所以pNode就是反转链表的头</span></div><div class="line">            <span class="keyword">if</span>(pNext == <span class="keyword">null</span>)&#123;</div><div class="line">                pNewHead = pNode;</div><div class="line">            &#125;</div><div class="line">  			<span class="comment">//将当前结点指向它的前驱结点</span></div><div class="line">            pNode.next = pPre;</div><div class="line">  			<span class="comment">//将前驱结点更新为当前结点</span></div><div class="line">            pPre = pNode;</div><div class="line">  			<span class="comment">//将当前节点更新为它的后继结点，开始下一次循环</span></div><div class="line">            pNode = pNext;</div><div class="line">        &#125;</div></pre></td></tr></table></figure>
-<h2 id="实现代码">实现代码</h2>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line">public class ListNode &#123;</div><div class="line">    int val;</div><div class="line">    ListNode next = null;</div><div class="line"></div><div class="line">    ListNode(int val) &#123;</div><div class="line">        this.val = val;</div><div class="line">    &#125;</div><div class="line">&#125;*/</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">ReverseList</span><span class="params">(ListNode head)</span> </span>&#123;</div><div class="line">      	<span class="keyword">if</span>(head == <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">      	&#125;</div><div class="line">		ListNode pNewHead = <span class="keyword">null</span>,pNode,pNext,pPre = <span class="keyword">null</span>;</div><div class="line">        pNode = head;</div><div class="line">        <span class="keyword">while</span>(pNode != <span class="keyword">null</span>)&#123;</div><div class="line">            pNext = pNode.next;</div><div class="line">            <span class="keyword">if</span>(pNext == <span class="keyword">null</span>)&#123;</div><div class="line">                pNewHead = pNode;</div><div class="line">            &#125;</div><div class="line">            pNode.next = pPre;</div><div class="line">            pPre = pNode;</div><div class="line">            pNode = pNext;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> pNewHead;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+                <h2 id="activity的生命周期">Activity的生命周期</h2>
+<p>在正式介绍Activity的生命周期之前，先来说一下Activity的几个常见状态：</p>
+<ul>
+<li>Active/Running：活动状态，此时Activity位于任务栈的栈顶，可见而且可交互，一般在onResume方法执行完毕后会到达此状态</li>
+<li>Paused：暂停状态，此时Activity仍然处于可见状态，但是不能与用户进行交互，一般在onPause方法执行完毕后会到达此状态，在极低内存时，会被杀死，常见的场景是：在一个Activity（A）中再弹出一个非全尺寸或者透明的Activity（B）时，Activity(A)就会到达此状态。</li>
+<li>stopped：停止状态，此时Activity已经不可见，一般在onStop方法执行完毕后会到达此状态，在其他地方需要内存时会被杀死。</li>
+<li>killed：销毁状态，当Activity执行了onDestory方法后或者因为内存不足，Activity被系统强制回收时会到达此状态。</li>
+</ul>
+<h3 id="正常情况下的生命周期分析">正常情况下的生命周期分析</h3>
+<ul>
+<li>onCreate：这是所有Activity启动后要执行的第一个生命周期方法，可以在这里做一些初始化工作，对于一个指定的Activity而言，除非该Activity被杀死并重启了，否则该方法只会执行一次。</li>
+<li>onStart：这个方法执行完毕后，Activity就已经可见了，但是仍无法与用户交互。</li>
+<li>onResume：这个方法执行完毕之后，Activity就已经出现在前台(可见且可交互)了，此时Activity处于Active/Running状态。</li>
+<li>onPause：在这个方法执行完毕之后，Activity将不再处于前台(仍然可见，但是无法与用户交互)，处于paused状态，一般会在该方法中进行一些保存数据的操作，如果在这时马上回到原来Activity，onResume方法会被调用。</li>
+<li>onStop：在这个方法执行完毕之后，Activity已经不可见了，处于stopped状态，一般会在该方法中可以进行一些轻量级的回收工作。</li>
+<li>onDestory：在这个方法执行完毕后，Activity就已经被销毁了，处于killed状态，在该方法中可以做一些回收和资源释放工作。</li>
+<li>onRestart：表示Activity正在重新启动，是一个从不可见到可见的过程</li>
+</ul>
+<p>从整个生命周期来说，onCreate和onDestroy是配对的，表示Activity的创建和销毁，并且只可能有一次调用；从Activity是否可见来说，onStart和onStop是配对的，随着用户的操作或者设备屏幕的点亮和熄灭而调用多次；从Activity是否在前台来说，onResume和onPause是配对的,随着用户操作或者设备屏幕的点亮和熄灭而被调用多次。</p>
+<p><img src="http://oqnfoupsj.bkt.clouddn.com/17-7-10/71526340.jpg" alt=""></p>
+<h3 id="异常情况下的生命周期分析">异常情况下的生命周期分析</h3>
+<p>1.在资源相关的系统配置发生改变导致Activity被杀死并重建</p>
+<p>如果Activity是在异常情况下终止的，系统会调用onSaveInstanceState来保存当前Activity的状态，这个方法的调用时机是在onStop之前，当Activity被重新创建时,系统会调用onRestoreInstanceState，并且把Activity销毁时onSaveInstanceState保存的Bundle对象作为参数同时传递给onRestoreInstanceState和onCreate。onRestoreInstanceState的调用时机在onStart之后，官方建议采用onRestoreInstanceState去恢复数据。</p>
+<p>针对onSaveInstanceState方法，需要注意的是，系统只会在Activity即将被销毁并且有机会重新显示的情况下才会去调用。</p>
+<h4 id="如何让系统配置的变化不影响activity的生命周期">如何让系统配置的变化不影响Activity的生命周期？</h4>
+<p>给Activity指定configChanges属性，如果想指定多个值，可以用&quot;|&quot;隔开，常用的属性值为locale(设备的本地位置发生改变)、orientation(屏幕方向发生改变)、keyboardHidden(键盘的可访问性发生了变化)</p>
+<p>API&gt;=13时，为了防止屏幕方向改变时Activity重启，需要同时给configChanges指定&quot;orientation|screenSize&quot;，当API&lt;13时，为了防止屏幕方向改变时Activity重启，只需要将configChanges指定&quot;orientation&quot;</p>
+<h4 id="系统保存和恢复view层次结构的工作流程">系统保存和恢复View层次结构的工作流程</h4>
+<p>首先Activity被意外终止时，Activity会调用onSaveInstanceState去保存数据，然后Activity会委托Window去保存数据，接着Window再委托它上面的顶级容器去保存数据。顶层容器是一个ViewGroup(一般来说很可能是DecorView)，最后顶层容器再去一一通知它的子元素来保存数据，这样整个数据保存过程就完成了。</p>
+<p>2.资源不足导致优先级低的Activity被杀死。</p>
+<p>Activity的优先级：</p>
+<ul>
+<li>前台Activity—正在和用户交互的Activity，优先级最高</li>
+<li>可见但非前台Activity—优先级次之</li>
+<li>后台Activity-----已经被暂停的Activity，优先级最低</li>
+</ul>
+<h2 id="activity的启动模式">Activity的启动模式</h2>
+<h3 id="launchmode">LaunchMode</h3>
+<ul>
+<li>standard：每次启动，不管任务栈情形如何，都需要重新创建一个新的Activity实例放入任务栈中。</li>
+<li>singleTop：如果要启动的Activity已经处在任务栈的顶部，那么不需要重新创建新的Activity实例，它的onNewIntent方法会被回调。</li>
+<li>singleTask：如果要启动一个处于该模式的Activity(A)，系统会首先寻找是否存在A想要的任务栈，如果不存在，就重新创建一个任务栈，然后再创建一个新的Activity实例，放入其中，如果已经存在A所需的任务栈，再查找在该栈中是否存在A的实例，如果有实例存在，那么系统就会把A调到栈顶(clearTop：将A实例上面的实例全部出栈)并调用它的onNewIntent方法，如果实例不存在，就创建一个实例压入栈中。只要A在一个栈中存在，那么多次启动此Activity都不会重新创建实例。</li>
+<li>singleInstance：具有这种模式的Activity只能单独位于一个任务栈中，如果第一次启动一个处在该模式的Activity(A)，会首先创建一个新的任务栈，然后会创建一个A的实例并且压入这个栈中，A独自在这个新的任务栈中，由于栈内复用的特点，后序再启动A时，就不会再创建新的实例了，除非这个任务栈被销毁。</li>
+</ul>
+<h3 id="flags">Flags</h3>
+<ul>
+<li>FLAG_ACTIVITY_NEW_TASK：为Activity指定singleTask启动模式</li>
+<li>FLAG_ACTIVITY_SINGLE_TOP：为Activity指定&quot;singleTop&quot;启动模式</li>
+<li>FLAG_ACTIVITY_CLEAR_TOP：具有此标记位的Activity，当它启动时，在同一个任务栈中位于它上面的所有Activity都要出栈</li>
+</ul>
+<p>上面两种方式都可以用来指定启动模式，二者的区别是：Flags方式优先级更高，LaunchMode方式无法为Activity显式指定FLAG_ACTIVITY_CLEAR_TOP标识，Flags方式无法直接为Activity指定singleInstance模式</p>
+<h2 id="intentfilter的匹配规则">IntentFilter的匹配规则</h2>
+<ul>
+<li>action的匹配规则：一个过滤规则可以有多个action，Intent<strong>必须</strong>存在action而且能够和过滤规则中的其中一个action相同即可匹配成功，action区分大小写。</li>
+<li>category的匹配规则：
+<ul>
+<li>要求Intent中<strong>如果存在</strong>category，那么所有存在的category都必须和过滤规则中的其中一个category相同</li>
+<li>如果Intent中不存在category(在IntentFilter中必须包含android.intent.category.DEFAULT)也可以匹配成功，因为系统在调用startActivity或者startActivityForResult的时候会默认为intent加上android.intent.category.DEFAULT这个category。</li>
+</ul>
+</li>
+<li>data的匹配规则：与action类似，它也要求Intent中必须含有(如果在IntentFilter中定义了data时)data数据，并且data数据能够完全匹配过滤规则中的某一个data。</li>
+</ul>
+<h2 id="特殊场景下的生命周期">特殊场景下的生命周期</h2>
+<ol>
+<li>A启动B：onPause(A) -&gt; onCreate(B) -&gt; onStart(B) -&gt; onResume(B) -&gt; onStop(A)</li>
+<li>启动Activity后翻转屏幕，未配置configChanges属性，onPause-&gt;onStop-&gt;onDestroy-&gt;onCreate-&gt;onStart-&gt;onResume(横屏切竖屏和竖屏切横屏一样，都只会销毁创建一次)</li>
+<li>singleTask模式或singleInstance模式的Activity重新启动和singleTop模式在task顶部重新启动：onPause-&gt;onNewIntent-&gt;omResume</li>
+<li>singleTask模式或singleInstance模式的Activity启动新的Activity，新的Activity再启动老Activity：onPause(新)-&gt;onNewIntent(老)-&gt;onRestart(老)-&gt;onStart(老)-&gt;onResume(老)-&gt;onStop(新)</li>
+<li>Flags为FLAG_ACTIVITY_CLEAR_TOP的Activity(A)被启动时，任务栈此时为BA：onPause(B)-&gt;onDestroy(A)-&gt;onCreate(A)-&gt;onStart(A)-&gt;onResume(A)-&gt;onStop(B)-&gt;onDestroy(B)</li>
+<li>Flags为FLAG_ACTIVITY_CLEAR_TOP+FLAG_ACTIVITY_NEW_TASK的Activity(A)被启动时，任务栈此时为BA：onPause(B)-&gt;onDestroy(A)-&gt;onCreate(A)-&gt;onStart(A)-&gt;onResume(A)-&gt;onStop(B)-&gt;onDestroy(B)</li>
+<li>Flags为FLAG_ACTIVITY_CLEAR_TOP+FLAG_ACTIVITY_SINGLE_TOP的Activity(A)被启动时，任务栈此时为BA：onPause(B)-&gt;onNewIntent(A)-&gt;onRestart(A)-&gt;onStart(A)-&gt;onResume(A)-&gt;onStop(B)-&gt;onDestroy(B)</li>
+<li>Flags为FLAG_ACTIVITY_NEW_TASK的Activity(A)被启动时，任务栈此时为BA：onPause(B)-&gt;onCreate(A)-&gt;onStart(A)-&gt;onResume(A)-&gt;onStop(B)</li>
+<li>LaunchMode为singleTask的Activity(A)被启动时，任务栈此时为BA：onPause(B)-&gt;onNewIntent(A)-&gt;onRestart(A)-&gt;onStart(A)-&gt;onResume(A)-&gt;onStop(B)-&gt;onDestroy(B)</li>
+</ol>
+
                 
 
                 <hr>
                 <!-- Pager -->
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2017/07/12/Algorithm-3/" data-toggle="tooltip" data-placement="top" title="Algorithm_3">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/2017/06/23/JAVA虚拟机之性能监控与故障处理工具/" data-toggle="tooltip" data-placement="top" title="JAVA虚拟机之性能监控与故障处理工具">Next Post &rarr;</a>
+                            <a href="/2017/07/21/Algorithm-18/" data-toggle="tooltip" data-placement="top" title="Algorithm_18">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -266,7 +327,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#题目描述"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">题目描述</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#题目考点"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">题目考点</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#解题思路"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">解题思路</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#重点代码解释"><span class="toc-nav-number">3.1.</span> <span class="toc-nav-text">重点代码解释</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#实现代码"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">实现代码</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#activity的生命周期"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">Activity的生命周期</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#正常情况下的生命周期分析"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">正常情况下的生命周期分析</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#异常情况下的生命周期分析"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text">异常情况下的生命周期分析</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#如何让系统配置的变化不影响activity的生命周期"><span class="toc-nav-number">1.2.1.</span> <span class="toc-nav-text">如何让系统配置的变化不影响Activity的生命周期？</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#系统保存和恢复view层次结构的工作流程"><span class="toc-nav-number">1.2.2.</span> <span class="toc-nav-text">系统保存和恢复View层次结构的工作流程</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#activity的启动模式"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">Activity的启动模式</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#launchmode"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text">LaunchMode</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#flags"><span class="toc-nav-number">2.2.</span> <span class="toc-nav-text">Flags</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#intentfilter的匹配规则"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">IntentFilter的匹配规则</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#特殊场景下的生命周期"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">特殊场景下的生命周期</span></a></li></ol>
         
         </div>
       </aside>
@@ -286,7 +347,7 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#算法题" title="算法题">算法题</a>
+                          <a class="tag" href="/tags/#Activity，Android" title="Activity，Android">Activity，Android</a>
                         
                     </div>
                 </section>
@@ -317,8 +378,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "your-disqus-ID";
-    var disqus_identifier = "http://andfanswzp.pw/2017/07/12/Algorithm-2/";
-    var disqus_url = "http://andfanswzp.pw/2017/07/12/Algorithm-2/";
+    var disqus_identifier = "http://andfanswzp.pw/2017/07/21/Activity浅析/";
+    var disqus_url = "http://andfanswzp.pw/2017/07/21/Activity浅析/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

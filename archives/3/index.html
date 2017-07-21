@@ -143,14 +143,14 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -210,6 +210,41 @@
             
                 <!-- Main Content -->
 
+
+<div class="post-preview">
+
+    <a href="/2017/06/19/JAVA虚拟机之垃圾回收机制与内存分配策略/">
+        <h2 class="post-title">
+            JAVA虚拟机之垃圾回收机制与内存分配策略
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            对象已死吗？
+引用计数法
+算法思想:给对象添加一个引用计数器，每当有一个地方引用它时，计数器值就加1；当引用失效时，计数器值就减1；任何时刻计数器为0的对象就是不可能被再使用的对象。
+这个算法虽然实现简单，判定效率也很高，但是它很难解决对象之间循环引用的问题，所以目前主流的Java虚拟机里面并未采用这种算法来管理内存。
+可达性分析算法
+算法思想:通过一系列的称为“GC Roots”的对象作为......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Andfans on
+            2017-06-19
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Java" title="Java">Java</a>
+            
+              <a href="/tags/#Jvm" title="Jvm">Jvm</a>
+            
+        </div>
+    
+
+</div>
+<hr>
 
 <div class="post-preview">
 
@@ -354,9 +389,9 @@ r......
         </p>
         <div class="tags">
             
-              <a href="/tags/#Tools" title="Tools">Tools</a>
-            
               <a href="/tags/#Java" title="Java">Java</a>
+            
+              <a href="/tags/#Tools" title="Tools">Tools</a>
             
         </div>
     
@@ -530,39 +565,6 @@ Java中的clone()方法
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2017/05/23/Android中子线程更新UI之惑(未完)/">
-        <h2 class="post-title">
-            Android中子线程更新UI之惑(未完待续)
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            前言
-今天在上课刷博客时，看了一篇略让我感到震惊的博客，这篇博客中写到“在Activity的OnResume生命周期之前的方法，直接在子线程中操作UI并不会报错”，这句话简直吊炸天有没有，我带着一丝怀疑去查阅各种资料，最终算是搞清楚了这件事情，特发此文留作记录。
-正文
-小测试
-首先，我尝试了一下下面这段代码:
-12345678910111213141516@Overrideprotected......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Andfans on
-            2017-05-23
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Android" title="Android">Android</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -603,15 +605,17 @@ Java中的clone()方法
     <div class="tags">
         
             
+        
+            
             <a href="/tags/#算法题" title="算法题" rel="18">算法题</a>
             
         
             
         
             
-        
-            
             <a href="/tags/#Java" title="Java" rel="6">Java</a>
+            
+        
             
         
             
@@ -686,6 +690,10 @@ Java中的clone()方法
     <ul>
       
         <li>
+          <a href="/2017/07/21/Activity浅析/">Activity浅析</a>
+        </li>
+      
+        <li>
           <a href="/2017/07/21/Algorithm-18/">Algorithm_18</a>
         </li>
       
@@ -701,10 +709,6 @@ Java中的clone()方法
           <a href="/2017/07/17/Algorithm-15/">Algorithm_15</a>
         </li>
       
-        <li>
-          <a href="/2017/07/17/Algorithm-14/">Algorithm_14</a>
-        </li>
-      
     </ul>
   </div>
 
@@ -713,7 +717,7 @@ Java中的clone()方法
         
     <h5>ARCHIVES</h5>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">17</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">11</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">18</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">11</span></li></ul>
     </div>
 
         <hr>
