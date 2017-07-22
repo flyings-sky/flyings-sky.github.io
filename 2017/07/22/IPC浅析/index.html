@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          IPC浅析 - Andfans
+        
+    </title>
+
+    <link rel="canonical" href="http://andfanswzp.pw/2017/07/22/IPC浅析/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('http://i1.piimg.com/588926/14c9e94b1c44706b.png')
+            /*post*/
+        
+    }
+    
+    #signature{
+        background-image: url('/img/signature/BeanTechSign-white.png');
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#Android" title="Android">Android</a>
+                            
+                              <a class="tag" href="/tags/#IPC" title="IPC">IPC</a>
+                            
+                        </div>
+                        <h1>IPC浅析</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by Andfans on
+                            2017-07-22
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Andfans</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h2 id="概述">概述</h2>
+<p>IPC：含义为进程间通信或者跨进程通信，是指两个进程之间进行数据交换的过程。</p>
+<p>Windows中常见的IPC方式：剪切板、管道和邮槽</p>
+<p>Linux中常见的IPC方式：命名管道、共享内容、信号量</p>
+<p>Android中常见的IPC方式：Binder、Socket</p>
+<h3 id="ipc的使用场景">IPC的使用场景</h3>
+<ol>
+<li>为了加大一个应用可以使用的内存空间</li>
+<li>当前应用需要向其他应用获取数据</li>
+</ol>
+<h3 id="如何查看应用中的进程信息">如何查看应用中的进程信息？</h3>
+<ol>
+<li>借助于DDMS</li>
+<li>使用shell命令：adb  shell  ps|grep 包名</li>
+</ol>
+<h3 id="进程名的指定方式">进程名的指定方式</h3>
+<ol>
+<li>android:process = “:进程名”：&quot;:&quot;的含义是指要在当前的进程名前附加上当前的包名，因此完整的进程名应该是包名:进程名，使用这种方式指定的进程是当前应用的私有进程，其他应用的组件不可以和它跑在同一个进程中</li>
+<li>android:process = “进程名”：这种方式指定的进程属于全局进程，其他应用通过ShareUID的方式可以和它跑在同一个进程中(需要两个应用签名相同)。在这种情况下，它们可以互相访问对方的私有数据，比如:data目录、组件信息</li>
+</ol>
+<p>Android系统会为每个应用分配一个唯一的UID，具有相同UID的应用才能共享数据。</p>
+<p>因为Android系统为每一个进程都会分配一个独立的虚拟机，不同的虚拟机在内存分配上有不同的地址空间，这就导致了在不同的虚拟机中访问同一个类的对象会产生多份副本，因此在使用多进程共享数据时会产生很多问题。</p>
+<h3 id="使用多进程会造成的问题">使用多进程会造成的问题</h3>
+<ol>
+<li>静态成员和单例模式完全失效；</li>
+<li>线程同步机制完全失效；</li>
+<li>SharedPreferences的可靠性下降，SharedPreferences不支持两个进程同时去执行写操作，否则会导致一定几率的数据丢失，这是因为SharedPreferences底层是通过读/写XML文件来实现的，并发写显然是可能出问题的；</li>
+<li>Application会多次创建，当一个组件跑在一个新的进程中的时候，由于系统要在创建新的进程的同时分配独立的虚拟机，所以这个过程其实就是启动一个应用的过程，所以会重复创建新的Application。</li>
+</ol>
+<p>总结来说：不同的进程会拥有不同的虚拟机，application，以及内存空间。</p>
+<h3 id="serializable接口">Serializable接口</h3>
+<p>是Java提供的一个序列化接口，它是一个空接口，为对象提供标准的序列化和反序列化操作。</p>
+<h4 id="使用serializable来实现序列化">使用Serializable来实现序列化</h4>
+<ol>
+<li>让类实现Serializable接口</li>
+<li>在类中声明中指定一个serialVersionUID标识</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> Javas;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.io.*;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> *</div><div class="line"> * Created by Andfans on 2017/7/22.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestSerializable</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException, ClassNotFoundException </span>&#123;</div><div class="line">        User u1 = <span class="keyword">new</span> User(<span class="string">"aa"</span>,<span class="number">20</span>);</div><div class="line">        ObjectOutputStream oos = <span class="keyword">new</span> ObjectOutputStream(<span class="keyword">new</span> FileOutputStream(<span class="string">"cache.txt"</span>));</div><div class="line">        oos.writeObject(u1);</div><div class="line">        oos.close();</div><div class="line">        </div><div class="line">        ObjectInputStream ois = <span class="keyword">new</span> ObjectInputStream(<span class="keyword">new</span> FileInputStream(<span class="string">"cache.txt"</span>));</div><div class="line">        User u2 = (User) ois.readObject();</div><div class="line">        ois.close();</div><div class="line">        System.out.println(u2.toString());</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span> <span class="keyword">implements</span> <span class="title">Serializable</span></span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">1L</span>;</div><div class="line">    String name;</div><div class="line">    <span class="keyword">int</span> age;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">User</span><span class="params">(String name, <span class="keyword">int</span> age)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.name = name;</div><div class="line">        <span class="keyword">this</span>.age = age;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="string">"name:"</span>+name+<span class="string">"  age:"</span>+age;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="serialversionuid的作用">serialVersionUID的作用</h4>
+<p>serialVersionUID是用来辅助序列化和反序列化过程的，原则上序列化后的数据中的serialVersionUID只有和当前类的serialVersionUID相同时才能够正常的被反序列化。</p>
+<p>serialVersionUID详细的工作机制：序列化的时候系统会把当前类的serialVersionUID写到序列化的载体中，当反序列化时，系统会去检测文件中的serialVersionUID，看它是否和当前类的serialVersionUID一致，如果一致就说明序列化的类的版本和当前类的版本相同，这个时候可以成功反序列化；否则就说明当前类和序列化的类相比发生了某种变换，比如变量的数量、类型可能发生了改变，这个时候无法正常反序列化（抛出InvalidClassException异常）。</p>
+<p>由上述说明可知，用户自定义serialVersionUID会提高反序列化成功的可能性(如果不自定义，系统会自动计算当前类hash值作为serialVersionUID，而且每次类发生改变，系统就会重新计算该值)。</p>
+<p>静态成员属于类不属于对象，所以不会参与序列化的过程，使用transient关键字标记的成员变量不参与序列化的过程。</p>
+<p>通过实现writeObject()和readObject()方法可以改变系统默认的序列化过程。</p>
+<h3 id="parcelable接口">Parcelable接口</h3>
+<p>让类实现Parcelable接口中的所有方法就可以实现序列化。</p>
+<h4 id="parcelable接口方法解释">Parcelable接口方法解释</h4>
+<ul>
+<li>createFromParcel(Parcel in)：从序列化后的对象中创建原始对象</li>
+<li>newArray(int size)：创建指定长度的原始对象数组</li>
+<li>User(Parcel in)：从序列化后的对象中创建原始对象</li>
+<li>writeToParcel(Parcel out,int flags)：将当前对象写入序列化结构中，flags=1时表示当前对象需要作为返回值返回，不能立即释放资源，几乎所有情况都为0</li>
+<li>describeContents：返回当前对象的内容描述，如果含有文件描述符，返回1，否则返回0，几乎所有情况都返回0</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ParcelData</span> <span class="keyword">implements</span> <span class="title">Parcelable</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> userId;</div><div class="line">    User user;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ParcelData</span><span class="params">(<span class="keyword">int</span> userId, User user)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.userId = userId;</div><div class="line">        <span class="keyword">this</span>.user = user;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">//通过调用类的反序列化构造方法来实现原始对象/对象数组的创建</span></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Creator&lt;ParcelData&gt; CREATOR = <span class="keyword">new</span> Creator&lt;ParcelData&gt;() &#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> ParcelData <span class="title">createFromParcel</span><span class="params">(Parcel in)</span> </span>&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> ParcelData(in);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="keyword">public</span> ParcelData[] newArray(<span class="keyword">int</span> size) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> ParcelData[size];</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line">    <span class="comment">//反序列化</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="title">ParcelData</span><span class="params">(Parcel in)</span> </span>&#123;</div><div class="line">        userId = in.readInt();</div><div class="line">        <span class="comment">//由于book是另外一个可序列化对象，所以它的反序列化过程需要传递当前线程的上下文类加载器，否则会报无法找到类的错误</span></div><div class="line">        user = in.readParcelable(Thread.currentThread().getContextClassLoader());</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">describeContents</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">//序列化</span></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">writeToParcel</span><span class="params">(Parcel dest, <span class="keyword">int</span> flags)</span> </span>&#123;</div><div class="line">        dest.writeInt(userId);</div><div class="line">        dest.writeParcelable(user,<span class="number">0</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="parcelable和serializable的区别">Parcelable和Serializable的区别</h3>
+<ul>
+<li>Serializable使用简单，但是开销很大，序列化和反序列化过程中需要大量I/O操作，适用于将对象序列化到存储设备中或者将对象序列化后通过网络传输。</li>
+<li>Parcelable是Android中的序列化方式，更适合用在Android平台上，效率高，缺点是使用麻烦，主要用在内存序列化上。</li>
+</ul>
+<h3 id="binder">Binder</h3>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/2017/07/22/Algorithm-19/" data-toggle="tooltip" data-placement="top" title="Algorithm_19">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                    <div class="comment">
+                        <div id="disqus_thread" class="disqus-thread"></div>
+                    </div>
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#概述"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">概述</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#ipc的使用场景"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">IPC的使用场景</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#如何查看应用中的进程信息"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text">如何查看应用中的进程信息？</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#进程名的指定方式"><span class="toc-nav-number">1.3.</span> <span class="toc-nav-text">进程名的指定方式</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#使用多进程会造成的问题"><span class="toc-nav-number">1.4.</span> <span class="toc-nav-text">使用多进程会造成的问题</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#serializable接口"><span class="toc-nav-number">1.5.</span> <span class="toc-nav-text">Serializable接口</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#使用serializable来实现序列化"><span class="toc-nav-number">1.5.1.</span> <span class="toc-nav-text">使用Serializable来实现序列化</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#serialversionuid的作用"><span class="toc-nav-number">1.5.2.</span> <span class="toc-nav-text">serialVersionUID的作用</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#parcelable接口"><span class="toc-nav-number">1.6.</span> <span class="toc-nav-text">Parcelable接口</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#parcelable接口方法解释"><span class="toc-nav-number">1.6.1.</span> <span class="toc-nav-text">Parcelable接口方法解释</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#parcelable和serializable的区别"><span class="toc-nav-number">1.7.</span> <span class="toc-nav-text">Parcelable和Serializable的区别</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#binder"><span class="toc-nav-number">1.8.</span> <span class="toc-nav-text">Binder</span></a></li></ol></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#Android" title="Android">Android</a>
+                        
+                          <a class="tag" href="/tags/#IPC" title="IPC">IPC</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://blog.kaijun.rocks" target="_blank">Kaijun&#39;s Blog</a></li>
+                    
+                        <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus embedded js code start (one page only need to embed once) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "your-disqus-ID";
+    var disqus_identifier = "http://andfanswzp.pw/2017/07/22/IPC浅析/";
+    var disqus_url = "http://andfanswzp.pw/2017/07/22/IPC浅析/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus embedded js code start end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/flyings-sky">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Andfans 2017 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://andfanswzp.pw/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-XXXXXXXX-X';
+    var _gaDomain = 'yoursite';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="http://andfanswzp.pw/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

@@ -143,14 +143,14 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -210,6 +210,49 @@
             
                 <!-- Main Content -->
 
+
+<div class="post-preview">
+
+    <a href="/2017/07/22/IPC浅析/">
+        <h2 class="post-title">
+            IPC浅析
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            概述
+IPC：含义为进程间通信或者跨进程通信，是指两个进程之间进行数据交换的过程。
+Windows中常见的IPC方式：剪切板、管道和邮槽
+Linux中常见的IPC方式：命名管道、共享内容、信号量
+Android中常见的IPC方式：Binder、Socket
+IPC的使用场景
+
+为了加大一个应用可以使用的内存空间
+当前应用需要向其他应用获取数据
+
+如何查看应用中的进程信息？
+
+借助于DDMS
+......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Andfans on
+            2017-07-22
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Android" title="Android">Android</a>
+            
+              <a href="/tags/#IPC" title="IPC">IPC</a>
+            
+        </div>
+    
+
+</div>
+<hr>
 
 <div class="post-preview">
 
@@ -512,40 +555,6 @@ Paused：暂停状态，此时Activity仍然处于可见状态，但是不能与
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2017/07/16/Algorithm-11/">
-        <h2 class="post-title">
-            Algorithm_11
-        </h2>
-        <h3 class="post-subtitle">
-            旋转数组最小值
-        </h3>
-        <div class="post-content-preview">
-            题目描述
-把一个数组中最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。输入一个非递减排序的数组的一个旋转，输出旋转数组的最小元素。(sp：给出的所有元素都大于0，若数组大小为0，则返回0)
-解题思路
-思路1
-因为数组一开始是有序的，则经过旋转之后，数组也是分段有序的，最小值则是两个有序子数组的分界线，所以可以参考二分查找算法的思想，
-
-用两个指针low，high分别指向数组的第一个元......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Andfans on
-            2017-07-16
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#算法题" title="算法题">算法题</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -582,21 +591,23 @@ Paused：暂停状态，此时Activity仍然处于可见状态，但是不能与
     <div class="tags">
         
             
+        
+            
+            <a href="/tags/#Android" title="Android" rel="7">Android</a>
+            
+        
+            
             <a href="/tags/#算法题" title="算法题" rel="19">算法题</a>
             
         
             
         
             
-            <a href="/tags/#Android" title="Android" rel="6">Android</a>
-            
-        
-            
-        
-            
-        
-            
             <a href="/tags/#Java" title="Java" rel="6">Java</a>
+            
+        
+            
+        
             
         
             
@@ -669,6 +680,10 @@ Paused：暂停状态，此时Activity仍然处于可见状态，但是不能与
     <ul>
       
         <li>
+          <a href="/2017/07/22/IPC浅析/">IPC浅析</a>
+        </li>
+      
+        <li>
           <a href="/2017/07/22/Algorithm-19/">Algorithm_19</a>
         </li>
       
@@ -684,10 +699,6 @@ Paused：暂停状态，此时Activity仍然处于可见状态，但是不能与
           <a href="/2017/07/20/Algorithm-17/">Algorithm_17</a>
         </li>
       
-        <li>
-          <a href="/2017/07/18/Algorithm-16/">Algorithm_16</a>
-        </li>
-      
     </ul>
   </div>
 
@@ -696,7 +707,7 @@ Paused：暂停状态，此时Activity仍然处于可见状态，但是不能与
         
     <h5>ARCHIVES</h5>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">19</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">11</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">20</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">11</span></li></ul>
     </div>
 
         <hr>
