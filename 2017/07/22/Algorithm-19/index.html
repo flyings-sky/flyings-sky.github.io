@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          Algorithm_2 - Andfans
+          Algorithm_19 - Andfans
         
     </title>
 
-    <link rel="canonical" href="http://andfanswzp.pw/2017/07/12/Algorithm-2/">
+    <link rel="canonical" href="http://andfanswzp.pw/2017/07/22/Algorithm-19/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -93,11 +93,11 @@
                               <a class="tag" href="/tags/#算法题" title="算法题">算法题</a>
                             
                         </div>
-                        <h1>Algorithm_2</h1>
-                        <h2 class="subheading">链表逆置</h2>
+                        <h1>Algorithm_19</h1>
+                        <h2 class="subheading">把数组排成最小的数</h2>
                         <span class="meta">
                             Posted by Andfans on
-                            2017-07-12
+                            2017-07-22
                         </span>
                     </div>
                 
@@ -215,28 +215,26 @@
                 post-container">
 
                 <h2 id="题目描述">题目描述</h2>
-<p>输入一个单链表，得到该单链表的反转链表。</p>
-<h2 id="题目考点">题目考点</h2>
-<p>链表的基本操作</p>
+<p>输入一个正整数数组，把数组里面所有数字拼接起来排成一个数，打印能拼接出的所有数字中最小的一个。例如输入数组{3,32,321}，则打印出这三个数字能排成的最小数字为321323</p>
 <h2 id="解题思路">解题思路</h2>
-<p>使用四个引用(即指针)pNode、pPre、pNext、pNewHead，其中pNode用于遍历原链表，pPre用于记录前驱结点，pNext用于记录后继结点，pNewHead用来表示反转之后新链表的头。</p>
-<h3 id="重点代码解释">重点代码解释</h3>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//循环遍历单链表</span></div><div class="line"><span class="keyword">while</span>(pNode != <span class="keyword">null</span>)&#123;</div><div class="line">  			<span class="comment">//将pNext指向pNode的后继结点</span></div><div class="line">            pNext = pNode.next;</div><div class="line">  			<span class="comment">//当pNext为空时，表示pNode没有后继结点，pNode已经是最后一个结点了，所以pNode就是反转链表的头</span></div><div class="line">            <span class="keyword">if</span>(pNext == <span class="keyword">null</span>)&#123;</div><div class="line">                pNewHead = pNode;</div><div class="line">            &#125;</div><div class="line">  			<span class="comment">//将当前结点指向它的前驱结点</span></div><div class="line">            pNode.next = pPre;</div><div class="line">  			<span class="comment">//将前驱结点更新为当前结点</span></div><div class="line">            pPre = pNode;</div><div class="line">  			<span class="comment">//将当前节点更新为它的后继结点，开始下一次循环</span></div><div class="line">            pNode = pNext;</div><div class="line">        &#125;</div></pre></td></tr></table></figure>
+<p>对于任意两个数字m，n，有两种组合方式mn和nm，我们可以通过判断mn和nm的大小来判断出数字n和数字m的一个排列的优先规则：</p>
+<ul>
+<li>如果mn &gt; nm，则n优先于m</li>
+<li>如果mn &lt; nm，则m优先于n</li>
+<li>如果二者相等，则m和n优先级相同</li>
+</ul>
+<p>由于受整数范围的影响，数字在组合之后可能会超过整形的最大界限，所以可以先将整形数组转换成字符串数组，再根据字符串的比较规则判断字符串m和n的优先级，将整个字符串数组按照上述优先规则进行排序，即可得到最优的组合序列，从而得到整个数组可以拼接成的最小值。</p>
 <h2 id="实现代码">实现代码</h2>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line">public class ListNode &#123;</div><div class="line">    int val;</div><div class="line">    ListNode next = null;</div><div class="line"></div><div class="line">    ListNode(int val) &#123;</div><div class="line">        this.val = val;</div><div class="line">    &#125;</div><div class="line">&#125;*/</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">ReverseList</span><span class="params">(ListNode head)</span> </span>&#123;</div><div class="line">      	<span class="keyword">if</span>(head == <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">      	&#125;</div><div class="line">		ListNode pNewHead = <span class="keyword">null</span>,pNode,pNext,pPre = <span class="keyword">null</span>;</div><div class="line">        pNode = head;</div><div class="line">        <span class="keyword">while</span>(pNode != <span class="keyword">null</span>)&#123;</div><div class="line">            pNext = pNode.next;</div><div class="line">            <span class="keyword">if</span>(pNext == <span class="keyword">null</span>)&#123;</div><div class="line">                pNewHead = pNode;</div><div class="line">            &#125;</div><div class="line">            pNode.next = pPre;</div><div class="line">            pPre = pNode;</div><div class="line">            pNode = pNext;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> pNewHead;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.Arrays;</div><div class="line"><span class="keyword">import</span> java.util.Comparator;</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">PrintMinNumber</span><span class="params">(<span class="keyword">int</span> [] numbers)</span> </span>&#123;</div><div class="line">		String s = <span class="string">""</span>;</div><div class="line">        <span class="keyword">if</span>(numbers == <span class="keyword">null</span>||numbers.length == <span class="number">0</span>)&#123;</div><div class="line">            <span class="keyword">return</span> s;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">int</span> len = numbers.length;</div><div class="line">        String [] temp = <span class="keyword">new</span> String[len];</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; len;i++)&#123;</div><div class="line">            temp[i] = String.valueOf(numbers[i]);</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        Arrays.sort(temp,<span class="keyword">new</span> Comparator&lt;String&gt;()&#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(String str1, String str2)</span> </span>&#123;    </div><div class="line">                    String s1=str1+str2;</div><div class="line">                    String s2=str2+str1;</div><div class="line">                     </div><div class="line">                    <span class="keyword">return</span> s1.compareTo(s2);</div><div class="line">                &#125;</div><div class="line">            &#125;);</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; len;i++)&#123;</div><div class="line">            s += temp[i];</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> s;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
                 
 
                 <hr>
                 <!-- Pager -->
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2017/07/12/Algorithm-3/" data-toggle="tooltip" data-placement="top" title="Algorithm_3">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/2017/06/23/JAVA虚拟机之性能监控与故障处理工具/" data-toggle="tooltip" data-placement="top" title="JAVA虚拟机之性能监控与故障处理工具">Next Post &rarr;</a>
+                            <a href="/2017/07/21/Activity浅析/" data-toggle="tooltip" data-placement="top" title="Activity浅析">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -266,7 +264,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#题目描述"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">题目描述</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#题目考点"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">题目考点</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#解题思路"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">解题思路</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#重点代码解释"><span class="toc-nav-number">3.1.</span> <span class="toc-nav-text">重点代码解释</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#实现代码"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">实现代码</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#题目描述"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">题目描述</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#解题思路"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">解题思路</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#实现代码"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">实现代码</span></a></li></ol>
         
         </div>
       </aside>
@@ -317,8 +315,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "your-disqus-ID";
-    var disqus_identifier = "http://andfanswzp.pw/2017/07/12/Algorithm-2/";
-    var disqus_url = "http://andfanswzp.pw/2017/07/12/Algorithm-2/";
+    var disqus_identifier = "http://andfanswzp.pw/2017/07/22/Algorithm-19/";
+    var disqus_url = "http://andfanswzp.pw/2017/07/22/Algorithm-19/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
