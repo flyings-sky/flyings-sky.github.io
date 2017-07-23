@@ -72,13 +72,6 @@
     </url>
 
     <url>
-        <loc>http://andfanswzp.pw/tags/%E7%AE%97%E6%B3%95%E9%A2%98/</loc>
-        <lastmod>2017-07-22T05:07:37.021Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>http://andfanswzp.pw/tags/Activity/</loc>
         <lastmod>2017-07-22T05:22:00.647Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -109,6 +102,13 @@
     <url>
         <loc>http://andfanswzp.pw/tags/IPC/</loc>
         <lastmod>2017-07-22T14:56:02.901Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://andfanswzp.pw/tags/%E7%AE%97%E6%B3%95%E9%A2%98/</loc>
+        <lastmod>2017-07-23T05:48:34.230Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
