@@ -23,13 +23,6 @@
     </url>
 
     <url>
-        <loc>http://andfanswzp.pw/tags/Kotlin/</loc>
-        <lastmod>2017-05-20T16:26:27.160Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>http://andfanswzp.pw/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</loc>
         <lastmod>2017-05-24T15:50:17.425Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -100,15 +93,29 @@
     </url>
 
     <url>
+        <loc>http://andfanswzp.pw/tags/Kotlin/</loc>
+        <lastmod>2017-07-24T07:51:52.272Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>http://andfanswzp.pw/tags/Android/</loc>
-        <lastmod>2017-07-24T06:53:02.320Z</lastmod>
+        <lastmod>2017-07-24T13:31:44.736Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://andfanswzp.pw/tags/Binder/</loc>
+        <lastmod>2017-07-24T13:31:44.736Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>http://andfanswzp.pw/tags/IPC/</loc>
-        <lastmod>2017-07-24T06:53:02.320Z</lastmod>
+        <lastmod>2017-07-24T13:31:44.736Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
