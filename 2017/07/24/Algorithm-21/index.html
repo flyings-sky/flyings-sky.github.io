@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          About - Andfans
+          Algorithm_21 - Andfans
         
     </title>
 
-    <link rel="canonical" href="http://andfanswzp.pw/about/">
+    <link rel="canonical" href="http://andfanswzp.pw/2017/07/24/Algorithm-21/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -69,8 +69,8 @@
 <style type="text/css">
     header.intro-header{
         
-            background-image: url('/img/header_img/Iron-Man-3.jpg')
-            /*page*/
+            background-image: url('http://i1.piimg.com/588926/14c9e94b1c44706b.png')
+            /*post*/
         
     }
     
@@ -87,10 +87,18 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 
-                    <div class="site-heading">
-                        <h1>About</h1>
-                        <!--<hr class="small">-->
-                        <span class="subheading">Wish for the Best, Prepare for the Worst</span>
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#算法题" title="算法题">算法题</a>
+                            
+                        </div>
+                        <h1>Algorithm_21</h1>
+                        <h2 class="subheading">找出字符串中第一个只出现一次的字符</h2>
+                        <span class="meta">
+                            Posted by Andfans on
+                            2017-07-24
+                        </span>
                     </div>
                 
 
@@ -193,211 +201,166 @@
 
 
     <!-- Main Content -->
-    <!-- Main Content -->
-<div class="container">
-    <div class="row">
-        
+    <!-- Modify by Yu-Hsuan Yen -->
 
-<!-- USE SIDEBAR -->
-    <!-- Post Container -->
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
             <div class="
-                col-lg-8 col-lg-offset-1
-                col-md-8 col-md-offset-1
-                col-sm-12
-                col-xs-12
-                post-container
-            ">
-            
-                <blockquote>
-<p>一只还处在求学阶段的渣渣程序猿。</p>
-</blockquote>
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
 
-
-                <!-- 如果开启评论功能 -->
+                <h2 id="题目描述">题目描述</h2>
+<p>在一个字符串中找到第一个只出现一次的字符，并返回它的位置，若没有返回-1</p>
+<h2 id="解题思路">解题思路</h2>
+<ul>
+<li>遍历字符串，将遍历到的字符用一个LinkedHashMap(以字符为key，以出现的次数为value)存储起来</li>
+<li>遍历LinkedHashMap，找到第一个value值为1的字符</li>
+<li>使用String.indexOf()返回下标</li>
+</ul>
+<h2 id="实现代码">实现代码</h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.LinkedHashMap;</div><div class="line"><span class="keyword">import</span> java.util.Iterator;</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span>  <span class="keyword">int</span> <span class="title">FirstNotRepeatingChar</span><span class="params">(String str)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(str == <span class="keyword">null</span>||str.length() == <span class="number">0</span>)&#123;</div><div class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line">        LinkedHashMap&lt;Character,Integer&gt; map = <span class="keyword">new</span> LinkedHashMap&lt;&gt;();</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; str.length();i++)&#123;</div><div class="line">            <span class="keyword">char</span> c = str.charAt(i);</div><div class="line">            <span class="keyword">if</span>(!map.containsKey(c))&#123;</div><div class="line">                map.put(c,<span class="number">1</span>);</div><div class="line">            &#125;<span class="keyword">else</span> &#123;</div><div class="line">                <span class="keyword">int</span> value = map.get(c);</div><div class="line">                map.put(c,++value);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        Character key = <span class="keyword">null</span>;</div><div class="line">        Iterator&lt;Character&gt; keys = map.keySet().iterator();</div><div class="line">        <span class="keyword">boolean</span> has = <span class="keyword">false</span>;</div><div class="line">        <span class="keyword">while</span>(keys.hasNext())&#123;</div><div class="line">            key = keys.next();</div><div class="line">            <span class="keyword">if</span>(map.get(key) == <span class="number">1</span>)&#123;</div><div class="line">                has = <span class="keyword">true</span>;</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">if</span>(has)&#123;</div><div class="line">            <span class="keyword">return</span> str.indexOf(key);</div><div class="line">        &#125;<span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
                 
-                    <hr>
 
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
                     
+                    
+                        <li class="next">
+                            <a href="/2017/07/23/Algorithm-20/" data-toggle="tooltip" data-placement="top" title="Algorithm_20">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
 
-                    
-                    <!-- disqus 评论框 start -->
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
                     <div class="comment">
                         <div id="disqus_thread" class="disqus-thread"></div>
                     </div>
-                    <!-- disqus 评论框 end -->
-                    
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
 
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#题目描述"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">题目描述</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#解题思路"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">解题思路</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#实现代码"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">实现代码</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
 
-                    
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
 
-                    
-                    <!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
-                    <script type="text/javascript">
-                        /* * * CONFIGURATION VARIABLES * * */
-                        var disqus_shortname = "your-disqus-ID";
-                        var disqus_identifier = "http://andfanswzp.pw/about/index.html";
-                        var disqus_url = "http://andfanswzp.pw/about/index.html";
-
-                        (function() {
-                            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-                            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-                        })();
-
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#算法题" title="算法题">算法题</a>
                         
-                    </script>
-                    <!-- disqus 公共JS代码 end -->
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
                     
+                        <li><a href="http://blog.kaijun.rocks" target="_blank">Kaijun&#39;s Blog</a></li>
+                    
+                        <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
+                    
+                </ul>
                 
             </div>
-
-          <!-- Sidebar Container -->
-<div class="
-    col-lg-3 col-lg-offset-0
-    col-md-3 col-md-offset-0
-    col-sm-12
-    col-xs-12
-    sidebar-container
-">
-    
-        <!-- Featured Tags -->
-
-<section>
-    <!-- no hr -->
-    <h5><a href="/tags/">FEATURED TAGS</a></h5>
-    <div class="tags">
-        
-            
-            <a href="/tags/#算法题" title="算法题" rel="21">算法题</a>
-            
-        
-            
-        
-            
-            <a href="/tags/#Android" title="Android" rel="7">Android</a>
-            
-        
-            
-        
-            
-        
-            
-            <a href="/tags/#Java" title="Java" rel="6">Java</a>
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
+        </div>
     </div>
-</section>
+</article>
 
-        <hr>
-    
-        <!-- Short About -->
-<section class="visible-md visible-lg">
-    <h5><a href="/about/">ABOUT ME</a></h5>
-    <div class="short-about">
 
-        
-            <img id = "avatar_pic" src="/img/head.jpg" />
-        
 
-        
-            <p>I&#39;m a coder farmer</p>
-        
 
-        <!-- SNS Link -->
-        <ul class="list-inline">
-            
-            
-            
+<!-- disqus embedded js code start (one page only need to embed once) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "your-disqus-ID";
+    var disqus_identifier = "http://andfanswzp.pw/2017/07/24/Algorithm-21/";
+    var disqus_url = "http://andfanswzp.pw/2017/07/24/Algorithm-21/";
 
-            
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus embedded js code start end -->
 
-            
 
-            
-                <li>
-                    <a target="_blank"  href="https://github.com/flyings-sky">
-                        <span class="fa-stack fa-lg">
-                            <i class="fa fa-circle fa-stack-2x"></i>
-                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                        </span>
-                    </a>
-                </li>
-            
-            
-            
-            
-        </ul>
-    </div>
-</section>
-        <hr>
-    
-        
-  <h5>RECENT POSTS</h3>
-  <div class="widget">
-    <ul>
-      
-        <li>
-          <a href="/2017/07/24/Algorithm-21/">Algorithm_21</a>
-        </li>
-      
-        <li>
-          <a href="/2017/07/23/Algorithm-20/">Algorithm_20</a>
-        </li>
-      
-        <li>
-          <a href="/2017/07/22/IPC浅析/">IPC浅析</a>
-        </li>
-      
-        <li>
-          <a href="/2017/07/22/Algorithm-19/">Algorithm_19</a>
-        </li>
-      
-        <li>
-          <a href="/2017/07/21/Activity浅析/">Activity浅析</a>
-        </li>
-      
-    </ul>
-  </div>
 
-        <hr>
-    
-        
-    <h5>ARCHIVES</h5>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">22</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">11</span></li></ul>
-    </div>
 
-        <hr>
-    
-        <!-- Categories -->
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
 
-        <hr>
-    
-</div>
-
-        
-    </div>
-</div>
 
 
     <!-- Footer -->
