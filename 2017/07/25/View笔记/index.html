@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          View杂记 - Andfans
+        
+    </title>
+
+    <link rel="canonical" href="http://andfanswzp.pw/2017/07/25/View笔记/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('http://i1.piimg.com/588926/14c9e94b1c44706b.png')
+            /*post*/
+        
+    }
+    
+    #signature{
+        background-image: url('/img/signature/BeanTechSign-white.png');
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#Android" title="Android">Android</a>
+                            
+                              <a class="tag" href="/tags/#View" title="View">View</a>
+                            
+                        </div>
+                        <h1>View杂记</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by Andfans on
+                            2017-07-25
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Andfans</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h2 id="view事件体系">View事件体系</h2>
+<h3 id="view基础知识">View基础知识</h3>
+<h4 id="什么是view">什么是View?</h4>
+<p>View是Android中所有控件的基类，View是一种界面层的控件的一种抽象，它代表了一个控件(View)，或者一个控件组(ViewGroup)。</p>
+<h4 id="view的位置参数">View的位置参数</h4>
+<p>View的位置由它的四个顶点来决定，分别对应于View的四个属性：top(左上角纵坐标)、left(左上角横坐标)、right(右下角横坐标)、bottom(右下角纵坐标).这些坐标是相对于父容器来说的，因此它是一种相对坐标，在Android中，x轴和y轴的正方向分别为右和下。</p>
+<p><img src="http://oqnfoupsj.bkt.clouddn.com/17-7-25/77735341.jpg" alt=""></p>
+<p>由图可知</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">width = right - left;</div><div class="line">height = bottom - top;</div></pre></td></tr></table></figure>
+<p>如何得到View的这四个参数呢？</p>
+<p>在View的源码中，它们分别对应mLeft，mRight，mTop，mBottom这四个成员变量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Left = getLeft();</div><div class="line">Right = getRight();</div><div class="line">......</div></pre></td></tr></table></figure>
+<p>从Android3.0开始，View增加了额外的几个参数：x(View左上角的横坐标)，y(View左上角的纵坐标)，translationX(View左上角相对于父容器的偏移量)，translationY(View左上角相对于父容器的偏移量)。这几个参数也是相对于父容器的坐标，并且translationX，translationY的默认值为0.</p>
+<p>默认情况下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">x = left + translationX;</div><div class="line">y = top + translationY;</div></pre></td></tr></table></figure>
+<p>需要注意的是，在View平移的过程中，top和left表示的是原始左上角的位置信息，其值并不会变化，此时发生变化的是x、y、translationX和translationY这四个参数。</p>
+<h4 id="motionevent和touchslop">MotionEvent和TouchSlop</h4>
+<p><strong>1.MotionEvent</strong></p>
+<ul>
+<li>ACTION_DOWN：手指刚接触屏幕</li>
+<li>ACTION_MOVE：手指在屏幕上移动</li>
+<li>ACTION_UP：手指从屏幕上松开的瞬间</li>
+</ul>
+<p>点击屏幕后离开会依次触发：DOWN、UP</p>
+<p>点击屏幕滑动一会再松开：DOWN、MOVE…MOVE(在屏幕上滑动时MOVE事件一直在发生)、UP</p>
+<p>通过MotionEvent对象我们可以获得点击事件发生的x和y坐标。为此，系统提供了两组方法：getX/getY和getRawX/getRawY，它们的区别是：getX/Y返回的是相对于当前View左上角的x和y坐标，而getRawX/Y返回的是相对于手机屏幕左上角的x和y坐标。</p>
+<p><strong>2.TouchSlop</strong></p>
+<p>TouchSlop是系统所能识别出的被认为是滑动的最小距离，如果你两次滑动之间的距离小于这个常量，那么系统将不认为你在滑动，这个常量和设备有关，可以通过ViewConfiguration.get(getContext()).getScaledTouchSlop()来获取这个常量的值，可以使用这个常量来做一些事件的过滤操作。</p>
+<h4 id="velocitytracker-gesturedetector和scroller">VelocityTracker、GestureDetector和Scroller</h4>
+<p><strong>1.VelocityTracker</strong></p>
+<p>速度追踪，用于追踪手指在滑动过程中的速度，包括水平和竖直方向的速度。</p>
+<p>用法：</p>
+<ul>
+<li>
+<p>首先，在View的onTouchEvent方法中追踪当前单击事件的速度：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">VelocityTracker velocityTracker = VelocityTracker.obtain();</div><div class="line">velocityTracker.addMovement(event);</div></pre></td></tr></table></figure>
+</li>
+<li>
+<p>当我们想知道当前滑动的速度时，采用如下方式：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//获取速度之间必须要先计算速度，这里所说的速度是指一段时间内手指所滑过的像素数，</span></div><div class="line"><span class="comment">//速度可以是负数，当手指从右往左滑时，水平方向的速度就为负值</span></div><div class="line"><span class="comment">//computeCurrentVelocity的参数是一个时间间隔，单位是ms</span></div><div class="line">velocityTracker.computeCurrentVelocity(<span class="number">1000</span>);</div><div class="line"><span class="keyword">int</span>  xVelocity = (<span class="keyword">int</span>)velocityTracker.getXVelocity();</div><div class="line"><span class="keyword">int</span>  yVelocity = (<span class="keyword">int</span>)velocityTracker.getYVelocity();</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>速度计算公式：速度 = (终点位置-起点位置)/时间段</p>
+<p>当不使用它的时候，需要调用clear方法来重置并回收内存。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">velocityTracker.clear();</div><div class="line">velocityTracker.recycle();</div></pre></td></tr></table></figure>
+<p><strong>2.GestureDetector</strong></p>
+<p>手势检测，用于辅助检测用户的单机、滑动、长按、双击等行为。</p>
+<p>用法：</p>
+<ul>
+<li>
+<p>首先需要创建一个GestureDetector对象并实现onGestureListener接口，根据需要我们还可以实现OnDoubleTapListener从而能够监听双击行为：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">GestureDetector mGestureDetector = <span class="keyword">new</span> GestureDetector(<span class="keyword">this</span>);</div><div class="line"><span class="comment">//解决长按屏幕后无法拖动的问题</span></div><div class="line">mGestureDetector.setIsLongPressEnable(<span class="keyword">false</span>);</div></pre></td></tr></table></figure>
+</li>
+<li>
+<p>接着，接管目标View的onTouchEvent()方法，在待监听View的onTouchEvent方法中添加如下实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">boolean</span> consume = mGestureDetector.onTouchEvent(event);</div><div class="line"><span class="keyword">return</span> consume;</div></pre></td></tr></table></figure>
+</li>
+<li>
+<p>做完了上面这两步，可以有选择地实现OnGestureListener和OnDoubleTapListener中的方法</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">方法名</th>
+<th style="text-align:center">描述</th>
+<th style="text-align:center">所属接口</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">onDown</td>
+<td style="text-align:center">手指轻轻触摸屏幕的瞬间，由一个ACTION_DOWN触发</td>
+<td style="text-align:center">OnGestureListener</td>
+</tr>
+<tr>
+<td style="text-align:center">onShowPress</td>
+<td style="text-align:center">手指轻轻触摸屏幕，尚未松开或拖动，由一个ACTION_DOWN触发</td>
+<td style="text-align:center">OnGestureListener</td>
+</tr>
+<tr>
+<td style="text-align:center">onSingleTapUp</td>
+<td style="text-align:center">手指(轻轻触摸屏幕后)松开，伴随着一个ACTION_UP而触发，这是单击行为</td>
+<td style="text-align:center">OnGestureListener</td>
+</tr>
+<tr>
+<td style="text-align:center">onScroll</td>
+<td style="text-align:center">手指按下屏幕并拖动，由一个ACTION_DOWN，多个ACTION_MOVE触发，这是拖动行为</td>
+<td style="text-align:center">OnGestureListener</td>
+</tr>
+<tr>
+<td style="text-align:center">onLongPress</td>
+<td style="text-align:center">用户长久地按着屏幕不放，即长按</td>
+<td style="text-align:center">OnGestureListener</td>
+</tr>
+<tr>
+<td style="text-align:center">onFling</td>
+<td style="text-align:center">用户按下触摸屏、快速滑动后松开，由一个ACTION_DOWN、多个ACTION_MOVE和一个ACTION_UP触发，这是快速滑动行为</td>
+<td style="text-align:center">OnGestureListener</td>
+</tr>
+<tr>
+<td style="text-align:center">onDoubleTap</td>
+<td style="text-align:center">双击，由两次连续的单机组成，它不可能和onSingleTapConfirmed共存</td>
+<td style="text-align:center">OnDoubleTapListener</td>
+</tr>
+<tr>
+<td style="text-align:center">onSingleTapConfirmed</td>
+<td style="text-align:center">严格的单击行为，如果触发了这个方法，那么后面不可能再跟着另一次单击行为，即只可能是单击，而不可能是双击中的一次单击</td>
+<td style="text-align:center">OnDoubleTapListener</td>
+</tr>
+<tr>
+<td style="text-align:center">onDoubleTapEvent</td>
+<td style="text-align:center">表示发生了双击行为，在双击期间，ACTION_DOWN、ACTION_MOVE和ACTION_UP都会触发此回调</td>
+<td style="text-align:center">OnDoubleTapListener</td>
+</tr>
+</tbody>
+</table>
+<p>上面方法中，日常开发中常用的是：onSingleTapUp(单击)、onFling(快速滑动)、onScroll(拖动)、onLongPress(长按)和onDoubleTap(双击)</p>
+<p>在实际开发中，如果只是监听滑动相关的，建议自己在onTouchEvent中实现，如果要监听点击这样的行为，就使用GestureDetector</p>
+<p><strong>3.Scroller</strong></p>
+<p>弹性滑动对象，用于实现View的弹性滑动。</p>
+<p>View的scrollTo/scrollBy方法来进行滑动时，其过程是瞬间完成的，这个没有过渡效果的滑动用户体验不好，这个时候就可以使用Scroller来实现有过渡效果的滑动，其过程不是瞬间完成的，而是在一定时间间隔内完成的。Scroller本身无法让View弹性滑动，它需要和View的computeScroll方法配合使用共同完成此效果。</p>
+<p>用法:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">Scroller scroller = <span class="keyword">new</span> Scroller(mContext);</div><div class="line"><span class="comment">//缓慢滚动到指定位置</span></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">smoothScrollTo</span><span class="params">(<span class="keyword">int</span> destX,<span class="keyword">int</span> destY)</span></span>&#123;</div><div class="line">  <span class="keyword">int</span> scrollX = getScrollX();</div><div class="line">  <span class="keyword">int</span> delta = destX- scrollX;</div><div class="line">  <span class="comment">//1000ms内滑向destX，效果就是慢慢滑动</span></div><div class="line">  mScroller.startScroll(scrollX,<span class="number">0</span>,delta,<span class="number">0</span>,<span class="number">1000</span>);</div><div class="line">  invalidate();</div><div class="line">&#125;</div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">computeScroll</span><span class="params">()</span></span>&#123;</div><div class="line">  <span class="keyword">if</span>(mScroller.computeScrollOffset())&#123;</div><div class="line">    scrollTo(mScroller.getCurrX(),mScroller.getCurrY());</div><div class="line">    postInvalidate();</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="view的滑动">View的滑动</h3>
+<p>View的滑动方式：</p>
+<ul>
+<li>View自带的scrollTo/scrollBy方法</li>
+<li>通过动画给View施加平移效果来实现滑动</li>
+<li>通过改变View的LayoutParams使得View重新布局从而实现滑动</li>
+</ul>
+<p><strong>1.使用scrollBy/scrollTo</strong></p>
+<p>先来看一下在源码中这两个方法的实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">     * Set the scrolled position of your view. This will cause a call to</div><div class="line">     * &#123;<span class="doctag">@link</span> #onScrollChanged(int, int, int, int)&#125; and the view will be</div><div class="line">     * invalidated.</div><div class="line">     * <span class="doctag">@param</span> x the x position to scroll to</div><div class="line">     * <span class="doctag">@param</span> y the y position to scroll to</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">scrollTo</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (mScrollX != x || mScrollY != y) &#123;</div><div class="line">            <span class="keyword">int</span> oldX = mScrollX;</div><div class="line">            <span class="keyword">int</span> oldY = mScrollY;</div><div class="line">            mScrollX = x;</div><div class="line">            mScrollY = y;</div><div class="line">            invalidateParentCaches();</div><div class="line">            onScrollChanged(mScrollX, mScrollY, oldX, oldY);</div><div class="line">            <span class="keyword">if</span> (!awakenScrollBars()) &#123;</div><div class="line">                postInvalidateOnAnimation();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Move the scrolled position of your view. This will cause a call to</div><div class="line">     * &#123;<span class="doctag">@link</span> #onScrollChanged(int, int, int, int)&#125; and the view will be</div><div class="line">     * invalidated.</div><div class="line">     * <span class="doctag">@param</span> x the amount of pixels to scroll by horizontally</div><div class="line">     * <span class="doctag">@param</span> y the amount of pixels to scroll by vertically</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">scrollBy</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</div><div class="line">        scrollTo(mScrollX + x, mScrollY + y);</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>从源码中可以看出，scrollBy方法里面也是调用了scrollTo方法，scrollBy实现的是基于当前位置的相对滑动，而ScrollTo则实现了基于所传递参数的绝对滑动，在View内部有两个属性mScrollX和mScrollY，这两个属性可以通过getScrollX和getScrollY分别得到，在滑动过程中，mScrollX的值总是等于View左边缘和View内容左边缘在水平方向上的距离，而mScrollY的值总是等于View上边缘和View内容上边缘在竖直方向上的距离，View的边缘指View的位置，由四个顶点组成，而View的内容边缘是指View中的内容的边缘，scrollBy和scollTo只能改变View内容的位置而不能改变View在布局中的位置。从左向右滑动时，mScrollX为负值，反之为正值，从上往下滑动，那么mScrollY为负值，反之为正值。</p>
+<p><strong>2.使用动画</strong></p>
+<p>使用动画来移动View，主要是操作View的translationX和translationY属性，即可以采用传统的View动画，也可以采用属性动画，如果采用属性动画的话，为了能够兼容3.0以下的版本，需要采用开源动画库nineoldandroids</p>
+<p>在100ms内将一个View从原始位置向右下角移动100个像素</p>
+<p>View动画：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">set</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></div><div class="line">    <span class="attr">android:fillAfter</span>=<span class="string">"true"</span></div><div class="line">    <span class="attr">android:zAdjustment</span> = <span class="string">"normal"</span></div><div class="line">    &gt;</div><div class="line">    <span class="tag">&lt;<span class="name">translate</span></span></div><div class="line">        <span class="attr">android:fromXDelta</span>=<span class="string">"0"</span></div><div class="line">        <span class="attr">android:fromYDelta</span>=<span class="string">"0"</span></div><div class="line">        <span class="attr">android:toXDelta</span>=<span class="string">"100"</span></div><div class="line">        <span class="attr">android:toYDelta</span>=<span class="string">"100"</span></div><div class="line">        <span class="attr">android:duration</span> = <span class="string">"100"</span></div><div class="line">        <span class="attr">android:interpolator</span> = <span class="string">"@android:anim/linear_interpolator"</span></div><div class="line">        /&gt;</div><div class="line"><span class="tag">&lt;/<span class="name">set</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>属性动画：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ObjectAnimator.ofFloat(target,<span class="string">"translationX"</span>,<span class="number">0</span>,<span class="number">100</span>).setDuration(<span class="number">100</span>).start();</div></pre></td></tr></table></figure>
+<p>View动画只是对View的影像做操作，它并不能真正改变View的位置参数，包括宽/高，并且如果希望动画后的状态得以保留还必须将fillAfter属性设置为true，否则动画完后动画结果就会消失，在使用View动画移动完控件之后，在新的位置点击，新的控件的点击事件并不会响应，因为在系统看来，此空间的位置并未改变，但是这样很明显是有问题的，我们该怎么解决呢？我们可以先在新位置预设一个和目标Button一模一样的Button，当目标完成平移动画以后，就把Button隐藏，显示出预先创建的Button。</p>
+<p>在Android3.0以下无法使用属性动画，这个时候我们可以使用动画兼容库nineoldandroids来实现，尽管如此，Android3.0以下手机上实现的属性动画，本质上还是View动画。</p>
+<p><strong>3.改变布局参数(此处以右移100px为例)</strong></p>
+<ul>
+<li>方式一：直接改变控件的LayoutParams参数里的marginLeft参数值，增加100</li>
+<li>方式二：在要移动的控件左边放置一个默认宽度为0的空View，当需要右移时，重新设置空View的宽度(假设该布局为水平方向的LinearLayout)</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">MarginLayoutParams = (MarginLayoutParams)mButton1.getLayoutParams();</div><div class="line">params.width += <span class="number">100</span>;</div><div class="line">params.leftMargin += <span class="number">100</span>;</div><div class="line">mButton1.requestLayout();</div><div class="line"><span class="comment">//或者</span></div><div class="line">mButton1.setLayoutParams(params);</div></pre></td></tr></table></figure>
+<p><strong>4.各种滑动方式的对比</strong></p>
+<ul>
+<li>scrollBy/scrollTo方式：可以比较方便的实现滑动效果并且不影响内部元素的点击事件，缺点是只能滑动View的内容，不能滑动View本身</li>
+<li>Android3.0以上采用属性动画没有明显的缺点，如果使用View动画的话，可能会造成点击事件丢失，因此在实际使用时，如果动画元素不需要响应与用户的交互，则比较适合采用动画，但是使用动画也有天然的优点，就是一些复杂的效果只能用动画实现</li>
+<li>改变布局这种方式没有明显的缺点，主要适用对象是一些具有交互性的View</li>
+</ul>
+<h3 id="弹性滑动">弹性滑动</h3>
+<p><strong>1.Scroller</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">Scroller scroller = <span class="keyword">new</span> Scroller(mContext);</div><div class="line"><span class="comment">//缓慢滚动到指定位置</span></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">smoothScrollTo</span><span class="params">(<span class="keyword">int</span> destX,<span class="keyword">int</span> destY)</span></span>&#123;</div><div class="line">  <span class="keyword">int</span> scrollX = getScrollX();</div><div class="line">  <span class="keyword">int</span> delta = destX- scrollX;</div><div class="line">  <span class="comment">//1000ms内滑向destX，效果就是慢慢滑动</span></div><div class="line">  mScroller.startScroll(scrollX,<span class="number">0</span>,delta,<span class="number">0</span>,<span class="number">1000</span>);</div><div class="line">  invalidate();</div><div class="line">&#125;</div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">computeScroll</span><span class="params">()</span></span>&#123;</div><div class="line">  <span class="keyword">if</span>(mScroller.computeScrollOffset())&#123;</div><div class="line">    scrollTo(mScroller.getCurrX(),mScroller.getCurrY());</div><div class="line">    postInvalidate();</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们来根据源码分析一下为什么Scroller可以实现弹性滑动？</p>
+<p>先来看看startScroll方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">startScroll</span><span class="params">(<span class="keyword">int</span> startX, <span class="keyword">int</span> startY, <span class="keyword">int</span> dx, <span class="keyword">int</span> dy, <span class="keyword">int</span> duration)</span> </span>&#123;</div><div class="line">        mMode = SCROLL_MODE;</div><div class="line">        mFinished = <span class="keyword">false</span>;</div><div class="line">        mDuration = duration;</div><div class="line">        mStartTime = AnimationUtils.currentAnimationTimeMillis();</div><div class="line">        mStartX = startX;</div><div class="line">        mStartY = startY;</div><div class="line">        mFinalX = startX + dx;</div><div class="line">        mFinalY = startY + dy;</div><div class="line">        mDeltaX = dx;</div><div class="line">        mDeltaY = dy;</div><div class="line">        mDurationReciprocal = <span class="number">1.0f</span> / (<span class="keyword">float</span>) mDuration;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>从这个方法的实现可以看出，这个方法其实只是保存了一下我们传进去的参数，并没执行实际的滑动操作，这个方法里startX和startY表示的是滑动的起点，dx和dy表示的是要滑动的距离，duration表示的是滑动时间，这里的滑动指的是View内容的滑动，而不是View本身位置的变化，这个方法里面没有实现滑动功能，那么滑动功能肯定是在invalidate();方法里实现的。的确实这样的，invalidate方法会导致View重绘，在View的draw方法里又会去调用computeScroll方法，computeScroll方法在View中是一个空实现，因此需要我们自己去实现。正是因为我们自己实现的这个computeScroll方法，View才能实现弹性滑动。</p>
+<p>整个过程是这样的：当View重绘后会在draw方法里调用computeScroll方法，而computeScroll又会去向Scroller获取当前的scrollX和scrollY；然后通过scrollTo方法实现滑动；接着又调用了postInvalidate方法来进行第二次重绘，这一次重绘的过程和上一次一样，还是会调用这个computeScroll方法，computeScroll方法又会去调用postInvalidate进行重绘，如此反复，直到滑动结束(就是if判断里面条件为空)，所以mScroller.computeScrollOffset()方法肯定可以根据时间判断滑动是否完成，让我们到Scoller的computeScrollOffset()源码里面看一下是不是这样：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">computeScrollOffset</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (mFinished) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">int</span> timePassed = (<span class="keyword">int</span>)(AnimationUtils.currentAnimationTimeMillis() - mStartTime);</div><div class="line">    </div><div class="line">        <span class="keyword">if</span> (timePassed &lt; mDuration) &#123;</div><div class="line">            <span class="keyword">switch</span> (mMode) &#123;</div><div class="line">            <span class="keyword">case</span> SCROLL_MODE:</div><div class="line">                <span class="keyword">final</span> <span class="keyword">float</span> x = mInterpolator.getInterpolation(timePassed * mDurationReciprocal);</div><div class="line">                mCurrX = mStartX + Math.round(x * mDeltaX);</div><div class="line">                mCurrY = mStartY + Math.round(x * mDeltaY);</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            ......</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span> &#123;</div><div class="line">            mCurrX = mFinalX;</div><div class="line">            mCurrY = mFinalY;</div><div class="line">            mFinished = <span class="keyword">true</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>从源码看来，这个方法会根据时间流逝的百分比来计算出当前的scrollX和scrollY的值，这个概念类似于动画中插值器的概念，这个方法的返回值表示滑动是否结束,false表示已结束，true表示未结束。</p>
+<p>到这里Scroller的工作原理基本上讲完了，最后我们再来总结一下：Scroller本身并不能实现View的滑动，它需要配合computeScroll方法才能完成弹性滑动，它不断的让View重绘，每一次重绘距滑动起始时间会有一个小的时间间隔，通过这个时间间隔Scroller就可以得出View当前滑动的位置，然后根据这个位置调用scrollTo方法进行滑动，就这样每次View重绘都会导致View进行小幅度的滑动，而多次小幅度的滑动就构成了弹性滑动，这就是Scroller的工作机制。</p>
+<p><strong>2.通过动画</strong></p>
+<p>动画本身就是一种渐进操作，因此通过动画可以天然的实现弹性效果，除此之外，我们还可以利用动画的特性来实现一些动画不能实现的效果。例如：我们也想模仿Scroller来实现View的弹性滑动，那么利用动画的特性，可以采用如下方式实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">final</span> <span class="keyword">int</span> startX = <span class="number">0</span>;</div><div class="line">   <span class="keyword">final</span> <span class="keyword">int</span> deltaX = <span class="number">100</span>;</div><div class="line">   ValueAnimator animator = ValueAnimator.ofInt(<span class="number">0</span>,<span class="number">1</span>).setDuration(<span class="number">1000</span>);</div><div class="line">	animator.addUpdateListener(<span class="keyword">new</span> ValueAnimator.AnimatorUpdateListener() &#123;</div><div class="line">           <span class="meta">@Override</span></div><div class="line">           <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationUpdate</span><span class="params">(ValueAnimator animation)</span> </span>&#123;</div><div class="line">               <span class="keyword">float</span> fraction = animation.getAnimatedFraction();</div><div class="line">               View.scrollTo(startX+(<span class="keyword">int</span>)(deltaX*fraction),<span class="number">0</span>);</div><div class="line">           &#125;</div><div class="line">       &#125;);</div><div class="line">       animator.start();</div></pre></td></tr></table></figure>
+<p>在这里，动画本质上没有作用于任何对象，它只是在1000ms内完成了整个动画过程，利用这个特性，我们可以在动画的每一帧到来时获取动画完成的比例，然后根据这个比例计算出当前View所要滑动的距离。这个实现方式和Scroller非常相似。</p>
+<p><strong>3.使用延时策略</strong></p>
+<p>它的核心思想是通过发送一系列延时消息从而达到一种渐进式的效果，具体来说可以使用Handler或View的postDelayed方法，也可以使用线程的sleep方法。对于postDelayed方法来说，我们可以通过它来延时发送一个消息，然后在消息中进行View的滑动，如果接连不断的发送这种延时消息，就可以实现弹性滑动效果。对于sleep来说，通过在while中不断的滑动View和Sleep，就可以实现弹性滑动效果。</p>
+<p>下面是使用Handler实现弹性滑动的方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> MESSAGE_SCROLL_TO = <span class="number">1</span>;</div><div class="line">   <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> FRAME_COUNT = <span class="number">30</span>;</div><div class="line">   <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> DELAYED_TIME = <span class="number">33</span>;</div><div class="line">   <span class="keyword">private</span> <span class="keyword">int</span> mCount = <span class="number">0</span>;</div><div class="line">   <span class="meta">@SuppressLint</span>(<span class="string">"HandlerLeak"</span>)</div><div class="line">   <span class="keyword">private</span> Handler mHandler = <span class="keyword">new</span> Handler()&#123;</div><div class="line">       <span class="meta">@Override</span></div><div class="line">       <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleMessage</span><span class="params">(Message msg)</span> </span>&#123;</div><div class="line">           <span class="keyword">switch</span> (msg.what)&#123;</div><div class="line">               <span class="keyword">case</span> MESSAGE_SCROLL_TO:</div><div class="line">                   mCount++;</div><div class="line">                   <span class="keyword">if</span>(mCount &lt;= FRAME_COUNT)&#123;</div><div class="line">                       <span class="keyword">float</span> fraction = mCount/(<span class="keyword">float</span>)FRAME_COUNT;</div><div class="line">                       <span class="keyword">int</span> scrollX = (<span class="keyword">int</span>)(fraction * <span class="number">100</span>);</div><div class="line">                       mButton1.scrollTo(scrollX,<span class="number">0</span>);</div><div class="line">                       mHandler.sendEmptyMessageDelayed(MESSAGE_SCROLL_TO,DELAYED_TIME);</div><div class="line">                   &#125;</div><div class="line">                   <span class="keyword">break</span>;</div><div class="line">               <span class="keyword">default</span>:<span class="keyword">break</span>;</div><div class="line">           &#125;</div><div class="line">           <span class="keyword">super</span>.handleMessage(msg);</div><div class="line">       &#125;</div><div class="line">   &#125;;</div></pre></td></tr></table></figure>
+<h3 id="view的事件分发机制">View的事件分发机制</h3>
+<h4 id="点击事件的传递规则">点击事件的传递规则</h4>
+<p>点击事件的分发过程由三个很重要的方法来共同完成：dispatchTouchEvent、onInterceptTouchEvent和onTouchEvent，下面我们来介绍一下这几个方法：</p>
+<p>public boolean dispatchTouchEvent(MotionEvent event)</p>
+<p>这个方法是用来进行事件分发的。如果事件能够传递给当前View，那么此方法一定会被调用，返回结果受当前View的onTouchEvent和下级View的dispatchTouchEvent方法的影响，表示是否消耗当前事件</p>
+<p>public boolean onInterceptTouchEvent(MotionEvent ev)</p>
+<p>用来判断是否拦截某个事件，如果当前View拦截了某个事件，那么在同一个事件序列当中，此方法不会被再次调用，返回结果表示是否拦截当前事件</p>
+<p>public boolean onTouchEvent(MotionEvent event)</p>
+<p>在dispatchTouchEvent方法中调用，用来处理点击事件，返回结果表示是否消耗当前事件，如果不消耗，则在同一个事件序列中，当前View无法再次接收到事件。</p>
+<p>这三个方法有什么关系呢？下面用一段伪代码来说明一下他们之间的关系：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">dispatchTouchEvent</span><span class="params">(MotionEvent ev)</span></span>&#123;</div><div class="line">  	<span class="keyword">boolean</span> consume = <span class="keyword">false</span>;</div><div class="line">  	<span class="keyword">if</span>(onInterceptTouchEvent(ev))&#123;</div><div class="line">      	consume = onTouchEvent(ev);</div><div class="line">  	&#125;<span class="keyword">else</span>&#123;</div><div class="line">      	consume = child.dispatchTouchEvent(ev)</div><div class="line">  	&#125;</div><div class="line">  	</div><div class="line">  	<span class="keyword">return</span> consume;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们一起来从这段伪代码中，简单分析一下点击事件的传递规则：对一个根ViewGroup来说，点击事件产生后，首先会传递给它，这时它的dispatchTouchEvent就会被调用，如果这个ViewGroup的onInterceptTouchEvent方法返回true就表示它要拦截当前事件，接着事件就会交给这个ViewGroup处理，即它的onTouchEvent方法就会被调用；如果这个ViewGroup的onInterceptTouchEvent方法返回false就表示他不拦截当前事件，这时当前事件就会继续传递给它的子元素，接着子元素的dispatchTouchEvent事件就会被调用，如此反复直到事件被处理。</p>
+<p>当一个View需要处理事件时，如果它设置了OnTouchListener，那么OnTouchListener中的onTouch方法就会被回调。这时事件如何处理还要看onTouch的返回值，如果返回false，则当前View设置的onTouchEvent事件会被调用；如果返回true，那么onTouchEvent方法将不会被调用，由此可见，给View设置的OnTouchListener优先级高于onTouchEvent方法。在onTouchEvent方法中，如果当前设置的有OnClickListener，那么它的onClick方法会被调用。可以看出，平时我们用的OnClickListener优先级最低，即处于时间传递的尾端。</p>
+<p>当一个点击事件产生后，它的传递过程遵循如下顺序：Activity-&gt;window-&gt;View，即事件总是先传递给Activity，Activity再传递给Window，最后Window再传递给顶级View，顶级View接收到事件后，就会按照事件分发机制去分发事件。考虑一种情况，如果一个View的onTouchEvent返回false，那么它的父容器的onTouchEvent将会被调用，以此类推，如果所有元素都不处理这个事件，那么这个事件将会最终传递给Activity处理，即Activity的onTouchEvent方法会被调用。</p>
+<p>关于事件传递机制，这里给出一些结论：</p>
+<ul>
+<li>同一个事件序列是指从手指接触屏幕的那一刻起，到手指离开屏幕的那一刻结束，在这个过程中所产生的一系列事件，这个事件序列以down事件开始，中间含有数量不定的move事件，最终以up事件结尾</li>
+<li>正常情况下，一个事件序列只能被一个View拦截且消耗。因为一旦一个元素拦截了此事件，那么同一个事件序列内的所有事件都会直接交给它处理，因此同一个事件序列中的事件不能分别由两个View同时处理，但是通过特殊手段可以做到，比如一个View将本该自己处理的事件通过onTouchEvent强行传递给其他View处理</li>
+<li>某个View一旦决定拦截，那么这一个事件序列都只能由它来处理(如果事件序列能够传递给他的话)，并且它的onInterceptTouchEvent不会再被调用。当一个View决定拦截一个事件后，那么系统就会把同一个事件序列内的其他方法都直接交给他来处理，因此就不用这个View的onInterceptTouchEvent去询问它是否要拦截了。</li>
+<li>某个View一旦开始处理事件，如果他不消耗ACTION_DOWN事件(onTouchEvent返回了false)，那么同一事件序列中的其他事件都不会再交给他来处理，并且事件将重新交给它的父元素处理，即父元素的onTouchEvent会被调用。意思就是事件一旦交给一个View处理，那么它就必须消耗掉，否则同一事件序列中剩下的事件就不再交给它来处理了</li>
+<li>如果View不消耗除ACTION_DOWN以外的其他事件，那么这个点击事件会消失，此时父元素的onTouchEvent并不会被调用，并且当前View可以持续收到后序的事件，最终这些消失的点击事件会传递给Activity处理</li>
+<li>ViewGroup默认不拦截任何事件，它的onInterceptTouchEvent方法默认返回false</li>
+<li>View没有onInterceptTouchEvent方法，一旦有点击事件传递给他，那么它的onTouchEvent事件一定会被调用。</li>
+<li>View的onTouchEvent默认都会消耗事件(返回true)，除非它是不可点击的(clickable和longclickable同时为false)。View的longClickable都默认为false，Clickable属性要分情况，button默认为true，textview默认为false</li>
+<li>View的enable属性不影响onTouchEvent的默认返回值。哪怕是一个View是disable状态的，只要它的clickable或者longClickable有一个为true，那么它的onTouchEvent就返回true</li>
+<li>onClick会发生的前提是当前View可点击，并且他收到了down和up的事件。</li>
+<li>事件传递过程是由外向内，即事件总是先传递给父元素，然后再由父元素分发给子View，通过requestDisallowInterceptTouchEvent方法可以在子元素中干预父元素的事件分发过程，但是ACTION_DOWN事件除外。</li>
+</ul>
+<h4 id="事件分发的源码解析">事件分发的源码解析</h4>
+<p><strong>1.Activity对点击事件的分发过程</strong></p>
+<p>当一个点击操作发生时，事件最先传递到当前Activity，由Activity的dispatchTouchEvent来进行事件派发，具体的工作是由Activity内部的Window来完成的。Window会将事件传递给decor view，decor view一般就是当前界面的底层容器(即setContentView所设置的View的父容器)，通过Activity.getWindow.getDecorView()可以获得。我们从Activity的dispatchTouchEvent开始分析：</p>
+<center>Activity#dispatchTouchEvent</center>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">dispatchTouchEvent</span><span class="params">(MotionEvent ev)</span> </span>&#123;</div><div class="line">       <span class="keyword">if</span> (ev.getAction() == MotionEvent.ACTION_DOWN) &#123;</div><div class="line">           onUserInteraction();</div><div class="line">       &#125;</div><div class="line">       <span class="keyword">if</span> (getWindow().superDispatchTouchEvent(ev)) &#123;</div><div class="line">           <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">       &#125;</div><div class="line">       <span class="keyword">return</span> onTouchEvent(ev);</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<p>从上面的代码可以看出，事件一开始先交给Activity所附属的Window进行分发，如果返回true，整个事件循环就结束了，返回false意味着事件没人处理，所有View的onTouchEvent都返回了false，那么Activity自己的onTouchEvent就会被调用。</p>
+<p>接下来看Window是如何将事件传递给ViewGroup的。通过源码我们知道，Window是个抽象类，而Window的superDispatchTouchEvent方法也是个抽象方法，因此我们必须找到Window的实现类才行。</p>
+<center>Window#superDispatchTouchEvent</center>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">boolean</span> <span class="title">superDispatchTouchEvent</span><span class="params">(MotionEvent event)</span></span>;</div></pre></td></tr></table></figure>
+<p>那么Window的实现类是什么呢?在Window类Android源码的注释中可以知道，Window类的唯一实现类是PhoneWindow</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Abstract base class for a top-level window look and behavior policy. An instance of this class should be used as the top-level view added to the window manager. It provides standard UI policies such as a background, title area, default key processing, etc. </div><div class="line">The only existing implementation of this abstract class is android.view.PhoneWindow, which you should instantiate when needing a Window.</div></pre></td></tr></table></figure>
+<p>这段话的大概意思是：Window类可以控制顶级View的外观和行为策略，它的唯一实现位于android.policy.PhoneWindow中，当你要实例化这个Window类的时候，你并不知道它的细节，因此这个类会被重构，只有一个工厂方法可以使用。</p>
+<p>PhoneWindow是Window的唯一实现，接下来看一下PhoneWindow是如何处理点击事件的：</p>
+<center>PhoneWindow#superDispatchTouchEvent</center>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">superDispatchKeyEvent</span><span class="params">(KeyEvent event)</span> </span>&#123;</div><div class="line">       <span class="keyword">return</span> mDecor.superDispatchKeyEvent(event);</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<p>在这里我们知道，PhoneView将事件直接传递给了DecorView，这个DecorView又是什么呢？</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DecorView</span> <span class="keyword">extends</span> <span class="title">FrameLayout</span> <span class="keyword">implements</span> <span class="title">RootViewSurfaceTaker</span>, <span class="title">WindowCallbacks</span> </span></div><div class="line"></div><div class="line">// <span class="title">This</span> <span class="title">is</span> <span class="title">the</span> <span class="title">top</span>-<span class="title">level</span> <span class="title">view</span> <span class="title">of</span> <span class="title">the</span> <span class="title">window</span>, <span class="title">containing</span> <span class="title">the</span> <span class="title">window</span> <span class="title">decor</span>.</div><div class="line">   <span class="title">private</span> <span class="title">DecorView</span> <span class="title">mDecor</span>;</div><div class="line">   <span class="meta">@Override</span></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> View <span class="title">getDecorView</span><span class="params">()</span> </span>&#123;</div><div class="line">       <span class="keyword">if</span> (mDecor == <span class="keyword">null</span> || mForceDecorInstall) &#123;</div><div class="line">           installDecor();</div><div class="line">       &#125;</div><div class="line">       <span class="keyword">return</span> mDecor;</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<p>我们知道，通过((ViewGroup)getWindow().getDecorView().findViewById(android.R.id.content)).getChildAt(0)这种方式就可以获取Activity所设置的View，这个mDecor显然就是getWindow().getDecorView()返回的View，而我们通过setContentView设置的View是它的一个子View。目前事件传递到了DecorView这里，由于DecorView继承自FrameLayout且是父View，所以最终事件会传递给View。换句话说，事件肯定会传递到View。从这里开始，事件已经传递到了顶级View了，即在Activtity中通过setContentView所设置到的View的父容器。另外顶级VIew也叫根View，顶级View一般来说都是ViewGroup</p>
+<p><strong>2.顶级View对点击事件的分发过程</strong></p>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/2017/07/25/Algorithm-22/" data-toggle="tooltip" data-placement="top" title="Algorithm_22">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                    <div class="comment">
+                        <div id="disqus_thread" class="disqus-thread"></div>
+                    </div>
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#view事件体系"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">View事件体系</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#view基础知识"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">View基础知识</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#什么是view"><span class="toc-nav-number">1.1.1.</span> <span class="toc-nav-text">什么是View?</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#view的位置参数"><span class="toc-nav-number">1.1.2.</span> <span class="toc-nav-text">View的位置参数</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#motionevent和touchslop"><span class="toc-nav-number">1.1.3.</span> <span class="toc-nav-text">MotionEvent和TouchSlop</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#velocitytracker-gesturedetector和scroller"><span class="toc-nav-number">1.1.4.</span> <span class="toc-nav-text">VelocityTracker、GestureDetector和Scroller</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#view的滑动"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text">View的滑动</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#弹性滑动"><span class="toc-nav-number">1.3.</span> <span class="toc-nav-text">弹性滑动</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#view的事件分发机制"><span class="toc-nav-number">1.4.</span> <span class="toc-nav-text">View的事件分发机制</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#点击事件的传递规则"><span class="toc-nav-number">1.4.1.</span> <span class="toc-nav-text">点击事件的传递规则</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#事件分发的源码解析"><span class="toc-nav-number">1.4.2.</span> <span class="toc-nav-text">事件分发的源码解析</span></a></li></ol></li></ol></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#Android" title="Android">Android</a>
+                        
+                          <a class="tag" href="/tags/#View" title="View">View</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus embedded js code start (one page only need to embed once) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "your-disqus-ID";
+    var disqus_identifier = "http://andfanswzp.pw/2017/07/25/View笔记/";
+    var disqus_url = "http://andfanswzp.pw/2017/07/25/View笔记/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus embedded js code start end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/flyings-sky">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Andfans 2017 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://andfanswzp.pw/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-XXXXXXXX-X';
+    var _gaDomain = 'yoursite';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="http://andfanswzp.pw/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
