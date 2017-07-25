@@ -213,6 +213,76 @@
 
 <div class="post-preview">
 
+    <a href="/2017/07/25/Algorithm-22/">
+        <h2 class="post-title">
+            Algorithm_22
+        </h2>
+        <h3 class="post-subtitle">
+            数组中的逆序对
+        </h3>
+        <div class="post-content-preview">
+            题目描述
+在数组中的两个数字，如果前面一个数字大于后面的数字，则这两个数字组成一个逆序对。输入一个数组,求出这个数组中的逆序对的总数P。并将P对1000000007取模的结果输出。 即输出P%1000000007
+题目考点
+归并排序的思想
+解题思路
+
+
+将整个数列不断递归的拆分成两部分，直到每一部分长度为1，接下来一边合并相邻的子数组，一边统计逆序对的数目，将统计完成的部分从小到大进行排序，......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Andfans on
+            2017-07-25
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#算法题" title="算法题">算法题</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2017/07/25/排序算法之归并排序/">
+        <h2 class="post-title">
+            排序算法之归并排序
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            准备
+在说明该算法之前，先给出一个在该算法之中用到的一个算法：合并两个有序数列A，B，这个算法非常简单
+算法思想
+
+使用两个整型变量index1、index2分别来表示当前在两个数组中要比较的两个数的下标
+遍历两个数组，比较数组A的下标index1和数组B的下标index2对应的值，将较小的值/较大的值放到另一个数组C(下标为indexTemp)中，将indexTemp和较小值/较大值对应的......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Andfans on
+            2017-07-25
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#经典算法" title="经典算法">经典算法</a>
+            
+              <a href="/tags/#排序算法" title="排序算法">排序算法</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
     <a href="/2017/07/24/Binder初探/">
         <h2 class="post-title">
             Binder初探
@@ -486,70 +556,6 @@ Paused：暂停状态，此时Activity仍然处于可见状态，但是不能与
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2017/07/18/Algorithm-16/">
-        <h2 class="post-title">
-            Algorithm_16
-        </h2>
-        <h3 class="post-subtitle">
-            字符串的排列
-        </h3>
-        <div class="post-content-preview">
-            题目描述
-输入一个字符串，打印出该字符串中字符的所有排列。例如输入字符串abc，则打印出由a、b、c所能排列出来的所有字符串abc、acb、bac、bca、cab和cba。
-解题思路
-
-先固定住第一个字符，求剩余字符的全排列，然后将第一个字符与后面的字符依次交换，每交换一次求一次全排列。
-对于剩余字符用相同的方法，固定住第一个字符，求剩余字符的全排列，直至划分到只剩一个字符(即最后一个字符)......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Andfans on
-            2017-07-18
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#算法题" title="算法题">算法题</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2017/07/17/Algorithm-15/">
-        <h2 class="post-title">
-            Algorithm_15
-        </h2>
-        <h3 class="post-subtitle">
-            数组中出现次数超过一半的数字
-        </h3>
-        <div class="post-content-preview">
-            题目描述
-数组中有一个数字出现的次数超过数组长度的一半，请找出这个数字。例如:输入一个长度为9的数组{1,2,3,2,2,2,5,4,2}。由于数字2在数组中出现了5次，超过了数组长度的一半，因此输出2，如果不存在这样的数字，则输出0
-解题思路
-数组中有一个数字出现的次数超过数组长度的一半，也就是说它出现的次数比其他所有数字出现的次数的和还要多。因此，可以从头到尾遍历一遍数组，在遍历的同时保......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Andfans on
-            2017-07-17
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#算法题" title="算法题">算法题</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -586,13 +592,13 @@ Paused：暂停状态，此时Activity仍然处于可见状态，但是不能与
     <div class="tags">
         
             
+            <a href="/tags/#算法题" title="算法题" rel="22">算法题</a>
+            
+        
+            
         
             
             <a href="/tags/#Android" title="Android" rel="8">Android</a>
-            
-        
-            
-            <a href="/tags/#算法题" title="算法题" rel="21">算法题</a>
             
         
             
@@ -605,6 +611,10 @@ Paused：暂停状态，此时Activity仍然处于可见状态，但是不能与
         
             
             <a href="/tags/#Java" title="Java" rel="6">Java</a>
+            
+        
+            
+        
             
         
             
@@ -677,6 +687,14 @@ Paused：暂停状态，此时Activity仍然处于可见状态，但是不能与
     <ul>
       
         <li>
+          <a href="/2017/07/25/Algorithm-22/">Algorithm_22</a>
+        </li>
+      
+        <li>
+          <a href="/2017/07/25/排序算法之归并排序/">排序算法之归并排序</a>
+        </li>
+      
+        <li>
           <a href="/2017/07/24/Binder初探/">Binder初探</a>
         </li>
       
@@ -688,14 +706,6 @@ Paused：暂停状态，此时Activity仍然处于可见状态，但是不能与
           <a href="/2017/07/23/IPC浅析/">IPC浅析</a>
         </li>
       
-        <li>
-          <a href="/2017/07/23/Algorithm-20/">Algorithm_20</a>
-        </li>
-      
-        <li>
-          <a href="/2017/07/22/Algorithm-19/">Algorithm_19</a>
-        </li>
-      
     </ul>
   </div>
 
@@ -704,7 +714,7 @@ Paused：暂停状态，此时Activity仍然处于可见状态，但是不能与
         
     <h5>ARCHIVES</h5>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">23</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">11</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">25</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">11</span></li></ul>
     </div>
 
         <hr>
