@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          Algorithm_23 - Andfans
+          Algorithm_24 - Andfans
         
     </title>
 
-    <link rel="canonical" href="http://andfanswzp.pw/2017/07/26/Algorithm-23/">
+    <link rel="canonical" href="http://andfanswzp.pw/2017/07/26/Algorithm-24/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -93,8 +93,8 @@
                               <a class="tag" href="/tags/#算法题" title="算法题">算法题</a>
                             
                         </div>
-                        <h1>Algorithm_23</h1>
-                        <h2 class="subheading">两个链表的第一个公共结点</h2>
+                        <h1>Algorithm_24</h1>
+                        <h2 class="subheading">数字在排序数组中出现的次数</h2>
                         <span class="meta">
                             Posted by Andfans on
                             2017-07-26
@@ -215,30 +215,43 @@
                 post-container">
 
                 <h2 id="题目描述">题目描述</h2>
-<p>输入两个链表，找出它们的第一个公共结点。</p>
+<p>统计一个数字在排序数组中出现的次数。</p>
 <h2 id="解题思路">解题思路</h2>
+<p>当这种题在面试官出现，那么如果你只给出一个时间复杂度为O(N)的算法的话，那么很难令面试官满意，因此需要时间复杂度更小的算法来实现这道题目。</p>
+<p>一看到&quot;排序&quot;两个字，有没有觉得题目是在暗示你什么？8成要用二分查找来做，由于在这个题目中是可能存在重复数据的情况，求出现次数，换言之，也就是求数字出现的开始和结束的位置，因为每次二分查找只能找到一个下标，所以我们要使用两次二分查找来实现。</p>
+<p>找开始位置算法：</p>
 <ul>
-<li>用两个指针p1、p2分别指向两个链表的头</li>
-<li>如果p1、p2指向的结点不同，就执行循环</li>
-<li>如果p1不等于null就指向p1下一个结点，如果p1为null，就指向另一个链表的头</li>
-<li>如果p2不等于null就指向p2下一个结点，如果p2为null，就指向另一个链表的头</li>
-<li>这样经过一次指针指向转换（p1，p2指向另一个指针的头叫做一次转换）后，之前走的慢的指针就会赶上走的快的指针，两个指针分别会走遍两个链表所有的结点，这样的情况下就肯定可以找到第一个相同的结点(如果存在的话)，不存在时，两个指针同时指向空，最后返回值为空</li>
+<li>如果array[mid]值大于k值，则说明k是出现在左半部分，因此将right值更新为mid-1</li>
+<li>如果array[mid]值小于k值，则说明k是出现在右半部分，因此将left值更新为mid+1</li>
+<li>如果相等，则要考虑重复值的问题，因为这是找开始位置的算法，所以应该是往前找：
+<ul>
+<li>判断前一个数(mid-1)是否存在且值是否为k(注意这两个判断条件的先后位置不能颠倒，因此&amp;&amp;具有短路性)，如果是，则还需要继续下一次二分查找，将right更新为mid-1;</li>
+<li>如果上述两个条件不成立，则说明不存在重复值，直接返回mid，作为开始位置</li>
+</ul>
+</li>
+</ul>
+<p>找结束位置的算法：</p>
+<ul>
+<li>如果array[mid]值大于k值，则说明k是出现在左半部分，因此将right值更新为mid-1</li>
+<li>如果array[mid]值小于k值，则说明k是出现在右半部分，因此将left值更新为mid+1</li>
+<li>如果相等，则要考虑重复值的问题，因为这是找结束位置的算法，所以应该是往后找：
+<ul>
+<li>判断后一个数(mid+1)是否存在且值是否为k(注意这两个判断条件的先后位置不能颠倒，因此&amp;&amp;具有短路性)，如果是，则还需要继续下一次二分查找，将left更新为mid+1;</li>
+<li>如果上述两个条件不成立，则说明不存在重复值，直接返回mid，作为开始位置</li>
+</ul>
+</li>
 </ul>
 <h2 id="实现代码">实现代码</h2>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line">public class ListNode &#123;</div><div class="line">    int val;</div><div class="line">    ListNode next = null;</div><div class="line"></div><div class="line">    ListNode(int val) &#123;</div><div class="line">        this.val = val;</div><div class="line">    &#125;</div><div class="line">&#125;*/</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">FindFirstCommonNode</span><span class="params">(ListNode pHead1, ListNode pHead2)</span> </span>&#123;</div><div class="line"> 		<span class="keyword">if</span>((pHead1 == <span class="keyword">null</span>)||(pHead2 == <span class="keyword">null</span>))&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        ListNode p1 = pHead1,p2 = pHead2;</div><div class="line">        </div><div class="line">        <span class="keyword">while</span>(p1 != p2)&#123;</div><div class="line">            p1 = (p1 == <span class="keyword">null</span>) ? pHead2 : p1.next;</div><div class="line">            p2 = (p2 == <span class="keyword">null</span>) ? pHead1 : p2.next;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> p1;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">GetNumberOfK</span><span class="params">(<span class="keyword">int</span> [] array , <span class="keyword">int</span> k)</span> </span>&#123;</div><div class="line">       	<span class="keyword">int</span> len = array.length;</div><div class="line">        <span class="keyword">if</span>(len == <span class="number">0</span>||array == <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">int</span> left = GetNumLeft(array,<span class="number">0</span>,len-<span class="number">1</span>,k);</div><div class="line">        <span class="keyword">int</span> right = GetNumRight(array,<span class="number">0</span>,len-<span class="number">1</span>,k);</div><div class="line">        <span class="keyword">if</span>(left != -<span class="number">1</span>&amp;&amp;right != -<span class="number">1</span>)&#123;</div><div class="line">            <span class="keyword">return</span> right - left + <span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">GetNumRight</span><span class="params">(<span class="keyword">int</span> [] array,<span class="keyword">int</span> left,<span class="keyword">int</span> right,<span class="keyword">int</span> k)</span></span>&#123;</div><div class="line">        <span class="keyword">while</span>(left &lt;= right)&#123;</div><div class="line">            <span class="keyword">int</span> mid = (left + right) / <span class="number">2</span>;</div><div class="line">            <span class="keyword">if</span>(array[mid] &gt; k)&#123;</div><div class="line">                right = mid - <span class="number">1</span>;</div><div class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(array[mid] &lt; k)&#123;</div><div class="line">                left = mid + <span class="number">1</span>;</div><div class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(mid + <span class="number">1</span> &lt; array.length&amp;&amp;(array[mid + <span class="number">1</span>]  == k))&#123;</div><div class="line">                left = mid + <span class="number">1</span>;</div><div class="line">            &#125;<span class="keyword">else</span> &#123;</div><div class="line">                <span class="keyword">return</span> mid;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">GetNumLeft</span><span class="params">(<span class="keyword">int</span> [] array,<span class="keyword">int</span> left,<span class="keyword">int</span> right,<span class="keyword">int</span> k)</span></span>&#123;</div><div class="line">        <span class="keyword">while</span>(left &lt;= right)&#123;</div><div class="line">            <span class="keyword">int</span> mid = (left + right) / <span class="number">2</span>;</div><div class="line">            <span class="keyword">if</span>(array[mid] &gt; k)&#123;</div><div class="line">                right = mid - <span class="number">1</span>;</div><div class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(array[mid] &lt; k)&#123;</div><div class="line">                left = mid + <span class="number">1</span>;</div><div class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>((mid - <span class="number">1</span> &gt;= <span class="number">0</span>)&amp;&amp;(array[mid - <span class="number">1</span>]  == k))&#123;</div><div class="line">                right = mid - <span class="number">1</span>;</div><div class="line">            &#125;<span class="keyword">else</span> &#123;</div><div class="line">                <span class="keyword">return</span> mid;</div><div class="line">            &#125;</div><div class="line">        &#125;  </div><div class="line">        <span class="keyword">return</span> -<span class="number">1</span>;      </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
                 
 
                 <hr>
                 <!-- Pager -->
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2017/07/26/Algorithm-24/" data-toggle="tooltip" data-placement="top" title="Algorithm_24">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/2017/07/25/View笔记/" data-toggle="tooltip" data-placement="top" title="View杂记">Next Post &rarr;</a>
+                            <a href="/2017/07/26/Algorithm-23/" data-toggle="tooltip" data-placement="top" title="Algorithm_23">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -317,8 +330,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "your-disqus-ID";
-    var disqus_identifier = "http://andfanswzp.pw/2017/07/26/Algorithm-23/";
-    var disqus_url = "http://andfanswzp.pw/2017/07/26/Algorithm-23/";
+    var disqus_identifier = "http://andfanswzp.pw/2017/07/26/Algorithm-24/";
+    var disqus_url = "http://andfanswzp.pw/2017/07/26/Algorithm-24/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
