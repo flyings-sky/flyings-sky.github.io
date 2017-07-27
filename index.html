@@ -143,14 +143,14 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -210,6 +210,37 @@
             
                 <!-- Main Content -->
 
+
+<div class="post-preview">
+
+    <a href="/2017/07/27/View的工作原理/">
+        <h2 class="post-title">
+            View的工作原理
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            初识ViewRoot和DecorView
+ViewRoot对应于ViewRootImpl类，它是连接WindowManager和DecorView的纽带，View的三大流程均是通过ViewRoot来完成的。在ActivityThread中，当Activity对象被创建完毕后，会将DecorView添加到Window中，同时会创建ViewRootImpl对象，并将ViewRootImpl对象和......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Andfans on
+            2017-07-27
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Android" title="Android">Android</a>
+            
+              <a href="/tags/#View" title="View">View</a>
+            
+        </div>
+    
+
+</div>
+<hr>
 
 <div class="post-preview">
 
@@ -522,43 +553,6 @@ Android为什么选择Binder？
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2017/07/24/Algorithm-21/">
-        <h2 class="post-title">
-            Algorithm_21
-        </h2>
-        <h3 class="post-subtitle">
-            找出字符串中第一个只出现一次的字符
-        </h3>
-        <div class="post-content-preview">
-            题目描述
-在一个字符串中找到第一个只出现一次的字符，并返回它的位置，若没有返回-1
-解题思路
-
-遍历字符串，将遍历到的字符用一个LinkedHashMap(以字符为key，以出现的次数为value)存储起来
-遍历LinkedHashMap，找到第一个value值为1的字符
-使用String.indexOf()返回下标
-
-实现代码
-1234567891011121314151617181920......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Andfans on
-            2017-07-24
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#算法题" title="算法题">算法题</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -595,15 +589,13 @@ Android为什么选择Binder？
     <div class="tags">
         
             
+        
+            
+            <a href="/tags/#Android" title="Android" rel="10">Android</a>
+            
+        
+            
             <a href="/tags/#算法题" title="算法题" rel="27">算法题</a>
-            
-        
-            
-        
-            
-            <a href="/tags/#Android" title="Android" rel="9">Android</a>
-            
-        
             
         
             
@@ -614,6 +606,8 @@ Android为什么选择Binder？
         
             
             <a href="/tags/#Java" title="Java" rel="6">Java</a>
+            
+        
             
         
             
@@ -692,6 +686,10 @@ Android为什么选择Binder？
     <ul>
       
         <li>
+          <a href="/2017/07/27/View的工作原理/">View的工作原理</a>
+        </li>
+      
+        <li>
           <a href="/2017/07/27/Algorithm-27/">Algorithm_27</a>
         </li>
       
@@ -707,10 +705,6 @@ Android为什么选择Binder？
           <a href="/2017/07/26/Algorithm-25/">Algorithm_25</a>
         </li>
       
-        <li>
-          <a href="/2017/07/26/Algorithm-24/">Algorithm_24</a>
-        </li>
-      
     </ul>
   </div>
 
@@ -719,7 +713,7 @@ Android为什么选择Binder？
         
     <h5>ARCHIVES</h5>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">31</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">11</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">32</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">11</span></li></ul>
     </div>
 
         <hr>
