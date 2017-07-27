@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          Algorithm_22 - Andfans
+          Algorithm_26 - Andfans
         
     </title>
 
-    <link rel="canonical" href="http://andfanswzp.pw/2017/07/25/Algorithm-22/">
+    <link rel="canonical" href="http://andfanswzp.pw/2017/07/27/Algorithm-26/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -93,11 +93,11 @@
                               <a class="tag" href="/tags/#算法题" title="算法题">算法题</a>
                             
                         </div>
-                        <h1>Algorithm_22</h1>
-                        <h2 class="subheading">数组中的逆序对</h2>
+                        <h1>Algorithm_26</h1>
+                        <h2 class="subheading">判断平衡二叉树</h2>
                         <span class="meta">
                             Posted by Andfans on
-                            2017-07-25
+                            2017-07-27
                         </span>
                     </div>
                 
@@ -215,40 +215,25 @@
                 post-container">
 
                 <h2 id="题目描述">题目描述</h2>
-<p>在数组中的两个数字，如果前面一个数字大于后面的数字，则这两个数字组成一个逆序对。输入一个数组,求出这个数组中的逆序对的总数P。并将P对1000000007取模的结果输出。 即输出P%1000000007</p>
-<h2 id="题目考点">题目考点</h2>
-<p>归并排序的思想</p>
+<p>输入一棵二叉树的根节点，判断该树是不是平衡二叉树。如果某二叉树中任意结点的左右子树的深度相差不超过1，那么它就是一棵平衡二叉树。</p>
 <h2 id="解题思路">解题思路</h2>
+<p>采用后序遍历的方式遍历二叉树的每一个节点，在遍历到每个结点之前就已经将它的左右结点遍历到了，只要在遍历每个节点时记录它的深度(某一节点的深度等于它到叶子结点的路径的长度)，我们就可以一边遍历一边判断每个结点是不是平衡的。</p>
 <ul>
-<li>
-<p>将整个数列不断递归的拆分成两部分，直到每一部分长度为1，接下来一边合并相邻的子数组，一边统计逆序对的数目，将统计完成的部分从小到大进行排序，以防止在以后的统计过程中重复统计。</p>
-</li>
-<li>
-<p>统计逆序对思路：</p>
-<ul>
-<li>是用两个指针分别指向两部分子数组的末尾，并每次比较两个指针指向的数字。</li>
-<li>如果第一个子数组中的数字大于第二个子数组中的数字，则构成逆序对，并且逆序对的数目等于第二个数组中剩余数字的个数(因为两个子数组再上一步合并时已经按照递增顺序排好序)</li>
-<li>如果第一个子数组中的数字小于或等于第二个子数组中的数字，则不构成逆序对。</li>
-<li>每次比较完成后将较大的数字，从后往前复制到辅助数组中，将指针前移一位，确保辅助数组中的数字时递增排序的。</li>
-<li>整个比较完成后，使用辅助数组更新原数组，使原数组部分有序。</li>
-</ul>
-</li>
+<li>设置一个全局的标志变量isBalance记录该二叉树是否是平衡的，一开始初始化为true(如果一开始置为false的话，这样只要树中有一个结点是平衡的，那么该标志就会改变，导致结果错误)</li>
+<li>使用一个函数用后序遍历的方式求深度，使用返回值记录下当前遍历结点的深度</li>
+<li>判断左右子树的深度差，如果大于1，将标志置为false</li>
 </ul>
 <h2 id="实现代码">实现代码</h2>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">InversePairs</span><span class="params">(<span class="keyword">int</span> [] array)</span> </span>&#123;</div><div class="line">    	<span class="keyword">int</span> len = array.length;</div><div class="line">        </div><div class="line">        <span class="keyword">if</span>(len == <span class="number">0</span>||array == <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">int</span> [] copy = <span class="keyword">new</span> <span class="keyword">int</span>[len];</div><div class="line">        <span class="keyword">int</span> count = MergeSort(array,copy,<span class="number">0</span>,len-<span class="number">1</span>);</div><div class="line">        <span class="keyword">return</span> count;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">MergeSort</span><span class="params">(<span class="keyword">int</span> [] array,<span class="keyword">int</span> [] copy,<span class="keyword">int</span> start,<span class="keyword">int</span> end)</span></span>&#123;</div><div class="line">        <span class="keyword">if</span>(start == end)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">int</span> mid = (end + start)/<span class="number">2</span>;</div><div class="line">        <span class="keyword">int</span> left = MergeSort(array,copy,start,mid);<span class="comment">//统计左半边数组存在的逆序对数目</span></div><div class="line">        <span class="keyword">int</span> right = MergeSort(array,copy,mid+<span class="number">1</span>,end);<span class="comment">//统计右半边数组存在的逆序对数目</span></div><div class="line">        <span class="keyword">int</span> count = MergeArray(array,copy,start,mid,end);<span class="comment">//统计整个数组存在的逆序对数目</span></div><div class="line">        </div><div class="line">        <span class="keyword">return</span> (left + right + count) % <span class="number">1000000007</span>;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">MergeArray</span><span class="params">(<span class="keyword">int</span> [] array,<span class="keyword">int</span> [] copy,<span class="keyword">int</span> start,<span class="keyword">int</span> mid,<span class="keyword">int</span> end)</span></span>&#123;</div><div class="line">        <span class="keyword">int</span> index1 = mid;</div><div class="line">        <span class="keyword">int</span> index2 = end;</div><div class="line">        <span class="keyword">int</span> indexCopy = end;</div><div class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</div><div class="line">        <span class="keyword">while</span>(index1 &gt;= start&amp;&amp;index2 &gt; mid)&#123;</div><div class="line">          	<span class="comment">//如果左边数组的数字大于右边数组的数字，就存在逆序对，逆序对数目是右边数组index下标及下标之前的数字的数目</span></div><div class="line">            <span class="keyword">if</span>(array[index1] &gt; array[index2])&#123;</div><div class="line">                copy[indexCopy--] = array[index1--];</div><div class="line">                count += index2 - mid;</div><div class="line">                <span class="keyword">if</span>(count &gt; <span class="number">1000000007</span>)&#123;</div><div class="line">                    count = count % <span class="number">1000000007</span>;</div><div class="line">                &#125;</div><div class="line">            &#125;<span class="keyword">else</span> &#123;</div><div class="line">                copy[indexCopy--] = array[index2--];</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">while</span>(index1 &gt;= start)&#123;</div><div class="line">            copy[indexCopy--] = array[index1--];</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">while</span>(index2 &gt; mid)&#123;</div><div class="line">            copy[indexCopy--] = array[index2--];</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//用辅助数组更新原数组，使原数组部分有序</span></div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> s = start;s &lt;= end;s++)</div><div class="line">        &#123;</div><div class="line">            array[s] = copy[s];</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> count;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> isBalance = <span class="keyword">true</span>;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">IsBalanced_Solution</span><span class="params">(TreeNode root)</span> </span>&#123;</div><div class="line">       	isBalances(root);</div><div class="line">        <span class="keyword">return</span> isBalance;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">isBalances</span><span class="params">(TreeNode root)</span></span>&#123;</div><div class="line">        <span class="keyword">if</span>(root == <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">int</span> left = isBalances(root.left);</div><div class="line">        <span class="keyword">int</span> right = isBalances(root.right);</div><div class="line">        </div><div class="line">        <span class="keyword">if</span>(Math.abs(left-right) &gt; <span class="number">1</span>)&#123;</div><div class="line">            isBalance = <span class="keyword">false</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> (left &gt; right) ? left + <span class="number">1</span>:right + <span class="number">1</span>;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
                 
 
                 <hr>
                 <!-- Pager -->
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2017/07/25/View笔记/" data-toggle="tooltip" data-placement="top" title="View杂记">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/2017/07/25/排序算法之归并排序/" data-toggle="tooltip" data-placement="top" title="排序算法之归并排序">Next Post &rarr;</a>
+                            <a href="/2017/07/26/Algorithm-25/" data-toggle="tooltip" data-placement="top" title="Algorithm_25">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -278,7 +263,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#题目描述"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">题目描述</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#题目考点"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">题目考点</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#解题思路"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">解题思路</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#实现代码"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">实现代码</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#题目描述"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">题目描述</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#解题思路"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">解题思路</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#实现代码"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">实现代码</span></a></li></ol>
         
         </div>
       </aside>
@@ -327,8 +312,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "your-disqus-ID";
-    var disqus_identifier = "http://andfanswzp.pw/2017/07/25/Algorithm-22/";
-    var disqus_url = "http://andfanswzp.pw/2017/07/25/Algorithm-22/";
+    var disqus_identifier = "http://andfanswzp.pw/2017/07/27/Algorithm-26/";
+    var disqus_url = "http://andfanswzp.pw/2017/07/27/Algorithm-26/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
