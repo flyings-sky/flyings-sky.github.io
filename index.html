@@ -143,14 +143,14 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -210,6 +210,44 @@
             
                 <!-- Main Content -->
 
+
+<div class="post-preview">
+
+    <a href="/2017/07/27/Algorithm-27/">
+        <h2 class="post-title">
+            Algorithm_27
+        </h2>
+        <h3 class="post-subtitle">
+            二叉搜索树的插入
+        </h3>
+        <div class="post-content-preview">
+            题目描述
+给定一棵二叉排序树，将给定的值正确插入到该树中。
+解题思路
+二叉排序树的特点是左子树的值比都比根小，右子树的值都比根大，借助这个特点，可以利用折半查找的思想，每次比较根节点的值与给定的值的大小关系：
+
+如果要插入的值大于根节点的值，就去右子树继续查找
+如果要插入的值小于根节点的值，就去左子树继续查找
+直到找到一个结点为null，就将该值插入到这个地方
+
+实现代码
+123456789......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Andfans on
+            2017-07-27
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#算法题" title="算法题">算法题</a>
+            
+        </div>
+    
+
+</div>
+<hr>
 
 <div class="post-preview">
 
@@ -522,43 +560,6 @@ Android为什么选择Binder？
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2017/07/23/IPC浅析/">
-        <h2 class="post-title">
-            IPC浅析
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            概述
-IPC：含义为进程间通信或者跨进程通信，是指两个进程之间进行数据交换的过程。
-Windows中常见的IPC方式：剪切板、管道和邮槽
-Linux中常见的IPC方式：命名管道、共享内容、信号量
-Android中常见的IPC方式：Binder、AIDL、Messenger、ContentProvider、Socket、Bundle、文件等
-IPC的使用场景
-
-为了加大一个应用可以使用的内存空......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Andfans on
-            2017-07-23
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Android" title="Android">Android</a>
-            
-              <a href="/tags/#IPC" title="IPC">IPC</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -595,13 +596,15 @@ IPC的使用场景
     <div class="tags">
         
             
-            <a href="/tags/#算法题" title="算法题" rel="26">算法题</a>
-            
-        
-            
         
             
             <a href="/tags/#Android" title="Android" rel="9">Android</a>
+            
+        
+            
+            <a href="/tags/#算法题" title="算法题" rel="27">算法题</a>
+            
+        
             
         
             
@@ -612,8 +615,6 @@ IPC的使用场景
         
             
             <a href="/tags/#Java" title="Java" rel="6">Java</a>
-            
-        
             
         
             
@@ -692,6 +693,10 @@ IPC的使用场景
     <ul>
       
         <li>
+          <a href="/2017/07/27/Algorithm-27/">Algorithm_27</a>
+        </li>
+      
+        <li>
           <a href="/2017/07/27/Algorithm-26/">Algorithm_26</a>
         </li>
       
@@ -707,10 +712,6 @@ IPC的使用场景
           <a href="/2017/07/26/Algorithm-23/">Algorithm_23</a>
         </li>
       
-        <li>
-          <a href="/2017/07/25/View笔记/">View杂记</a>
-        </li>
-      
     </ul>
   </div>
 
@@ -719,7 +720,7 @@ IPC的使用场景
         
     <h5>ARCHIVES</h5>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">30</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">11</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">31</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">11</span></li></ul>
     </div>
 
         <hr>
