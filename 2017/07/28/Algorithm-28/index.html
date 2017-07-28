@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          生词本 - Andfans
+          Algorithm_28 - Andfans
         
     </title>
 
-    <link rel="canonical" href="http://andfanswzp.pw/2017/06/07/生词本/">
+    <link rel="canonical" href="http://andfanswzp.pw/2017/07/28/Algorithm-28/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -90,14 +90,14 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#Word" title="Word">Word</a>
+                              <a class="tag" href="/tags/#算法题" title="算法题">算法题</a>
                             
                         </div>
-                        <h1>生词本</h1>
-                        <h2 class="subheading"></h2>
+                        <h1>Algorithm_28</h1>
+                        <h2 class="subheading">和为S的两个数字</h2>
                         <span class="meta">
                             Posted by Andfans on
-                            2017-06-07
+                            2017-07-28
                         </span>
                     </div>
                 
@@ -214,67 +214,33 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <table>
-<thead>
-<tr>
-<th style="text-align:center">adoption：采用，采纳</th>
-<th style="text-align:center">expressive：具有表现力的</th>
-<th style="text-align:center">concise：简洁的</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"><strong>in terms of：在…方面</strong></td>
-<td style="text-align:center"><strong>nullability：空性</strong></td>
-<td style="text-align:center"><strong>immutability：不变性</strong></td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>performant：高性能</strong></td>
-<td style="text-align:center"><strong>interoperable：互操作性</strong></td>
-<td style="text-align:center"><strong>bi-directionally：双向</strong></td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>crucial：关键</strong></td>
-<td style="text-align:center"><strong>inherit：继承</strong></td>
-<td style="text-align:center"><strong>primarily：主要</strong></td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>reaffirm：重申</strong></td>
-<td style="text-align:center"><strong>ecosystem：生态系统</strong></td>
-<td style="text-align:center"><strong>evolve：发展</strong></td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>ongoing：不断的</strong></td>
-<td style="text-align:center"><strong>profiling：分析</strong></td>
-<td style="text-align:center"><strong>addition：补充</strong></td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>alternatively：另外</strong></td>
-<td style="text-align:center"><strong>seamlessly：无缝</strong></td>
-<td style="text-align:center"><strong>preferred：首选</strong></td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>strive：努力</strong></td>
-<td style="text-align:center"><strong>semantic：语义</strong></td>
-<td style="text-align:center"><strong>bundled：捆绑</strong></td>
-</tr>
-</tbody>
-</table>
-<p>最后编辑时间:2017.6.8  1:06</p>
-
+                <h2 id="题目描述">题目描述</h2>
+<p>输入一个递增排序的数组和一个数字S，在数组中查找两个数，如果他们的和正好为S，并且它们的乘积是是所有和为S的数对中最小的，就将其输出。</p>
+<h3 id="输出描述">输出描述</h3>
+<p>对应每个测试案例，输出两个数(放到ArrayList中)，小的先输出。</p>
+<h2 id="解题思路">解题思路</h2>
+<ul>
+<li>使用两个指针left和right分别指向数组头和数组尾，使用一个min变量存储当前乘积的最小值</li>
+<li>每次比较left和right指针指向数字的和与sum的关系
+<ul>
+<li>如果等于sum，将left后移，right前移，然后与之前的最小值min比较，如果小的话就记录下这两个数</li>
+<li>如果大于sum，将right前移</li>
+<li>如果小于sum，将left后移</li>
+</ul>
+</li>
+<li>直到left大于right整个过程结束</li>
+</ul>
+<h2 id="实现代码">实现代码</h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.ArrayList;</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> ArrayList&lt;Integer&gt; <span class="title">FindNumbersWithSum</span><span class="params">(<span class="keyword">int</span> [] array,<span class="keyword">int</span> sum)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> len = array.length;</div><div class="line">        ArrayList&lt;Integer&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">        <span class="keyword">if</span>(len == <span class="number">0</span>||array == <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span> list;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">int</span> left = <span class="number">0</span>,right = len - <span class="number">1</span>;</div><div class="line">        <span class="keyword">int</span> min = <span class="number">0</span>;</div><div class="line">        <span class="keyword">while</span>(left &lt; right)&#123;</div><div class="line">            <span class="keyword">int</span> op1 = array[left],op2 = array[right];</div><div class="line">            <span class="keyword">if</span>(op1 + op2 == sum)&#123;</div><div class="line">                left++;</div><div class="line">                right--;</div><div class="line">                <span class="keyword">if</span>(min == <span class="number">0</span>||op1*op2 &lt; min)&#123;</div><div class="line">                    min = op1*op2;</div><div class="line">                    list.clear();</div><div class="line">                    <span class="keyword">if</span>(op1 &lt; op2)&#123;</div><div class="line">                        list.add(op1);</div><div class="line">                        list.add(op2);</div><div class="line">                    &#125;<span class="keyword">else</span> &#123;</div><div class="line">                        list.add(op2);</div><div class="line">                        list.add(op1);</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(op1 + op2 &gt; sum)&#123;</div><div class="line">                right--;</div><div class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(op1 + op2 &lt; sum)&#123;</div><div class="line">                left++;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> list; </div><div class="line">    &#125;</div></pre></td></tr></table></figure>
                 
 
                 <hr>
                 <!-- Pager -->
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2017/06/09/Algorithm-1/" data-toggle="tooltip" data-placement="top" title="Algorithm_1">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/2017/05/29/Intellij-idea快速查看Java类字节码/" data-toggle="tooltip" data-placement="top" title="Intellij idea快速查看Java类字节码">Next Post &rarr;</a>
+                            <a href="/2017/07/27/View的工作原理/" data-toggle="tooltip" data-placement="top" title="View的工作原理">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -304,7 +270,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="nav">none</ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#题目描述"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">题目描述</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#输出描述"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">输出描述</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#解题思路"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">解题思路</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#实现代码"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">实现代码</span></a></li></ol>
         
         </div>
       </aside>
@@ -324,7 +290,7 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#Word" title="Word">Word</a>
+                          <a class="tag" href="/tags/#算法题" title="算法题">算法题</a>
                         
                     </div>
                 </section>
@@ -353,8 +319,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "your-disqus-ID";
-    var disqus_identifier = "http://andfanswzp.pw/2017/06/07/生词本/";
-    var disqus_url = "http://andfanswzp.pw/2017/06/07/生词本/";
+    var disqus_identifier = "http://andfanswzp.pw/2017/07/28/Algorithm-28/";
+    var disqus_url = "http://andfanswzp.pw/2017/07/28/Algorithm-28/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

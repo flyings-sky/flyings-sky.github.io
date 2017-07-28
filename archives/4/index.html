@@ -143,14 +143,14 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -210,6 +210,52 @@
             
                 <!-- Main Content -->
 
+
+<div class="post-preview">
+
+    <a href="/2017/07/13/Algorithm-4/">
+        <h2 class="post-title">
+            Algorithm_4
+        </h2>
+        <h3 class="post-subtitle">
+            最大连续子序列
+        </h3>
+        <div class="post-content-preview">
+            题目描述
+给定一个数组A[0,…,n-1]，求A的连续子数组，使得子数组的和最大
+例如：
+数组：1,-2,3,10,-4,7,2,-5
+最大子数组：3,10,-4,7,2
+解法
+
+暴力法
+分治法
+动态规划法
+
+暴力法分析
+直接求解A[i,…,j]的值:
+0 &lt;= i &lt; n
+i &lt;= j &lt; n
+数组A的长度j-i+1最大为n
+因此时间复杂度O(n^3)
+暴力法实现
+......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Andfans on
+            2017-07-13
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#算法题" title="算法题">算法题</a>
+            
+        </div>
+    
+
+</div>
+<hr>
 
 <div class="post-preview">
 
@@ -549,41 +595,6 @@ r......
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2017/05/27/探索Java中的深复制和浅复制/">
-        <h2 class="post-title">
-            图解Java中的深拷贝和浅拷贝
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            概念
-
-浅拷贝：仅仅拷贝基本类型的值，如果不是基本类型则只拷贝其对象的引用。
-深拷贝：拷贝生成的对象和原来对象中的值完全相同，如果拷贝时遇到非基本类型的情况，会给非基本类型的对象重新分配内存空间，将对象的引用指向新分配的空间。
-Java中的clone()方法
-
-对任何的对象x，都有x.clone() !=x//克隆对象与原对象不是同一个对象
-对任何的对象x，都有x.clone().getCl......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Andfans on
-            2017-05-27
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Java" title="Java">Java</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -624,13 +635,13 @@ Java中的clone()方法
     <div class="tags">
         
             
+            <a href="/tags/#算法题" title="算法题" rel="28">算法题</a>
+            
+        
+            
         
             
             <a href="/tags/#Android" title="Android" rel="10">Android</a>
-            
-        
-            
-            <a href="/tags/#算法题" title="算法题" rel="27">算法题</a>
             
         
             
@@ -721,6 +732,10 @@ Java中的clone()方法
     <ul>
       
         <li>
+          <a href="/2017/07/28/Algorithm-28/">Algorithm_28</a>
+        </li>
+      
+        <li>
           <a href="/2017/07/27/View的工作原理/">View的工作原理</a>
         </li>
       
@@ -736,10 +751,6 @@ Java中的clone()方法
           <a href="/2017/07/26/View笔记/">View的事件体系</a>
         </li>
       
-        <li>
-          <a href="/2017/07/26/Algorithm-25/">Algorithm_25</a>
-        </li>
-      
     </ul>
   </div>
 
@@ -748,7 +759,7 @@ Java中的clone()方法
         
     <h5>ARCHIVES</h5>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">32</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">11</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">33</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">11</span></li></ul>
     </div>
 
         <hr>
