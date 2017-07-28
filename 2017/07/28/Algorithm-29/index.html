@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          Algorithm_28 - Andfans
+          Algorithm_29 - Andfans
         
     </title>
 
-    <link rel="canonical" href="http://andfanswzp.pw/2017/07/28/Algorithm-28/">
+    <link rel="canonical" href="http://andfanswzp.pw/2017/07/28/Algorithm-29/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -93,8 +93,8 @@
                               <a class="tag" href="/tags/#算法题" title="算法题">算法题</a>
                             
                         </div>
-                        <h1>Algorithm_28</h1>
-                        <h2 class="subheading">和为S的两个数字</h2>
+                        <h1>Algorithm_29</h1>
+                        <h2 class="subheading">和为S的连续正数序列</h2>
                         <span class="meta">
                             Posted by Andfans on
                             2017-07-28
@@ -215,36 +215,27 @@
                 post-container">
 
                 <h2 id="题目描述">题目描述</h2>
-<p>输入一个递增排序的数组和一个数字S，在数组中查找两个数，如果他们的和正好为S，并且它们的乘积是是所有和为S的数对中最小的，就将其输出。</p>
-<h3 id="输出描述">输出描述</h3>
-<p>对应每个测试案例，输出两个数(放到ArrayList中)，小的先输出。</p>
+<p>输入一个正数s，打印出所有和为s的连续正数序列(至少有两个数)。例如输入15，由于1+2+3+4+5=4+5+6=7+8，所以结果为1~5、4~6和7~8。</p>
 <h2 id="解题思路">解题思路</h2>
+<p>这个题目借鉴<a href="http://andfanswzp.pw/2017/07/28/Algorithm-28/">Algorithm_28</a>题的思路。</p>
 <ul>
-<li>使用两个指针left和right分别指向数组头和数组尾，使用一个min变量存储当前乘积的最小值</li>
-<li>每次比较left和right指针指向数字的和与sum的关系
-<ul>
-<li>如果等于sum，将left后移，right前移，然后与之前的最小值min比较，如果小的话就记录下这两个数</li>
-<li>如果大于sum，将right前移</li>
-<li>如果小于sum，将left后移</li>
-</ul>
-</li>
-<li>直到left大于right整个过程结束</li>
+<li>一开始将left和right定义成最小的相邻正数1、2，定义count作为计数器，记录从left到right整个数列的和，使用temp(ArrayList)来记录整个序列的数值</li>
+<li>如果count的值大于sum，将原来left对应的值从temp中删除，left右移</li>
+<li>如果count的值小于sum，将right右移，将right值加入temp中</li>
+<li>如果count的值等于sum，将temp加入到result数组中，将left对应的值从temp中移除，将left右移</li>
+<li>因为一个序列最少要有两个数，所以当small变化到(sum+1)/2时，整个过程结束</li>
 </ul>
 <h2 id="实现代码">实现代码</h2>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.ArrayList;</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> ArrayList&lt;Integer&gt; <span class="title">FindNumbersWithSum</span><span class="params">(<span class="keyword">int</span> [] array,<span class="keyword">int</span> sum)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> len = array.length;</div><div class="line">        ArrayList&lt;Integer&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">        <span class="keyword">if</span>(len == <span class="number">0</span>||array == <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span> list;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">int</span> left = <span class="number">0</span>,right = len - <span class="number">1</span>;</div><div class="line">        <span class="keyword">int</span> min = <span class="number">0</span>;</div><div class="line">        <span class="keyword">while</span>(left &lt; right)&#123;</div><div class="line">            <span class="keyword">int</span> op1 = array[left],op2 = array[right];</div><div class="line">            <span class="keyword">if</span>(op1 + op2 == sum)&#123;</div><div class="line">                left++;</div><div class="line">                right--;</div><div class="line">                <span class="keyword">if</span>(min == <span class="number">0</span>||op1*op2 &lt; min)&#123;</div><div class="line">                    min = op1*op2;</div><div class="line">                    list.clear();</div><div class="line">                    <span class="keyword">if</span>(op1 &lt; op2)&#123;</div><div class="line">                        list.add(op1);</div><div class="line">                        list.add(op2);</div><div class="line">                    &#125;<span class="keyword">else</span> &#123;</div><div class="line">                        list.add(op2);</div><div class="line">                        list.add(op1);</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(op1 + op2 &gt; sum)&#123;</div><div class="line">                right--;</div><div class="line">            &#125;<span class="keyword">else</span> &#123;</div><div class="line">                left++;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> list; </div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.ArrayList;</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="keyword">public</span> ArrayList&lt;ArrayList&lt;Integer&gt;&gt; FindContinuousSequence(<span class="keyword">int</span> sum) &#123;</div><div class="line">        ArrayList&lt;ArrayList&lt;Integer&gt;&gt; result = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">        ArrayList&lt;Integer&gt; temp = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">       	<span class="keyword">int</span> left = <span class="number">1</span>,right = <span class="number">2</span>,end = (<span class="number">1</span>+sum)/<span class="number">2</span>;</div><div class="line">        <span class="keyword">int</span> count = left + right;</div><div class="line">        temp.add(left);</div><div class="line">        temp.add(right);</div><div class="line">        <span class="keyword">while</span>(left &lt;= end)&#123;</div><div class="line">            <span class="keyword">if</span>(count &gt; sum)&#123;</div><div class="line">                count -= left;</div><div class="line">                left++;</div><div class="line">                temp.remove(<span class="number">0</span>);</div><div class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(count &lt; sum)&#123;</div><div class="line">                right++;</div><div class="line">                count += right;</div><div class="line">                temp.add(right);</div><div class="line">            &#125;<span class="keyword">else</span> &#123;</div><div class="line">                count -= left;</div><div class="line">                left++;</div><div class="line">                result.add(<span class="keyword">new</span> ArrayList&lt;Integer&gt;(temp));</div><div class="line">				temp.remove(<span class="number">0</span>);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">         <span class="keyword">return</span> result;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
                 
 
                 <hr>
                 <!-- Pager -->
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2017/07/28/Algorithm-29/" data-toggle="tooltip" data-placement="top" title="Algorithm_29">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/2017/07/27/View的工作原理/" data-toggle="tooltip" data-placement="top" title="View的工作原理">Next Post &rarr;</a>
+                            <a href="/2017/07/28/Algorithm-28/" data-toggle="tooltip" data-placement="top" title="Algorithm_28">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -274,7 +265,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#题目描述"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">题目描述</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#输出描述"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">输出描述</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#解题思路"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">解题思路</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#实现代码"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">实现代码</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#题目描述"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">题目描述</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#解题思路"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">解题思路</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#实现代码"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">实现代码</span></a></li></ol>
         
         </div>
       </aside>
@@ -323,8 +314,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "your-disqus-ID";
-    var disqus_identifier = "http://andfanswzp.pw/2017/07/28/Algorithm-28/";
-    var disqus_url = "http://andfanswzp.pw/2017/07/28/Algorithm-28/";
+    var disqus_identifier = "http://andfanswzp.pw/2017/07/28/Algorithm-29/";
+    var disqus_url = "http://andfanswzp.pw/2017/07/28/Algorithm-29/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
