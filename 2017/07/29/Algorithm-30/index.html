@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          生词本 - Andfans
+          Algorithm_30 - Andfans
         
     </title>
 
-    <link rel="canonical" href="http://andfanswzp.pw/2017/06/07/生词本/">
+    <link rel="canonical" href="http://andfanswzp.pw/2017/07/29/Algorithm-30/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -90,14 +90,14 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#Word" title="Word">Word</a>
+                              <a class="tag" href="/tags/#算法题" title="算法题">算法题</a>
                             
                         </div>
-                        <h1>生词本</h1>
-                        <h2 class="subheading"></h2>
+                        <h1>Algorithm_30</h1>
+                        <h2 class="subheading">左旋转字符串</h2>
                         <span class="meta">
                             Posted by Andfans on
-                            2017-06-07
+                            2017-07-29
                         </span>
                     </div>
                 
@@ -214,53 +214,14 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <table>
-<thead>
-<tr>
-<th style="text-align:center">adoption：采用，采纳</th>
-<th style="text-align:center">expressive：具有表现力的</th>
-<th style="text-align:center">concise：简洁的</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"><strong>in terms of：在…方面</strong></td>
-<td style="text-align:center"><strong>nullability：空性</strong></td>
-<td style="text-align:center"><strong>immutability：不变性</strong></td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>performant：高性能</strong></td>
-<td style="text-align:center"><strong>interoperable：互操作性</strong></td>
-<td style="text-align:center"><strong>bi-directionally：双向</strong></td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>crucial：关键</strong></td>
-<td style="text-align:center"><strong>inherit：继承</strong></td>
-<td style="text-align:center"><strong>primarily：主要</strong></td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>reaffirm：重申</strong></td>
-<td style="text-align:center"><strong>ecosystem：生态系统</strong></td>
-<td style="text-align:center"><strong>evolve：发展</strong></td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>ongoing：不断的</strong></td>
-<td style="text-align:center"><strong>profiling：分析</strong></td>
-<td style="text-align:center"><strong>addition：补充</strong></td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>alternatively：另外</strong></td>
-<td style="text-align:center"><strong>seamlessly：无缝</strong></td>
-<td style="text-align:center"><strong>preferred：首选</strong></td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>strive：努力</strong></td>
-<td style="text-align:center"><strong>semantic：语义</strong></td>
-<td style="text-align:center"><strong>bundled：捆绑</strong></td>
-</tr>
-</tbody>
-</table>
-<p>最后编辑时间:2017.6.8  1:06</p>
+                <h2 id="题目描述">题目描述</h2>
+<p>字符串左旋转操作是把字符串前面的若干个字符转移到字符串的尾部。请定义一个函数实现字符串左旋转操作的功能。比如输入字符串&quot;abcdefg&quot;和数字2，该函数将返回左旋转2位得到的结果&quot;cdefgab&quot;.</p>
+<h2 id="解题思路">解题思路</h2>
+<p>将整个字符串分为两部分(0,n)和(n-最后)，然后执行三次反转操作(将第一部分反转，将第二部分反转，将整个字符串反转)，即可得到结果</p>
+<h2 id="实现代码">实现代码</h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">LeftRotateString</span><span class="params">(String str,<span class="keyword">int</span> n)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(str == <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span> str;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">int</span> len = str.length();</div><div class="line">        <span class="keyword">if</span>(len == <span class="number">0</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="string">""</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">char</span> [] ch = str.toCharArray();</div><div class="line">        reverse(ch,<span class="number">0</span>,n-<span class="number">1</span>);</div><div class="line">        reverse(ch,n,len-<span class="number">1</span>);</div><div class="line">        reverse(ch,<span class="number">0</span>,len-<span class="number">1</span>);</div><div class="line">        StringBuilder sb = <span class="keyword">new</span> StringBuilder();</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">char</span> c:ch) sb.append(c); </div><div class="line">        <span class="keyword">return</span> sb.toString();</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">reverse</span><span class="params">(<span class="keyword">char</span> [] ch,<span class="keyword">int</span> begin,<span class="keyword">int</span> end)</span></span>&#123;</div><div class="line">        <span class="keyword">while</span>(begin &lt; end)&#123;</div><div class="line">            <span class="keyword">char</span> temp = ch[begin];</div><div class="line">            ch[begin] = ch[end];</div><div class="line">            ch[end] = temp;</div><div class="line">            begin++;</div><div class="line">            end--;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="延伸思考">延伸思考</h2>
+<p>其实如果是向右旋转字符串也可以采用相同的方法，因为把后n位右移到字符串的最前面，就等价于将前面的len-n位移到最后面</p>
 
                 
 
@@ -268,13 +229,9 @@
                 <!-- Pager -->
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2017/06/09/Algorithm-1/" data-toggle="tooltip" data-placement="top" title="Algorithm_1">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/2017/05/29/Intellij-idea快速查看Java类字节码/" data-toggle="tooltip" data-placement="top" title="Intellij idea快速查看Java类字节码">Next Post &rarr;</a>
+                            <a href="/2017/07/28/View的工作原理/" data-toggle="tooltip" data-placement="top" title="View的工作原理">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -304,7 +261,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="nav">none</ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#题目描述"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">题目描述</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#解题思路"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">解题思路</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#实现代码"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">实现代码</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#延伸思考"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">延伸思考</span></a></li></ol>
         
         </div>
       </aside>
@@ -324,7 +281,7 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#Word" title="Word">Word</a>
+                          <a class="tag" href="/tags/#算法题" title="算法题">算法题</a>
                         
                     </div>
                 </section>
@@ -353,8 +310,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "your-disqus-ID";
-    var disqus_identifier = "http://andfanswzp.pw/2017/06/07/生词本/";
-    var disqus_url = "http://andfanswzp.pw/2017/06/07/生词本/";
+    var disqus_identifier = "http://andfanswzp.pw/2017/07/29/Algorithm-30/";
+    var disqus_url = "http://andfanswzp.pw/2017/07/29/Algorithm-30/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
