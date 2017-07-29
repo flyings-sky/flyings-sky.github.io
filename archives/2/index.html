@@ -136,14 +136,14 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -210,6 +210,42 @@
             
                 <!-- Main Content -->
 
+
+<div class="post-preview">
+
+    <a href="/2017/07/26/Algorithm-23/">
+        <h2 class="post-title">
+            Algorithm_23
+        </h2>
+        <h3 class="post-subtitle">
+            两个链表的第一个公共结点
+        </h3>
+        <div class="post-content-preview">
+            题目描述
+输入两个链表，找出它们的第一个公共结点。
+解题思路
+
+用两个指针p1、p2分别指向两个链表的头
+如果p1、p2指向的结点不同，就执行循环
+如果p1不等于null就指向p1下一个结点，如果p1为null，就指向另一个链表的头
+如果p2不等于null就指向p2下一个结点，如果p2为null，就指向另一个链表的头
+这样经过一次指针指向转换（p1，p2指向另一个指针的头叫做一次转换）后，之......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Andfans on
+            2017-07-26
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#算法题" title="算法题">算法题</a>
+            
+        </div>
+    
+
+</div>
+<hr>
 
 <div class="post-preview">
 
@@ -523,39 +559,6 @@ Paused：暂停状态，此时Activity仍然处于可见状态，但是不能与
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2017/07/20/Algorithm-17/">
-        <h2 class="post-title">
-            Algorithm_17
-        </h2>
-        <h3 class="post-subtitle">
-            数组中最小的k个数
-        </h3>
-        <div class="post-content-preview">
-            题目描述
-输入n个整数，找出其中最小的K个数。
-解题思路
-使用快排的思想，不断调用快排的Partition函数，如果返回值恰好等于k-1(因为数组下标默认从0开始)，则将此时数组的前K个数放入result中，如果返回值大于k-1，则最小的k个数在返回值的左边，应把end值置为返回值-1，如果返回值小于k-1，则最小的k个数在返回值的右边，应把start值置为返回值+1
-实现代码
-123456......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Andfans on
-            2017-07-20
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#算法题" title="算法题">算法题</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -602,7 +605,7 @@ Paused：暂停状态，此时Activity仍然处于可见状态，但是不能与
             
         
             
-            <a href="/tags/#算法题" title="算法题" rel="30">算法题</a>
+            <a href="/tags/#算法题" title="算法题" rel="31">算法题</a>
             
         
             
@@ -693,6 +696,10 @@ Paused：暂停状态，此时Activity仍然处于可见状态，但是不能与
     <ul>
       
         <li>
+          <a href="/2017/07/29/Algorithm-31/">Algorithm_31</a>
+        </li>
+      
+        <li>
           <a href="/2017/07/29/Algorithm-30/">Algorithm_30</a>
         </li>
       
@@ -708,10 +715,6 @@ Paused：暂停状态，此时Activity仍然处于可见状态，但是不能与
           <a href="/2017/07/28/Algorithm-28/">Algorithm_28</a>
         </li>
       
-        <li>
-          <a href="/2017/07/27/Algorithm-27/">Algorithm_27</a>
-        </li>
-      
     </ul>
   </div>
 
@@ -720,7 +723,7 @@ Paused：暂停状态，此时Activity仍然处于可见状态，但是不能与
         
     <h5>ARCHIVES</h5>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">35</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">9</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">36</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">9</span></li></ul>
     </div>
 
         <hr>
