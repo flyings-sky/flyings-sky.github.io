@@ -213,6 +213,41 @@
 
 <div class="post-preview">
 
+    <a href="/2017/07/30/Algorithm-34/">
+        <h2 class="post-title">
+            Algorithm_34
+        </h2>
+        <h3 class="post-subtitle">
+            判断数组中的数字是否连续，0可以当做任意值
+        </h3>
+        <div class="post-content-preview">
+            题目描述
+从扑克牌中随机抽5张牌，判断是不是一个顺子，即这5张牌是不连续的。2~10为数字本身，A为1，J为11，Q为12，K为13，而大小王可以看做任意数字，但是在数组中用0表示。
+解题思路
+
+先将数组排序
+统计数组中0出现的个数count
+使用temp来记录总的间隔大小，判断数组中相邻两个数的间隔是否小于count，是的话更新temp，不是的话返回false
+判断temp与count的关......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Andfans on
+            2017-07-30
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#算法题" title="算法题">算法题</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
     <a href="/2017/07/30/Algorithm-33/">
         <h2 class="post-title">
             Algorithm_33
@@ -516,39 +551,6 @@ ViewRoot对应于ViewRootImpl类，它是连接WindowManager和DecorView的纽�
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2017/07/27/Algorithm-26/">
-        <h2 class="post-title">
-            Algorithm_26
-        </h2>
-        <h3 class="post-subtitle">
-            判断平衡二叉树
-        </h3>
-        <div class="post-content-preview">
-            题目描述
-输入一棵二叉树的根节点，判断该树是不是平衡二叉树。如果某二叉树中任意结点的左右子树的深度相差不超过1，那么它就是一棵平衡二叉树。
-解题思路
-采用后序遍历的方式遍历二叉树的每一个节点，在遍历到每个结点之前就已经将它的左右结点遍历到了，只要在遍历每个节点时记录它的深度(某一节点的深度等于它到叶子结点的路径的长度)，我们就可以一边遍历一边判断每个结点是不是平衡的。
-
-设置一个全局的标志变......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Andfans on
-            2017-07-27
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#算法题" title="算法题">算法题</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -585,13 +587,17 @@ ViewRoot对应于ViewRootImpl类，它是连接WindowManager和DecorView的纽�
     <div class="tags">
         
             
-            <a href="/tags/#算法题" title="算法题" rel="33">算法题</a>
-            
-        
-            
         
             
             <a href="/tags/#Android" title="Android" rel="9">Android</a>
+            
+        
+            
+            <a href="/tags/#算法题" title="算法题" rel="34">算法题</a>
+            
+        
+            
+        
             
         
             
@@ -600,10 +606,6 @@ ViewRoot对应于ViewRootImpl类，它是连接WindowManager和DecorView的纽�
         
             
             <a href="/tags/#Java" title="Java" rel="6">Java</a>
-            
-        
-            
-        
             
         
             
@@ -682,6 +684,10 @@ ViewRoot对应于ViewRootImpl类，它是连接WindowManager和DecorView的纽�
     <ul>
       
         <li>
+          <a href="/2017/07/30/Algorithm-34/">Algorithm_34</a>
+        </li>
+      
+        <li>
           <a href="/2017/07/30/Algorithm-33/">Algorithm_33</a>
         </li>
       
@@ -697,10 +703,6 @@ ViewRoot对应于ViewRootImpl类，它是连接WindowManager和DecorView的纽�
           <a href="/2017/07/29/Algorithm-31/">Algorithm_31</a>
         </li>
       
-        <li>
-          <a href="/2017/07/29/Algorithm-30/">Algorithm_30</a>
-        </li>
-      
     </ul>
   </div>
 
@@ -709,7 +711,7 @@ ViewRoot对应于ViewRootImpl类，它是连接WindowManager和DecorView的纽�
         
     <h5>ARCHIVES</h5>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">39</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">9</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">40</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">9</span></li></ul>
     </div>
 
         <hr>
