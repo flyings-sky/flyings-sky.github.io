@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          生词本 - Andfans
+          理解RemoteViews - Andfans
         
     </title>
 
-    <link rel="canonical" href="http://andfanswzp.pw/2017/06/07/生词本/">
+    <link rel="canonical" href="http://andfanswzp.pw/2017/07/29/理解RemoteViews/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -90,14 +90,16 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#Word" title="Word">Word</a>
+                              <a class="tag" href="/tags/#Android" title="Android">Android</a>
+                            
+                              <a class="tag" href="/tags/#View" title="View">View</a>
                             
                         </div>
-                        <h1>生词本</h1>
+                        <h1>理解RemoteViews</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by Andfans on
-                            2017-06-07
+                            2017-07-29
                         </span>
                     </div>
                 
@@ -214,53 +216,10 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <table>
-<thead>
-<tr>
-<th style="text-align:center">adoption：采用，采纳</th>
-<th style="text-align:center">expressive：具有表现力的</th>
-<th style="text-align:center">concise：简洁的</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"><strong>in terms of：在…方面</strong></td>
-<td style="text-align:center"><strong>nullability：空性</strong></td>
-<td style="text-align:center"><strong>immutability：不变性</strong></td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>performant：高性能</strong></td>
-<td style="text-align:center"><strong>interoperable：互操作性</strong></td>
-<td style="text-align:center"><strong>bi-directionally：双向</strong></td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>crucial：关键</strong></td>
-<td style="text-align:center"><strong>inherit：继承</strong></td>
-<td style="text-align:center"><strong>primarily：主要</strong></td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>reaffirm：重申</strong></td>
-<td style="text-align:center"><strong>ecosystem：生态系统</strong></td>
-<td style="text-align:center"><strong>evolve：发展</strong></td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>ongoing：不断的</strong></td>
-<td style="text-align:center"><strong>profiling：分析</strong></td>
-<td style="text-align:center"><strong>addition：补充</strong></td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>alternatively：另外</strong></td>
-<td style="text-align:center"><strong>seamlessly：无缝</strong></td>
-<td style="text-align:center"><strong>preferred：首选</strong></td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>strive：努力</strong></td>
-<td style="text-align:center"><strong>semantic：语义</strong></td>
-<td style="text-align:center"><strong>bundled：捆绑</strong></td>
-</tr>
-</tbody>
-</table>
-<p>最后编辑时间:2017.6.8  1:06</p>
+                <p>RemoteViews表示的是一个View结构，它可以在其他进程中显示，为了能够更新它的界面，RemoteViews提供了一组基础的操作用于跨进程更新它的界面。RemoteViews在Android中的使用场景有两种：通知栏和桌面小组件。</p>
+<h2 id="remoteviews的应用">RemoteViews的应用</h2>
+<p>通知栏主要通过NotificationManager的notify方法来实现的，它除了默认效果外，还可以自定义布局。桌面小组件则是通过AppWidgetProvider来实现的，AppWidgetProvider本质上是一个广播。他们在更新界面时无法像在Activity里面那样直接去更新View，这是因为二者的界面都运行在SystemServer进程中，为了跨进程更新界面，RemoteViews提供了一系列set方法，并且这些方法只是View全部方法的子集，另外RemoteViews中所支持的View类型也是有限的。</p>
+<h3 id="remoteviews在通知栏上的应用">RemoteViews在通知栏上的应用</h3>
 
                 
 
@@ -269,12 +228,12 @@
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/2017/06/09/Algorithm-1/" data-toggle="tooltip" data-placement="top" title="Algorithm_1">&larr; Previous Post</a>
+                            <a href="/2017/07/30/Algorithm-32/" data-toggle="tooltip" data-placement="top" title="Algorithm_32">&larr; Previous Post</a>
                         </li>
                     
                     
                         <li class="next">
-                            <a href="/2017/05/29/Intellij-idea快速查看Java类字节码/" data-toggle="tooltip" data-placement="top" title="Intellij idea快速查看Java类字节码">Next Post &rarr;</a>
+                            <a href="/2017/07/29/Algorithm-31/" data-toggle="tooltip" data-placement="top" title="Algorithm_31">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -304,7 +263,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="nav">none</ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#remoteviews的应用"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">RemoteViews的应用</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#remoteviews在通知栏上的应用"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">RemoteViews在通知栏上的应用</span></a></li></ol></li></ol>
         
         </div>
       </aside>
@@ -324,7 +283,9 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#Word" title="Word">Word</a>
+                          <a class="tag" href="/tags/#Android" title="Android">Android</a>
+                        
+                          <a class="tag" href="/tags/#View" title="View">View</a>
                         
                     </div>
                 </section>
@@ -353,8 +314,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "your-disqus-ID";
-    var disqus_identifier = "http://andfanswzp.pw/2017/06/07/生词本/";
-    var disqus_url = "http://andfanswzp.pw/2017/06/07/生词本/";
+    var disqus_identifier = "http://andfanswzp.pw/2017/07/29/理解RemoteViews/";
+    var disqus_url = "http://andfanswzp.pw/2017/07/29/理解RemoteViews/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

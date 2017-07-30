@@ -136,14 +136,14 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -210,6 +210,112 @@
             
                 <!-- Main Content -->
 
+
+<div class="post-preview">
+
+    <a href="/2017/07/30/Algorithm-33/">
+        <h2 class="post-title">
+            Algorithm_33
+        </h2>
+        <h3 class="post-subtitle">
+            非排序数组中和为S的两个数字的下标
+        </h3>
+        <div class="post-content-preview">
+            题目描述
+给定一个整数数组，返回两个数字的索引，使他们相加的和等于S。注：对于每一个输入的数组只有一个解。
+解题思路
+使用一个HashMap来作为辅助存储，key为数组中的值，value为该值的下标
+
+遍历这个数组，对于每个元素，判断target-数组值是否是HashMap的键，如果是则表示这两个数字已经找到，退出循环
+如果在HashMap中不存在target-数组值的键，则将这个数组值和它......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Andfans on
+            2017-07-30
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#算法题" title="算法题">算法题</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2017/07/30/Algorithm-32/">
+        <h2 class="post-title">
+            Algorithm_32
+        </h2>
+        <h3 class="post-subtitle">
+            二叉树的最小深度
+        </h3>
+        <div class="post-content-preview">
+            题目描述
+给定一个二叉树，找到其最小深度。最小深度是从根到最近叶子结点的最短路径的节点数。
+解题思路
+这个题目的解法可以参照求二叉树的深度的解法，不过需要加一些限定条件：
+
+如果某一节点为null，返回0
+
+
+如果某一节点的左子树为空，则返回其右子树最小深度+1;
+如果某一节点的右子树为空，则返回其左子树最小深度+1;
+如果某一节点的左右子树均非空，则返回其左右子树最小深度的较小者+1
+
+实......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Andfans on
+            2017-07-30
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#算法题" title="算法题">算法题</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2017/07/29/理解RemoteViews/">
+        <h2 class="post-title">
+            理解RemoteViews
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            RemoteViews表示的是一个View结构，它可以在其他进程中显示，为了能够更新它的界面，RemoteViews提供了一组基础的操作用于跨进程更新它的界面。RemoteViews在Android中的使用场景有两种：通知栏和桌面小组件。
+RemoteViews的应用
+通知栏主要通过NotificationManager的notify方法来实现的，它除了默认效果外，还可以自定义布局。桌面小组......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Andfans on
+            2017-07-29
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Android" title="Android">Android</a>
+            
+              <a href="/tags/#View" title="View">View</a>
+            
+        </div>
+    
+
+</div>
+<hr>
 
 <div class="post-preview">
 
@@ -344,7 +450,7 @@ ViewRoot对应于ViewRootImpl类，它是连接WindowManager和DecorView的纽�
             Algorithm_28
         </h2>
         <h3 class="post-subtitle">
-            和为S的两个数字
+            排序数组中和为S的两个数字
         </h3>
         <div class="post-content-preview">
             题目描述
@@ -443,105 +549,6 @@ ViewRoot对应于ViewRootImpl类，它是连接WindowManager和DecorView的纽�
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2017/07/26/View笔记/">
-        <h2 class="post-title">
-            View的事件体系
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            View基础知识
-什么是View?
-View是Android中所有控件的基类，View是一种界面层的控件的一种抽象，它代表了一个控件(View)，或者一个控件组(ViewGroup)。
-View的位置参数
-View的位置由它的四个顶点来决定，分别对应于View的四个属性：top(左上角纵坐标)、left(左上角横坐标)、right(右下角横坐标)、bottom(右下角纵坐标).这些坐标是相对......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Andfans on
-            2017-07-26
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Android" title="Android">Android</a>
-            
-              <a href="/tags/#View" title="View">View</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2017/07/26/Algorithm-25/">
-        <h2 class="post-title">
-            Algorithm_25
-        </h2>
-        <h3 class="post-subtitle">
-            二叉树的深度
-        </h3>
-        <div class="post-content-preview">
-            题目描述
-输入一棵二叉树，求该树的深度，从根节点到叶节点依次经过的结点(含根、叶节点)形成树的一条路径，最长路径的长度为树的深度。
-解题思路
-借助递归的思想，整个树的深度，其实就等于max(左子树深度,右子树深度)+1。
-实现代码
-12345678910111213141516171819202122/**public class TreeNode &#123;    int val = 0......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Andfans on
-            2017-07-26
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#算法题" title="算法题">算法题</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2017/07/26/Algorithm-24/">
-        <h2 class="post-title">
-            Algorithm_24
-        </h2>
-        <h3 class="post-subtitle">
-            数字在排序数组中出现的次数
-        </h3>
-        <div class="post-content-preview">
-            题目描述
-统计一个数字在排序数组中出现的次数。
-解题思路
-当这种题在面试官出现，那么如果你只给出一个时间复杂度为O(N)的算法的话，那么很难令面试官满意，因此需要时间复杂度更小的算法来实现这道题目。
-一看到&quot;排序&quot;两个字，有没有觉得题目是在暗示你什么？8成要用二分查找来做，由于在这个题目中是可能存在重复数据的情况，求出现次数，换言之，也就是求数字出现的开始和结束的位置，因......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Andfans on
-            2017-07-26
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#算法题" title="算法题">算法题</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -578,17 +585,13 @@ View的位置由它的四个顶点来决定，分别对应于View的四个属性
     <div class="tags">
         
             
-        
-            
-            <a href="/tags/#Android" title="Android" rel="8">Android</a>
-            
-        
-            
-            <a href="/tags/#算法题" title="算法题" rel="31">算法题</a>
+            <a href="/tags/#算法题" title="算法题" rel="33">算法题</a>
             
         
             
         
+            
+            <a href="/tags/#Android" title="Android" rel="9">Android</a>
             
         
             
@@ -597,6 +600,10 @@ View的位置由它的四个顶点来决定，分别对应于View的四个属性
         
             
             <a href="/tags/#Java" title="Java" rel="6">Java</a>
+            
+        
+            
+        
             
         
             
@@ -675,23 +682,23 @@ View的位置由它的四个顶点来决定，分别对应于View的四个属性
     <ul>
       
         <li>
+          <a href="/2017/07/30/Algorithm-33/">Algorithm_33</a>
+        </li>
+      
+        <li>
+          <a href="/2017/07/30/Algorithm-32/">Algorithm_32</a>
+        </li>
+      
+        <li>
+          <a href="/2017/07/29/理解RemoteViews/">理解RemoteViews</a>
+        </li>
+      
+        <li>
           <a href="/2017/07/29/Algorithm-31/">Algorithm_31</a>
         </li>
       
         <li>
           <a href="/2017/07/29/Algorithm-30/">Algorithm_30</a>
-        </li>
-      
-        <li>
-          <a href="/2017/07/28/View的工作原理/">View的工作原理</a>
-        </li>
-      
-        <li>
-          <a href="/2017/07/28/Algorithm-29/">Algorithm_29</a>
-        </li>
-      
-        <li>
-          <a href="/2017/07/28/Algorithm-28/">Algorithm_28</a>
         </li>
       
     </ul>
@@ -702,7 +709,7 @@ View的位置由它的四个顶点来决定，分别对应于View的四个属性
         
     <h5>ARCHIVES</h5>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">36</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">9</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">39</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">9</span></li></ul>
     </div>
 
         <hr>
