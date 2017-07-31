@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          Intellij idea快速查看Java类字节码 - Andfans
+          Algorithm_35 - Andfans
         
     </title>
 
-    <link rel="canonical" href="http://andfanswzp.pw/2017/05/29/Intellij-idea快速查看Java类字节码/">
+    <link rel="canonical" href="http://andfanswzp.pw/2017/07/31/Algorithm-35/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -90,16 +90,14 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#Java" title="Java">Java</a>
-                            
-                              <a class="tag" href="/tags/#Tools" title="Tools">Tools</a>
+                              <a class="tag" href="/tags/#算法题" title="算法题">算法题</a>
                             
                         </div>
-                        <h1>Intellij idea快速查看Java类字节码</h1>
-                        <h2 class="subheading"></h2>
+                        <h1>Algorithm_35</h1>
+                        <h2 class="subheading">圆圈中剩下的数字</h2>
                         <span class="meta">
                             Posted by Andfans on
-                            2017-05-29
+                            2017-07-31
                         </span>
                     </div>
                 
@@ -216,39 +214,42 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h2 id="前言">前言</h2>
-<p>最近在研究String类在堆中的对象和常量池中的对象的联系，然而在网上没有找到可以详细显示程序运行时内存变化状况的工具，所以就决定将代码反编译，从微观字节码角度来探索Java中的String对象的内存分配的详细情况，每次在cmd使用反编译命令javap来得到字节码，过程太过繁琐，于是就到网上找到了直接在Intellij idea中查看字节码的方法。</p>
-<h2 id="实现方式">实现方式</h2>
-<p>在idea内直接执行javap，将内容打印在idea的Console中。</p>
-<h2 id="实现方式">实现方式</h2>
-<p>1.打开File-Settings</p>
-<p><img src="http://ghost-blog.b0.upaiyun.com/image/9/2e/33bd6ca7fd4dc4da6a420a78f6fa7.jpg" alt="pic1"></p>
-<p>2.打开Tools-External Tools，右侧点击绿色的&quot;+&quot;号</p>
-<p><img src="http://ghost-blog.b0.upaiyun.com/image/4/75/0b13d82d4665425a8654314887e24.png" alt="pic2"></p>
-<p>3.添加规则如下</p>
-<p><img src="http://ghost-blog.b0.upaiyun.com/image/c/8c/63b58920dc5923ce68a2bf510e0c7.png" alt="pic3"></p>
-<p>4.代码处右键，即可找到添加的功能</p>
-<p><img src="http://ghost-blog.b0.upaiyun.com/image/7/c1/4e96cd4e3c89c3e4776d86951345e.png" alt="pic4"></p>
-<p>5.效果如下</p>
-<p><img src="http://oqnfoupsj.bkt.clouddn.com/17-5-29/51837374.jpg" alt="pic5"></p>
-<h2 id="注意">注意</h2>
-<p>每次代码修改完之后，如果立即使用步骤4的操作，得到的字节码还是修改之前的文件生成的字节码，因为反编译是对.class文件进行的，修改完之后并没有重新生成.class文件，所以如果想得到修改后文件的字节码，需要在使用步骤4之前，先运行一遍修改过的代码。</p>
-<h2 id="参考">参考</h2>
-<p><a href="http://allan.li/intellij-ideakuai-su-cha-kan-javalei-zi-jie-ma/" target="_blank" rel="external">Intellij idea快速查看Java类字节码</a></p>
-
+                <h2 id="题目描述">题目描述</h2>
+<p>0,1,…,n-1这n个数字排成一个圆圈，从数字0开始每次从这个圆圈里删除第m个数字。求出这个圆圈里剩下的最后一个数字。</p>
+<h2 id="解题思路">解题思路</h2>
+<p>思路1：</p>
+<ul>
+<li>使用一个ArrayList来建立一个index(下标)到每个数字的映射</li>
+<li>使用一个临时变量t来记录当前计数数字的下标值，当t = n-1时，将t重置为-1</li>
+<li>使用count来统计计数的数值，当count等于m时，从ArrayList中删除下标为t的值(如果t为-1，则删除ArrayList中最后一个),n–</li>
+<li>因为删除之后，t后面的数字的下标都会依次递减，所以下次开始仍然要从下标t开始，因此每删除一次，就要将t回退一位，令t = t-1</li>
+<li>删除到n为1时，返回ArrayList中第一个元素。</li>
+</ul>
+<p>思路2：</p>
+<ul>
+<li>首先我们定义一个关于n和m的方程f(n,m)，表示每次在n个数字0,1,…,n-1中每次删除第m个数字最后剩下的数字；</li>
+<li>在这n个数字中，第一个被删除的数字是k = (m-1)%n，删除之后剩下的数字为0,1…,k-1,k+1,…,n-1；</li>
+<li>因为下一次删除从数字k+1开始计数，所以下次数字的序列实际上是k+1,…,n-1,0,1,…,k-1，由于这个序列和上次那个序列规律不同，所以我们将这个序列的方程定义为f`(n-1,m)，虽然方程不同，但是删除完后剩下的最后一个数字是相同，所以f`(n-1,m) = f(n,m)；</li>
+<li>将剩下这个序列k+1,…,n-1,0,1,…,k-1向0~n-2做一个映射，将映射定义为p，p(x) = (x - k -1) % n。它表示如果映射前的数字是x，则映射之后的数字是(x-k-1)%n</li>
+<li>该映射的逆映射是：p-1(x) = (x+k+1) % n，它表示从（x）0~n-2向k+1,…,n-1,0,1,…,k-1一个映射，x的形式满足第一个方程，因此x可以看做f(n-1,m)，因此p-1(f(n-1,m)) = (f(n-1,m)+ k +1) % n</li>
+<li>f(n,m) = f`(n-1,m) = p-1(f(n-1,m)) =  [f(n-1,m)+ k +1] % n，把k = (m - 1)%n带入上面的式子，得：f(n,m) = [[f(n-1,m) + m] % n</li>
+<li>由此就得到了一个递推公式<img src="http://oqnfoupsj.bkt.clouddn.com/17-7-31/47359358.jpg" alt=""></li>
+</ul>
+<p><img src="http://oqnfoupsj.bkt.clouddn.com/17-7-31/36704967.jpg" alt=""></p>
+<h2 id="实现代码">实现代码</h2>
+<h3 id="思路1">思路1</h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.ArrayList;</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">LastRemaining_Solution</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> m)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(n == <span class="number">0</span>||m == <span class="number">0</span>)&#123;</div><div class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        ArrayList&lt;Integer&gt; arr = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; n;i++)&#123;</div><div class="line">            arr.add(i);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">int</span> t = -<span class="number">1</span>;</div><div class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</div><div class="line">        <span class="keyword">while</span>(n &gt; <span class="number">1</span>)&#123;</div><div class="line">            <span class="keyword">if</span>(count &lt; m)&#123;</div><div class="line">                count++;</div><div class="line">                t++;</div><div class="line">                <span class="keyword">if</span>(t == n - <span class="number">1</span>)&#123;</div><div class="line">                    t = -<span class="number">1</span>;</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">continue</span>;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            <span class="keyword">if</span>(count == m)&#123;</div><div class="line">                count = <span class="number">0</span>;</div><div class="line">                n--;</div><div class="line">                <span class="keyword">if</span>(t == -<span class="number">1</span>)&#123;</div><div class="line">                    arr.remove(arr.size()-<span class="number">1</span>);</div><div class="line">                &#125;<span class="keyword">else</span> &#123;</div><div class="line">                    arr.remove(t);</div><div class="line">                    t = t - <span class="number">1</span>;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> arr.get(<span class="number">0</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="思路2">思路2</h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">LastRemaining_Solution</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> m)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(n == <span class="number">0</span>||m == <span class="number">0</span>)&#123;</div><div class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">int</span> last = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>;i &lt;= n;i++)&#123;</div><div class="line">            last = (last + m)%i;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> last;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
                 
 
                 <hr>
                 <!-- Pager -->
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2017/06/07/生词本/" data-toggle="tooltip" data-placement="top" title="生词本">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/2017/05/27/探索Java中的深复制和浅复制/" data-toggle="tooltip" data-placement="top" title="图解Java中的深拷贝和浅拷贝">Next Post &rarr;</a>
+                            <a href="/2017/07/30/Algorithm-34/" data-toggle="tooltip" data-placement="top" title="Algorithm_34">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -278,7 +279,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#前言"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">前言</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#实现方式"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">实现方式</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#实现方式"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">实现方式</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#注意"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">注意</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#参考"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">参考</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#题目描述"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">题目描述</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#解题思路"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">解题思路</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#实现代码"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">实现代码</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#思路1"><span class="toc-nav-number">3.1.</span> <span class="toc-nav-text">思路1</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#思路2"><span class="toc-nav-number">3.2.</span> <span class="toc-nav-text">思路2</span></a></li></ol></li></ol>
         
         </div>
       </aside>
@@ -298,9 +299,7 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#Java" title="Java">Java</a>
-                        
-                          <a class="tag" href="/tags/#Tools" title="Tools">Tools</a>
+                          <a class="tag" href="/tags/#算法题" title="算法题">算法题</a>
                         
                     </div>
                 </section>
@@ -329,8 +328,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "your-disqus-ID";
-    var disqus_identifier = "http://andfanswzp.pw/2017/05/29/Intellij-idea快速查看Java类字节码/";
-    var disqus_url = "http://andfanswzp.pw/2017/05/29/Intellij-idea快速查看Java类字节码/";
+    var disqus_identifier = "http://andfanswzp.pw/2017/07/31/Algorithm-35/";
+    var disqus_url = "http://andfanswzp.pw/2017/07/31/Algorithm-35/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

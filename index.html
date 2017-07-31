@@ -213,6 +213,41 @@
 
 <div class="post-preview">
 
+    <a href="/2017/07/31/Algorithm-35/">
+        <h2 class="post-title">
+            Algorithm_35
+        </h2>
+        <h3 class="post-subtitle">
+            圆圈中剩下的数字
+        </h3>
+        <div class="post-content-preview">
+            题目描述
+0,1,…,n-1这n个数字排成一个圆圈，从数字0开始每次从这个圆圈里删除第m个数字。求出这个圆圈里剩下的最后一个数字。
+解题思路
+思路1：
+
+使用一个ArrayList来建立一个index(下标)到每个数字的映射
+使用一个临时变量t来记录当前计数数字的下标值，当t = n-1时，将t重置为-1
+使用count来统计计数的数值，当count等于m时，从ArrayList中删除下标为......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Andfans on
+            2017-07-31
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#算法题" title="算法题">算法题</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
     <a href="/2017/07/30/Algorithm-34/">
         <h2 class="post-title">
             Algorithm_34
@@ -513,44 +548,6 @@ ViewRoot对应于ViewRootImpl类，它是连接WindowManager和DecorView的纽�
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2017/07/27/Algorithm-27/">
-        <h2 class="post-title">
-            Algorithm_27
-        </h2>
-        <h3 class="post-subtitle">
-            二叉搜索树的插入
-        </h3>
-        <div class="post-content-preview">
-            题目描述
-给定一棵二叉排序树，将给定的值正确插入到该树中。
-解题思路
-二叉排序树的特点是左子树的值比都比根小，右子树的值都比根大，借助这个特点，可以利用折半查找的思想，每次比较根节点的值与给定的值的大小关系：
-
-如果要插入的值大于根节点的值，就去右子树继续查找
-如果要插入的值小于根节点的值，就去左子树继续查找
-直到找到一个结点为null，就将该值插入到这个地方
-
-实现代码
-123456789......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Andfans on
-            2017-07-27
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#算法题" title="算法题">算法题</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -587,15 +584,13 @@ ViewRoot对应于ViewRootImpl类，它是连接WindowManager和DecorView的纽�
     <div class="tags">
         
             
+            <a href="/tags/#算法题" title="算法题" rel="35">算法题</a>
+            
+        
+            
         
             
             <a href="/tags/#Android" title="Android" rel="9">Android</a>
-            
-        
-            
-            <a href="/tags/#算法题" title="算法题" rel="34">算法题</a>
-            
-        
             
         
             
@@ -606,6 +601,8 @@ ViewRoot对应于ViewRootImpl类，它是连接WindowManager和DecorView的纽�
         
             
             <a href="/tags/#Java" title="Java" rel="6">Java</a>
+            
+        
             
         
             
@@ -684,6 +681,10 @@ ViewRoot对应于ViewRootImpl类，它是连接WindowManager和DecorView的纽�
     <ul>
       
         <li>
+          <a href="/2017/07/31/Algorithm-35/">Algorithm_35</a>
+        </li>
+      
+        <li>
           <a href="/2017/07/30/Algorithm-34/">Algorithm_34</a>
         </li>
       
@@ -699,10 +700,6 @@ ViewRoot对应于ViewRootImpl类，它是连接WindowManager和DecorView的纽�
           <a href="/2017/07/29/理解RemoteViews/">理解RemoteViews</a>
         </li>
       
-        <li>
-          <a href="/2017/07/29/Algorithm-31/">Algorithm_31</a>
-        </li>
-      
     </ul>
   </div>
 
@@ -711,7 +708,7 @@ ViewRoot对应于ViewRootImpl类，它是连接WindowManager和DecorView的纽�
         
     <h5>ARCHIVES</h5>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">40</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">9</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">41</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">9</span></li></ul>
     </div>
 
         <hr>
