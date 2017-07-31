@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          开篇 - Andfans
+          Algorithm_36 - Andfans
         
     </title>
 
-    <link rel="canonical" href="http://andfanswzp.pw/2017/05/19/my-first-blog/">
+    <link rel="canonical" href="http://andfanswzp.pw/2017/07/31/Algorithm-36/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -90,14 +90,14 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#随笔" title="随笔">随笔</a>
+                              <a class="tag" href="/tags/#算法题" title="算法题">算法题</a>
                             
                         </div>
-                        <h1>开篇</h1>
-                        <h2 class="subheading">新博客搭建完成的第一篇文章</h2>
+                        <h1>Algorithm_36</h1>
+                        <h2 class="subheading">求1+2+3+...+n</h2>
                         <span class="meta">
                             Posted by Andfans on
-                            2017-05-19
+                            2017-07-31
                         </span>
                     </div>
                 
@@ -214,19 +214,31 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <p>经过大半天的折腾，新博客终于搭建的差不多了。瞬间感觉动力满满，希望能尽快把博客搬迁过来，否则显得空荡荡的，最近有项目要赶，可能博客更新有限。</p>
-<p>时间宝贵，这篇博客就到这吧，等有时间再扯闲篇。</p>
-
+                <h2 id="题目描述">题目描述</h2>
+<p>求1+2+3…+n，要求不能使用乘除法、for、while、if、else、switch、case等关键字及条件判断语句(A?B:C)</p>
+<h2 id="解题思路">解题思路</h2>
+<h3 id="解法1利用构造函数求解">解法1：利用构造函数求解</h3>
+<p>我们先定义一个类，接着创建n个该类型的实例，那么这个类型的构造函数将确定会被调用n次。我们可以将累加的代码逻辑放到构造函数里</p>
+<h3 id="解法2利用虚函数求解">解法2：利用虚函数求解</h3>
+<p>既然不能在一个函数中判断是不是应该终止递归，那我们不妨定义两个函数，一个函数充当递归函数的角色，另一个函数处理终止递归的情况，我们需要做的就是在两个函数里二选一。二选一我们很自然的想到布尔变量，比如值为true(1)的时候调用第一个函数，值为false(0)的时候调用第二个函数，那么现在的问题是如何把数值变量n转换成布尔值。如果对n连续做两次反运算，即!!n，那么非0的转换为true，0转换为false</p>
+<h3 id="解法3利用sizeof函数和右移位运算的特性">解法3：利用sizeof函数和右移位运算的特性</h3>
+<h2 id="实现代码">实现代码</h2>
+<h3 id="解法1">解法1</h3>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Temp</span>&#123;</span></div><div class="line">  <span class="keyword">public</span>:</div><div class="line">  	Temp()&#123;++n;sum += n;&#125;</div><div class="line">  	<span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Reset</span><span class="params">()</span></span>&#123;n = <span class="number">0</span>;sum = <span class="number">0</span>;&#125;</div><div class="line">  	<span class="function"><span class="keyword">static</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="title">GetSum</span><span class="params">()</span></span>&#123;<span class="keyword">return</span> sum;&#125;</div><div class="line">  <span class="keyword">private</span>:</div><div class="line">  	<span class="keyword">static</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> n;</div><div class="line">  	<span class="keyword">static</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> sum;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">unsigned</span> <span class="keyword">int</span> Temp::n = <span class="number">0</span>;</div><div class="line"><span class="keyword">unsigned</span> <span class="keyword">int</span> Temp::sum = <span class="number">0</span>;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">Sum_Solution</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</div><div class="line">        Temp::Reset();</div><div class="line">        Temp * a = <span class="keyword">new</span> Temp[n];</div><div class="line">        <span class="keyword">delete</span> [] a;</div><div class="line">        a = <span class="literal">NULL</span>;</div><div class="line">        <span class="keyword">return</span> Temp::GetSum();</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h3 id="解法2">解法2</h3>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>;</span></div><div class="line">A * Array[<span class="number">2</span>];</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>&#123;</span></div><div class="line">    <span class="keyword">public</span> :</div><div class="line">    	<span class="function"><span class="keyword">virtual</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="title">Sum</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">int</span> n)</span></span>&#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span>:</span><span class="keyword">public</span> A&#123;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">    	<span class="function"><span class="keyword">virtual</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="title">Sum</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">int</span> n)</span></span>&#123;</div><div class="line">            <span class="keyword">return</span> Array[!!n]-&gt;Sum(n<span class="number">-1</span>) + n;</div><div class="line">        &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">Sum_Solution</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</div><div class="line">        A a;</div><div class="line">        B b;</div><div class="line">        Array[<span class="number">0</span>] = &amp;a;</div><div class="line">        Array[<span class="number">1</span>] = &amp;b;</div><div class="line">        <span class="keyword">int</span> value = Array[<span class="number">1</span>]-&gt;Sum(n);</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> value;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h3 id="解法3">解法3</h3>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">Sum_Solution</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</div><div class="line">        <span class="keyword">char</span> a[n][n+<span class="number">1</span>];</div><div class="line">        <span class="keyword">return</span> <span class="keyword">sizeof</span>(a)&gt;&gt;<span class="number">1</span>;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
                 
 
                 <hr>
                 <!-- Pager -->
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2017/05/19/加速Android项目构建/" data-toggle="tooltip" data-placement="top" title="加速Android项目构建">&larr; Previous Post</a>
-                        </li>
                     
+                        <li class="next">
+                            <a href="/2017/07/31/Algorithm-35/" data-toggle="tooltip" data-placement="top" title="Algorithm_35">Next Post &rarr;</a>
+                        </li>
                     
                 </ul>
 
@@ -255,7 +267,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="nav">none</ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#题目描述"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">题目描述</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#解题思路"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">解题思路</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#解法1利用构造函数求解"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text">解法1：利用构造函数求解</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#解法2利用虚函数求解"><span class="toc-nav-number">2.2.</span> <span class="toc-nav-text">解法2：利用虚函数求解</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#解法3利用sizeof函数和右移位运算的特性"><span class="toc-nav-number">2.3.</span> <span class="toc-nav-text">解法3：利用sizeof函数和右移位运算的特性</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#实现代码"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">实现代码</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#解法1"><span class="toc-nav-number">3.1.</span> <span class="toc-nav-text">解法1</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#解法2"><span class="toc-nav-number">3.2.</span> <span class="toc-nav-text">解法2</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#解法3"><span class="toc-nav-number">3.3.</span> <span class="toc-nav-text">解法3</span></a></li></ol></li></ol>
         
         </div>
       </aside>
@@ -275,7 +287,7 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#随笔" title="随笔">随笔</a>
+                          <a class="tag" href="/tags/#算法题" title="算法题">算法题</a>
                         
                     </div>
                 </section>
@@ -304,8 +316,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "your-disqus-ID";
-    var disqus_identifier = "http://andfanswzp.pw/2017/05/19/my-first-blog/";
-    var disqus_url = "http://andfanswzp.pw/2017/05/19/my-first-blog/";
+    var disqus_identifier = "http://andfanswzp.pw/2017/07/31/Algorithm-36/";
+    var disqus_url = "http://andfanswzp.pw/2017/07/31/Algorithm-36/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
