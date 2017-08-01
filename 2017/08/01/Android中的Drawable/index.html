@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          Android中的Drawable - Andfans
+        
+    </title>
+
+    <link rel="canonical" href="http://andfanswzp.pw/2017/08/01/Android中的Drawable/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('http://i1.piimg.com/588926/14c9e94b1c44706b.png')
+            /*post*/
+        
+    }
+    
+    #signature{
+        background-image: url('/img/signature/BeanTechSign-white.png');
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#Android" title="Android">Android</a>
+                            
+                              <a class="tag" href="/tags/#Drawable" title="Drawable">Drawable</a>
+                            
+                        </div>
+                        <h1>Android中的Drawable</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by Andfans on
+                            2017-08-01
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Andfans</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <p>Drawable表示的是一种可以在Canvas上进行绘制的抽象的概念，它的种类有很多，最常见的颜色和图片都可以是一个Drawable。熟练掌握各种类型的Drawable可以方便我们做出一些特殊的UI效果，它使用简单，比自定义View的成本要低，非图片类型的Drawable占用空间较小，对于减小apk的大小也很有帮助。</p>
+<h2 id="drawable简介">Drawable简介</h2>
+<p>Drawable有很多种，它们都表示一种图像的概念，但是它们又不全是图片，通过颜色也可以构造出各式各样的图像的效果。在实际开发中，Drawable常被用来作为VIew的背景使用。Drawable是一个抽象类，它是所有Drawable对象的基类，每个具体的Drawable都是它的子类。</p>
+<p><img src="http://oqnfoupsj.bkt.clouddn.com/17-8-1/9340307.jpg" alt=""></p>
+<p>Drawable的内部宽/高这个参数很重要，通过getIntrinsicWidth和getIntrinsicHeight这两个方法可以获取到它们。但并不是所有的Drawable都有内部宽/高，比如一张图片所形成的Drawable，它的内部宽/高就是图片的宽/高，但是一个颜色所形成的Drawable，它就没有内部宽高的概念。另外需要注意的是，Drawable的内部宽/高不等同于它的大小，一般来说，Drawable是没有大小概念的，当用作View的背景时，Drawable会被拉伸至View的同等大小。</p>
+<h2 id="drawable的分类">Drawable的分类</h2>
+<h3 id="bitmapdrawable">BitmapDrawable</h3>
+<p>它表示的就是一张图片，我们可以像引用图片那样直接引用它。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">bitmap</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></div><div class="line">    <span class="attr">android:src</span>=<span class="string">"@drawable/图片的资源Id"</span></div><div class="line">        <span class="attr">android:antialias</span>=<span class="string">"true|false"</span></div><div class="line">        <span class="attr">android:dither</span>=<span class="string">"true|false"</span></div><div class="line">        <span class="attr">android:filter</span>=<span class="string">"true|false"</span></div><div class="line">        <span class="attr">android:gravity</span>=<span class="string">"top|bottom|left|right|center_vertical|center_horizontal|center|fill_vertical|fill_horizontal|fill|clip_vertical|clip_horizontal"</span></div><div class="line">        <span class="attr">android:mipMap</span>=<span class="string">"true|false"</span></div><div class="line">        <span class="attr">android:tileMode</span>=<span class="string">"clamp|disabled|repeat|mirror"</span></div><div class="line">    /&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>
+<p>android:src：图片的资源Id</p>
+</li>
+<li>
+<p>android:antialias：是否开启抗锯齿功能，开启后会让图片变得平滑，同时一定程度上降低图片的清晰度，但是这个降低的幅度较低以至于可以忽略，因此该选项应该开启。</p>
+</li>
+<li>
+<p>android:dither：是否开启抖动效果，当图片的像素配置和手机屏幕的像素配置不一致时，开启这个选项可以让高质量的图片在低质量的屏幕上还能保持较好的显示效果，比如图片的色彩模式为ARGB8888，但是设备屏幕所支持的色彩模式为RGB555，这个时候开启抖动选项可以让图片显示不会过于失真。在Android中创建的Bitmap一般会选用ARGB8888这个模式，即ARGB四个通道各占8位，在这种色彩模式下，一个像素所占的大小为4个字节，一个像素的位数总和越高，图像也就越逼真，因此该选项一般也应该开启。</p>
+</li>
+<li>
+<p>android:filter：是否开启过滤效果。当图片尺寸被拉伸或者压缩时，开启过滤效果可以保持良好的显示效果，因此此选项也应该开启</p>
+</li>
+<li>
+<p>android:gravity：当图片小于容器的尺寸时，设置此选项可以对图片进行定位，不同的选项间采用|隔开。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">可选项</th>
+<th style="text-align:center">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">top</td>
+<td style="text-align:center">将图片放到容器顶部，不改变图片的大小</td>
+</tr>
+<tr>
+<td style="text-align:center">bottom</td>
+<td style="text-align:center">放到底部，不改变大小</td>
+</tr>
+<tr>
+<td style="text-align:center">left</td>
+<td style="text-align:center">放到左部，不改变大小</td>
+</tr>
+<tr>
+<td style="text-align:center">right</td>
+<td style="text-align:center">放到右边，不改变大小</td>
+</tr>
+<tr>
+<td style="text-align:center">center_vertical</td>
+<td style="text-align:center">竖直居中，不改变大小</td>
+</tr>
+<tr>
+<td style="text-align:center">fill_vertical</td>
+<td style="text-align:center">竖直方向填充容器</td>
+</tr>
+<tr>
+<td style="text-align:center">center_horizontal</td>
+<td style="text-align:center">水平居中，不改变大小</td>
+</tr>
+<tr>
+<td style="text-align:center">fill_horizontal</td>
+<td style="text-align:center">水平方向填充容器</td>
+</tr>
+<tr>
+<td style="text-align:center">center</td>
+<td style="text-align:center">同时水平和竖直居中，不改变大小</td>
+</tr>
+<tr>
+<td style="text-align:center">fill</td>
+<td style="text-align:center">水平和竖直同时填充，这是默认值</td>
+</tr>
+<tr>
+<td style="text-align:center">clip_vertical</td>
+<td style="text-align:center">附加选项，表示竖直方向的裁剪，较少使用</td>
+</tr>
+<tr>
+<td style="text-align:center">clip_horizontal</td>
+<td style="text-align:center">附加选项，表示水平方向的裁剪，较少使用</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>android:mipMap：这是一种图像相关的处理技术，也叫纹理映射，比较抽象，这里不深究了，默认为false</p>
+</li>
+<li>
+<p>android:titleMode：</p>
+<ul>
+<li>disable表示关闭平铺模式，这也是默认值，当开启平铺模式时，gravity属性会被忽略；</li>
+<li>repeat：表示的是简单的水平和竖直方向上的平铺效果；</li>
+<li>mirror：表示一种在水平和竖直方向上的镜面投影效果；</li>
+<li>clamp：图片四周的像素会扩展到周围区域；</li>
+</ul>
+</li>
+</ul>
+<p>接下来介绍NinePatchDrawable，它表示的是一张.9格式的图片，.9图片可以自动的根据所需的宽高进行相应的缩放并保证不失真，它和BitmapDrawable一样，都表示一张图片，它和BitmapDrawable在xml文件中定义的格式是一样的，只是标签名换成了&lt;nine-patch /&gt;</p>
+<p>另外在实际使用中发现在bitmap标签中也可以使用.9图，即BitmapDrawable也可以代表一个.9格式的图片。</p>
+<h3 id="shapedrawable">ShapeDrawable</h3>
+<p>ShapeDrawable是一种很常见的Drawable，可以理解为通过颜色来构造的图形，它既可以是纯色的图形，也可以是具有渐变效果的图形。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">shape</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></div><div class="line">    <span class="attr">android:shape</span>=<span class="string">"rectangle"</span></div><div class="line">    &gt;</div><div class="line">    <span class="tag">&lt;<span class="name">corners</span> </span></div><div class="line">        <span class="attr">android:radius</span>=<span class="string">"10dp"</span></div><div class="line">        <span class="attr">android:topLeftRadius</span>=<span class="string">"10dp"</span></div><div class="line">        <span class="attr">android:topRightRadius</span>=<span class="string">"10dp"</span></div><div class="line">        <span class="attr">android:bottomLeftRadius</span>=<span class="string">"10dp"</span></div><div class="line">        <span class="attr">android:bottomRightRadius</span>=<span class="string">"10dp"</span></div><div class="line">        /&gt;</div><div class="line">    <span class="tag">&lt;<span class="name">gradient</span> </span></div><div class="line">        <span class="attr">android:angle</span>=<span class="string">"20dp"</span></div><div class="line">        <span class="attr">android:centerX</span>=<span class="string">"20"</span></div><div class="line">        <span class="attr">android:centerY</span>=<span class="string">"20"</span></div><div class="line">        <span class="attr">android:startColor</span>=<span class="string">"@color/colorPrimaryDark"</span></div><div class="line">        <span class="attr">android:centerColor</span>=<span class="string">"@color/colorAccent"</span></div><div class="line">        <span class="attr">android:endColor</span>=<span class="string">"@color/colorPrimary"</span></div><div class="line">        <span class="attr">android:gradientRadius</span>=<span class="string">"20dp"</span></div><div class="line">        <span class="attr">android:type</span>=<span class="string">"linear"</span></div><div class="line">        <span class="attr">android:useLevel</span>=<span class="string">"false"</span></div><div class="line">        /&gt;</div><div class="line">    </div><div class="line">    <span class="tag">&lt;<span class="name">padding</span></span></div><div class="line">        <span class="attr">android:left</span>=<span class="string">"30dp"</span></div><div class="line">        <span class="attr">android:right</span>=<span class="string">"30dp"</span></div><div class="line">        <span class="attr">android:top</span>=<span class="string">"30dp"</span></div><div class="line">        <span class="attr">android:bottom</span>=<span class="string">"30dp"</span></div><div class="line">        /&gt;</div><div class="line">    </div><div class="line">    <span class="tag">&lt;<span class="name">size</span></span></div><div class="line">        <span class="attr">android:width</span>=<span class="string">"40dp"</span></div><div class="line">        <span class="attr">android:height</span>=<span class="string">"40dp"</span></div><div class="line">        /&gt;</div><div class="line">    </div><div class="line">    <span class="tag">&lt;<span class="name">solid</span></span></div><div class="line">        <span class="attr">android:color</span>=<span class="string">"@color/colorPrimaryDark"</span></div><div class="line">        /&gt;</div><div class="line">    <span class="tag">&lt;<span class="name">stroke</span></span></div><div class="line">        <span class="attr">android:width</span>=<span class="string">"5dp"</span></div><div class="line">        <span class="attr">android:color</span>=<span class="string">"@color/colorPrimary"</span></div><div class="line">        <span class="attr">android:dashGap</span>=<span class="string">"6dp"</span></div><div class="line">        <span class="attr">android:dashWidth</span>=<span class="string">"6dp"</span></div><div class="line">        /&gt;</div><div class="line">    </div><div class="line"><span class="tag">&lt;/<span class="name">shape</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>需要注意的是&lt;shape&gt;标签创建的Drawable，其实体类实际上是GradientDrawable，下面分别介绍各个属性的含义</p>
+<ul>
+<li>
+<p>android:shape：表示图形的形状，有四个选项：rectangle(矩形)、oval(椭圆)、line(横线)和ring(圆环)。它的默认值是矩形，另外line和 ring这两个选项必须要通过&lt;stroke&gt;标签来指定线的宽度和颜色等信息，否则将无法达到预期的显示效果。针对ring这个形状，有五个特殊的属性：</p>
+<ul>
+<li>android:innerRadius：圆环的内半径，和android:innerRadiusRatio同时存在时，以android:innerRadius为准</li>
+<li>android:tickness：圆环的厚度，即外半径减去内半径的大小，和android:ticknessRatio同时存在时，以android:tickness为准</li>
+<li>android:innerRadiusRatio：内半径占整个Drawable宽度的比例，默认值为9.如果为n，那么内半径 = 宽度/n</li>
+<li>android:ticknessRatio：厚度占整个Drawable宽度的比例，默认值为3，如果为n，那么厚度 = 宽度/n</li>
+<li>android:useLevel：一般都应该使用false，否则有可能无法达到预期的显示效果，除非他被当做LevelListDrawable来使用</li>
+</ul>
+</li>
+<li>
+<p>&lt;corners&gt;：表示shape四个角的角度。它只适用于矩形shape，这里的角度是指圆角的程度，它有如下5个属性：</p>
+<ul>
+<li>android:radius：为四个角同时设定相同的角度，优先级较低，会被其他四个属性覆盖</li>
+<li>android:topLeftRadius：设定左上角的角度</li>
+<li>android:topRightRadius：设置右上角的角度</li>
+<li>android:bottomLeftRadius：设置左下角的角度</li>
+<li>android:bottomRightRadius：设置右下角的角度</li>
+</ul>
+</li>
+<li>
+<p>&lt;gradient&gt;：它与&lt;solid&gt;标签是互相排斥的，其中solid表示纯色填充，而gradient则表示渐变效果，gradient有如下几个属性：</p>
+<ul>
+<li>android:angle：渐变的角度，默认为0，其值必须为45的倍数，0表示从左到右，90表示从下到上，具体的效果需要自行检验</li>
+<li>android:centerX：渐变的中心点的横坐标</li>
+<li>android:centerY：渐变的中心点的纵坐标，渐变的中心点会影响渐变的具体效果；</li>
+<li>android:startColor：渐变的起始颜色</li>
+<li>android:centerColor：渐变的中间色</li>
+<li>android:endColor：渐变的结束色</li>
+<li>android:gradientRadius：渐变半径，仅当android:type=&quot;radial&quot;时有效</li>
+<li>android:useLevel：一般为false，当Drawable作为StateListDrawable使用时为true</li>
+<li>android:type：渐变的类型：有linear(线性渐变)、radial(径向渐变)、sweep(扫描线性渐变)三种，默认为linear</li>
+</ul>
+</li>
+<li>
+<p>&lt;solid&gt;：这个标签表示纯色填充，通过android:color即可指定shape中填充的颜色</p>
+</li>
+<li>
+<p>&lt;stroke&gt;：Shape的描边，有如下几个属性：</p>
+<ul>
+<li>android:width：描边的宽度，越大边线则越粗</li>
+<li>android:color：描边的颜色</li>
+<li>android:dashWidth：组成虚线的线段的宽度</li>
+<li>android:dashGap：组成虚线的线段之间的间隔，间隔越大则虚线看起来空隙越大</li>
+</ul>
+<p>如果android:dashWidth和android:dashGap有任何一个为0，那么虚线效果将不能生效</p>
+</li>
+<li>
+<p>&lt;padding&gt;：表示空白，但是它表示的不是shape的空白，而是包含它的VIew的空白。</p>
+</li>
+<li>
+<p>&lt;size&gt;：shape的大小，有两个属性：android:width和android:height，分别表示shape的宽/高，这个表示的是shape的固有大小，但是它一般来说它并不是shape最终显示的大小(最终显示大小和View的大小有关)。Drawable的方法getIntrinsicWidth和getIntrinsicHeight获取的是Drawable的固有宽高，对于图片来说，它的固有宽高就是图片的尺寸。而对于Shape来说，默认情况下它是没有固有宽高这个概念的，这个时候getIntrinsicWidth和getIntrinsicHeight返回-1，但是如果通过&lt;size&gt;标签来指定宽高的信息，那么这个时候shape就有了所谓的固有宽高了。总结来说，&lt;size&gt;标签设置的宽高就是ShapeDrawable的固有宽高，但是作为View的背景时，shape还会被拉伸或缩小为View的大小。</p>
+</li>
+</ul>
+<h3 id="layerdrawable">LayerDrawable</h3>
+<p>LayerDrawable对应的XML标签是&lt;layer-list&gt;，它表示一种层次化的Drawable集合，通过将不同的Drawable放置在不同的层上面达到一种叠加后的效果。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">layer-list</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">android:drawable</span>=<span class="string">"@drawable/search"</span></span></div><div class="line">        <span class="attr">android:id</span>=<span class="string">"@+id/id_layer"</span></div><div class="line">          <span class="attr">android:top</span>=<span class="string">"10dp"</span></div><div class="line">          <span class="attr">android:bottom</span>=<span class="string">"10dp"</span></div><div class="line">          <span class="attr">android:right</span>=<span class="string">"10dp"</span></div><div class="line">          <span class="attr">android:left</span>=<span class="string">"10dp"</span></div><div class="line">        /&gt;</div><div class="line"><span class="tag">&lt;/<span class="name">layer-list</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>一个layer-list中可以包含多个item，每个item表示一个Drawable。Item的结构也比较简单，比较常用的属性有android:top/left/right/bottom，它们分别表示Drawable相对于VIew的上下左右的偏移量，单位为像素。另外，我们可以通过android:drawable属性来直接引用一个已有的Drawable资源，也可以在item中自定义Drawable。默认情况下，Layer-list中的所有Drawable都会被缩放至View的大小，对于bitmap来说，需要使用android:gravity属性才能控制图片的显示效果。Layer-list有层次的概念，下面的item会覆盖上面的item，通过合理的分层，可以实现一些特殊的叠加效果。</p>
+<h3 id="statelistdrawable">StateListDrawable</h3>
+<p>StateListDrawable对应于&lt;selector&gt;标签，它也是表示Drawable的集合，每个Drawable都对应着View的一种状态，这样系统会根据View的状态来选择合适的Drawable。StateListDrawable主要用于设置可单击的View的背景，最常见的是Buttom.</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">selector</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></div><div class="line">    <span class="attr">android:constantSize</span>=<span class="string">"true"</span></div><div class="line">          <span class="attr">android:dither</span>=<span class="string">"true"</span></div><div class="line">          <span class="attr">android:variablePadding</span>=<span class="string">"false"</span></div><div class="line">    &gt;</div><div class="line">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">android:drawable</span>=<span class="string">"@drawable/bitmap_drawable"</span></span></div><div class="line">          <span class="attr">android:state_pressed</span>=<span class="string">"true"</span></div><div class="line">          <span class="attr">android:state_focused</span>=<span class="string">"true"</span></div><div class="line">          <span class="attr">android:state_hovered</span>=<span class="string">"true"</span></div><div class="line">          <span class="attr">android:state_selected</span>=<span class="string">"true"</span></div><div class="line">          <span class="attr">android:state_checkable</span>=<span class="string">"true"</span></div><div class="line">          <span class="attr">android:state_checked</span>=<span class="string">"true"</span></div><div class="line">          <span class="attr">android:state_enabled</span>=<span class="string">"true"</span></div><div class="line">          <span class="attr">android:state_activated</span>=<span class="string">"true"</span></div><div class="line">          <span class="attr">android:state_window_focused</span>=<span class="string">"true"</span></div><div class="line">          /&gt;</div><div class="line">    </div><div class="line"><span class="tag">&lt;/<span class="name">selector</span>&gt;</span></div></pre></td></tr></table></figure>
+<ul>
+<li>android:constantSize：StateListDrawable的固有大小是否不随着其状态的改变而改变，因为状态的改变会导致StateListDrawable切换到具体的Drawable，而不同的Drawable具有不同的固有大小。True表示StateListDrawable的固有大小保持不变，这是它的固有大小是内部所有Drawable的固有大小的最大值,false则会随着状态的改变而改变。默认为false</li>
+<li>android:dither：是否开启抖动效果，这个在BItmapDrawable中也有提到，开启此选项可以让图片在低质量的屏幕上仍然获得较好的显示效果。默认为false</li>
+<li>android:variablePadding：StateListDrawable的padding表示是否随着其状态的改变而改变，true表示会随着状态的改变而改变,false表示padding是内部所有Drawable的padding的最大值，默认为false</li>
+</ul>
+<p>&lt;item&gt;表示一个具体的Drawable，其中android:drawable是一个已有Drawable的资源Id，剩下的属性表示的是View的各种状态，每个item表示的都是一种状态下的Drawable信息，常见的状态有：</p>
+<ul>
+<li>android:state_pressed：表示按下状态</li>
+<li>android:state_focused：表示View已经获取了焦点</li>
+<li>android:state_selected：表示用户选择了View</li>
+<li>android:state_checked：表示用户选中了View，一般适用于CheckBox这类在选中和非选中状态状态之间进行切换的View</li>
+<li>android:state_enabled：表示View当前处于可用状态</li>
+</ul>
+<p>系统会根据View当前的状态从selector中选择对应的item，每个item对应着一个具体的Drawable，系统按照从上到下的顺序查找，直至查找到第一条匹配的item。一般来说，默认的item都应该放在selector的最后一条并且不附带任何的状态，这样当上面的item都无法匹配View的当前状态时，系统就会选择默认的item，因为默认的item不附带状态，所以它可以匹配任何状态。</p>
+<h3 id="levellistdrawable">LevelListDrawable</h3>
+<p>LevelListDrawable对应于&lt;level-list标签&gt;，它同样表示一个Drawable集合，集合中的每个Drawable都有一个等级(level概念)。根据不同的等级，LevelListDrawable会切换为对应的Drawable</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">level-list</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">item</span></span></div><div class="line">        <span class="attr">android:drawable</span>=<span class="string">"@drawable/bitmap_drawable"</span></div><div class="line">        <span class="attr">android:maxLevel</span>=<span class="string">"20"</span></div><div class="line">        <span class="attr">android:minLevel</span>=<span class="string">"0"</span></div><div class="line">        /&gt;</div><div class="line"><span class="tag">&lt;/<span class="name">level-list</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>当它作为View的背景时，可以通过Drawable的setLevel方法来设置不同的等级从而切换具体的Drawable。如果它被用作ImageView的前景Drawable，那么还可以通过ImageView的setImageLevel方法来切换Drawable。最后，Drawable的等级也是有范围的，即0~10000，最小为0，默认也为0</p>
+<h3 id="transitiondrawable">TransitionDrawable</h3>
+<p>TransitionDrawable对应于&lt;transition&gt;标签，它用于实现两个Drawable之间的淡入淡出效果</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">transition</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">android:drawable</span>=<span class="string">"@drawable/bitmap_drawable"</span></span></div><div class="line">        <span class="attr">android:id</span>=<span class="string">"@+id/transition"</span></div><div class="line">          <span class="attr">android:top</span>=<span class="string">"20dp"</span></div><div class="line">          <span class="attr">android:left</span>=<span class="string">"20dp"</span></div><div class="line">          <span class="attr">android:right</span>=<span class="string">"20dp"</span></div><div class="line">          <span class="attr">android:bottom</span>=<span class="string">"20dp"</span></div><div class="line">        /&gt;</div><div class="line"><span class="tag">&lt;/<span class="name">transition</span>&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">TextView textView = (TextView)findViewById(R.id.test_transition);</div><div class="line">TransitionDrawable drawable = (TransitionDrawable)textView.getBackground();</div><div class="line">drawable.startTransition(<span class="number">1000</span>);</div></pre></td></tr></table></figure>
+<p>通过它的startTransition和reverseTransition方法来实现淡入淡出效果以及他们的逆过程</p>
+<h3 id="insetdrawable">InsetDrawable</h3>
+<p>InsetDrawable对应于&lt;inset&gt;标签，它可以将其他的Drawable内嵌到自己当中，并可以在四周留出一定的间距。当一个VIew希望自己的背景比自己的实际区域小的时候，可以采用InsetDrawable来实现，LayerDrawable也可以实现这种效果。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">inset</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></div><div class="line">    <span class="attr">android:drawable</span>=<span class="string">"@drawable/bitmap_drawable"</span></div><div class="line">    <span class="attr">android:inset</span>=<span class="string">"20dp"</span></div><div class="line">    &gt;</div><div class="line">    </div><div class="line"><span class="tag">&lt;/<span class="name">inset</span>&gt;</span></div></pre></td></tr></table></figure>
+<ul>
+<li>inset表示Drawable距离VIew边界的距离</li>
+</ul>
+<h3 id="scaledrawable">ScaleDrawable</h3>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">scale</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></div><div class="line">    <span class="attr">android:drawable</span>=<span class="string">"@drawable/bitmap_drawable"</span></div><div class="line">       <span class="attr">android:scaleGravity</span>=<span class="string">"bottom"</span></div><div class="line">       <span class="attr">android:scaleHeight</span>=<span class="string">"20%"</span></div><div class="line">       <span class="attr">android:scaleWidth</span>=<span class="string">"20%"</span></div><div class="line">    &gt;</div><div class="line"><span class="tag">&lt;/<span class="name">scale</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>它可以根据自己的等级Level将指定的Drawable缩放到一定的比例</p>
+<ul>
+<li>android:scaleGravity的含义等同于shape中的android:gravity</li>
+<li>android:scaleWidth和android:scaleHeight分别表示对指定Drawable宽和高的缩放比例，以百分比的形式表示</li>
+</ul>
+<p>ScaleDrawable有点费解，要理解它，我们首先要明白等级对ScaleDrawable的影响。等级为0表示ScaleDrawable不可见，这是默认值，要想ScaleDrawable可见，需要等级不能为0，这一点从源码中可以看出，来看一下ScaleDrawable的draw方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">(Canvas canvas)</span> </span>&#123;</div><div class="line">        <span class="keyword">final</span> Drawable d = getDrawable();</div><div class="line">        <span class="keyword">if</span> (d != <span class="keyword">null</span> &amp;&amp; d.getLevel() != <span class="number">0</span>) &#123;</div><div class="line">            d.draw(canvas);</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>很显然，由于ScaleDrawable的等级和Drawable的等级是保持一致的，所以如果ScaleDrawable的等级为0，那么它内部的Drawable的等级也必然为0，这时Drawable就无法绘制出来，因此ScaleDrawable就不可见。</p>
+<p>接下来再看一下ScaleDrawable的onBoundsChange方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onBoundsChange</span><span class="params">(Rect bounds)</span> </span>&#123;</div><div class="line">        <span class="keyword">final</span> Drawable d = getDrawable();</div><div class="line">        <span class="keyword">final</span> Rect r = mTmpRect;</div><div class="line">        <span class="keyword">final</span> <span class="keyword">boolean</span> min = mState.mUseIntrinsicSizeAsMin;</div><div class="line">        <span class="keyword">final</span> <span class="keyword">int</span> level = getLevel();</div><div class="line"></div><div class="line">        <span class="keyword">int</span> w = bounds.width();</div><div class="line">        <span class="keyword">if</span> (mState.mScaleWidth &gt; <span class="number">0</span>) &#123;</div><div class="line">            <span class="keyword">final</span> <span class="keyword">int</span> iw = min ? d.getIntrinsicWidth() : <span class="number">0</span>;</div><div class="line">            w -= (<span class="keyword">int</span>) ((w - iw) * (MAX_LEVEL - level) * mState.mScaleWidth / MAX_LEVEL);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">int</span> h = bounds.height();</div><div class="line">        <span class="keyword">if</span> (mState.mScaleHeight &gt; <span class="number">0</span>) &#123;</div><div class="line">            <span class="keyword">final</span> <span class="keyword">int</span> ih = min ? d.getIntrinsicHeight() : <span class="number">0</span>;</div><div class="line">            h -= (<span class="keyword">int</span>) ((h - ih) * (MAX_LEVEL - level) * mState.mScaleHeight / MAX_LEVEL);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">final</span> <span class="keyword">int</span> layoutDirection = getLayoutDirection();</div><div class="line">        Gravity.apply(mState.mGravity, w, h, bounds, r, layoutDirection);</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (w &gt; <span class="number">0</span> &amp;&amp; h &gt; <span class="number">0</span>) &#123;</div><div class="line">            d.setBounds(r.left, r.top, r.right, r.bottom);</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>在ScaleDrawable的onBoundsChange方法中，我们可以看到Drawable的大小和等级以及缩放比例的关系，这里拿宽度来分析：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> MAX_LEVEL = <span class="number">10000</span>;</div><div class="line"><span class="keyword">final</span> <span class="keyword">int</span> iw = min ? d.getIntrinsicWidth() : <span class="number">0</span>;</div><div class="line">w -= (<span class="keyword">int</span>) ((w - iw) * (MAX_LEVEL - level) * mState.mScaleWidth / MAX_LEVEL);</div></pre></td></tr></table></figure>
+<p>由于iw一般都为0，所以上面的代码可以化简为：w -= (int)(w * (MAX_LEVEL - level) * mState.mScaleWidth / MAX_LEVEL);由此可见，如果ScaleDrawable的级别越大，那么内部的Drawable看起来就越大，如果ScaleDrawable的XML中所定义的缩放比例越大，那么内部的Drawable看起来就越小，从ScaleDrawable的内部实现看来，ScaleDrawable的作用更偏向于缩小一个特定的Drawable。下面的例子，可以近似的看做将一张图片缩小为原来大小的30%：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">scale</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></div><div class="line">    <span class="attr">android:drawable</span>=<span class="string">"@drawable/bitmap_drawable"</span></div><div class="line">       <span class="attr">android:scaleGravity</span>=<span class="string">"center"</span></div><div class="line">       <span class="attr">android:scaleHeight</span>=<span class="string">"70%"</span></div><div class="line">       <span class="attr">android:scaleWidth</span>=<span class="string">"70%"</span></div><div class="line">    /&gt;</div></pre></td></tr></table></figure>
+<p>直接使用上面的资源是不行的，还必须设置ScaleDrawable的等级为大于0且小于10000的值，如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">View testScale = findViewById(R.id.test_scale);</div><div class="line">ScaleDrawable testScaleDrawable = testScale.getBackground();</div><div class="line">testScaleDrawable.setLevel(<span class="number">1</span>);</div></pre></td></tr></table></figure>
+<h3 id="clipdrawable">ClipDrawable</h3>
+<p>ClipDrawable可以根据自己当前的等级Level来裁剪另一个Drawable，裁剪方向可以通过android:clipOrientation和android:gravity这两个属性来共同控制。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">clip</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></div><div class="line">    <span class="attr">android:drawable</span>=<span class="string">"@drawable/bitmap_drawable"</span></div><div class="line">      <span class="attr">android:clipOrientation</span>=<span class="string">"vertical"</span></div><div class="line">      <span class="attr">android:gravity</span>=<span class="string">"bottom"</span></div><div class="line">    /&gt;</div></pre></td></tr></table></figure>
+<p>其中clipOrientation表示裁剪方向，有水平和竖直两个方向，gravity比较复杂，需要和clipOrientation一起才能发挥作用，gravity的各种选项可以通过|来组合使用。</p>
+<center>ClipDrawable的gravity属性</center>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">选项</th>
+<th style="text-align:center">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">top</td>
+<td style="text-align:center">将内部的Drawable放在容器的顶部，不改变它的大小，如果为竖直裁剪，那么从底部开始裁剪</td>
+</tr>
+<tr>
+<td style="text-align:center">bottom</td>
+<td style="text-align:center">将内部的Drawable放在容器的底部，不改变它的大小，如果为竖直裁剪，那么从顶部开始裁剪</td>
+</tr>
+<tr>
+<td style="text-align:center">left</td>
+<td style="text-align:center">将内部的Drawable放在容器的左部，不改变它的大小，如果为水平裁剪，那么从右边开始裁剪，这是默认值</td>
+</tr>
+<tr>
+<td style="text-align:center">right</td>
+<td style="text-align:center">将内部的Drawable放在容器的右部，不改变它的大小，如果为水平裁剪，那么从左边开始裁剪</td>
+</tr>
+<tr>
+<td style="text-align:center">center_vertical</td>
+<td style="text-align:center">将内部的Drawable在容器中竖直居中，不改变它的大小，如果为竖直裁剪，那么从上下同时开始裁剪</td>
+</tr>
+<tr>
+<td style="text-align:center">center_horizontal</td>
+<td style="text-align:center">将内部的Drawable在容器中水平居中，不改变它的大小，如果为水平裁剪，那么从左右同时开始裁剪</td>
+</tr>
+<tr>
+<td style="text-align:center">center</td>
+<td style="text-align:center">将内部的Drawable在水平和竖直方向都居中，不改变它的大小，如果为竖直裁剪，那么从上下同时开始裁剪；如果是水平裁剪，那么从左右同时开始裁剪</td>
+</tr>
+<tr>
+<td style="text-align:center">fill_vertical</td>
+<td style="text-align:center">使内部的Drawable在竖直方向上填充容器，如果为竖直裁剪，那么仅当ClipDrawable的等级为0(0表示被完全裁剪，即不可见)时，才能有裁剪行为</td>
+</tr>
+<tr>
+<td style="text-align:center">fill_horizontal</td>
+<td style="text-align:center">使内部的Drawable在水平方向上填充容器，如果为水平裁剪，那么仅当ClipDrawable的等级为0时，才能有裁剪行为</td>
+</tr>
+<tr>
+<td style="text-align:center">fill</td>
+<td style="text-align:center">使内部的Drawable在水平和竖直方向上同时填充容器，仅当ClipDrawable的等级为0时，才能有裁剪行为</td>
+</tr>
+<tr>
+<td style="text-align:center">clip_vertical</td>
+<td style="text-align:center">附加选项，表示竖直方向上的裁剪，较少使用</td>
+</tr>
+<tr>
+<td style="text-align:center">clip_horizontal</td>
+<td style="text-align:center">附加选项，表示水平方向上的裁剪，较少使用</td>
+</tr>
+</tbody>
+</table>
+<p>用法：</p>
+<ol>
+<li>
+<p>在drawable文件夹下新建一个clip_drawable.xml文件</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">clip</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></div><div class="line">    <span class="attr">android:drawable</span>=<span class="string">"@drawable/bitmap_drawable"</span></div><div class="line">      <span class="attr">android:clipOrientation</span>=<span class="string">"vertical"</span></div><div class="line">      <span class="attr">android:gravity</span>=<span class="string">"bottom"</span></div><div class="line">    /&gt;</div></pre></td></tr></table></figure>
+</li>
+<li>
+<p>给layout文件中的View设置背景</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">?xml version="1.0" encoding="utf-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">LinearLayout</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></div><div class="line">    <span class="attr">android:orientation</span>=<span class="string">"vertical"</span> <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></div><div class="line">    <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span>&gt;</div><div class="line">    <span class="tag">&lt;<span class="name">TextView</span></span></div><div class="line">        <span class="attr">android:id</span>=<span class="string">"@+id/textView1"</span></div><div class="line">        <span class="attr">android:layout_width</span>=<span class="string">"200dp"</span></div><div class="line">        <span class="attr">android:layout_height</span>=<span class="string">"200dp"</span></div><div class="line">        <span class="attr">android:layout_gravity</span>=<span class="string">"center"</span></div><div class="line">        <span class="attr">android:layout_marginTop</span>=<span class="string">"200dp"</span></div><div class="line">        <span class="attr">android:background</span>=<span class="string">"@drawable/clip_drawable"</span></div><div class="line">        <span class="attr">android:text</span>=<span class="string">"22225555555"</span> /&gt;</div><div class="line"><span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+<li>
+<p>在Activity中设置level</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">View testScale = findViewById(R.id.textView1);</div><div class="line">      ScaleDrawable scaleDrawable = (ScaleDrawable) testScale.getBackground();</div><div class="line">      scaleDrawable.setLevel(<span class="number">11</span>);</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>Drawable的等级是有范围的，即0~10000，最小等级是0，最大等级是10000，对于ClipDrawable来说，等级0表示完全裁剪，即整个Drawable都不可见了，而等级10000表示不裁剪。在上面的代码中将等级设置8000表示裁减了2000，即在顶部裁减掉20%的区域。</p>
+<p>对于本例来说，等级越大，表示裁剪的区域越小。</p>
+<h2 id="自定义drawable">自定义Drawable</h2>
+<p>Drawable的使用范围很单一，一个是作为ImageView中的图像来显示，另外一个就是作为View的背景，大多数情况下Drawable都是以View的背景这种形式出现的。Drawable的工作原理很简单，其核心就是draw方法。经过前面的分析，我们知道系统会调用Drawable的draw方法来绘制View的背景，因此我们可以通过重写Drawable的draw方法来自定义Drawable</p>
+<p>通常我们没有必要去自定义Drawable，这是因为自定义的Drawable无法在XML中使用，这就降低了自定义Drawable的使用范围。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> andfans.com.demolist.MyView;</div><div class="line"></div><div class="line"><span class="keyword">import</span> android.graphics.Canvas;</div><div class="line"><span class="keyword">import</span> android.graphics.ColorFilter;</div><div class="line"><span class="keyword">import</span> android.graphics.Paint;</div><div class="line"><span class="keyword">import</span> android.graphics.PixelFormat;</div><div class="line"><span class="keyword">import</span> android.graphics.Rect;</div><div class="line"><span class="keyword">import</span> android.graphics.drawable.Drawable;</div><div class="line"><span class="keyword">import</span> android.support.annotation.IntRange;</div><div class="line"><span class="keyword">import</span> android.support.annotation.NonNull;</div><div class="line"><span class="keyword">import</span> android.support.annotation.Nullable;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by Andfan on 2017/8/1.</div><div class="line"> */</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CustomDrawable</span> <span class="keyword">extends</span> <span class="title">Drawable</span> </span>&#123;</div><div class="line">    </div><div class="line">    <span class="keyword">private</span> Paint mPaint;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">CustomDrawable</span><span class="params">(<span class="keyword">int</span> color)</span></span>&#123;</div><div class="line">        mPaint = <span class="keyword">new</span> Paint(Paint.ANTI_ALIAS_FLAG);</div><div class="line">        mPaint.setColor(color);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">(@NonNull Canvas canvas)</span> </span>&#123;</div><div class="line">        <span class="keyword">final</span> Rect r = getBounds();</div><div class="line">        <span class="keyword">float</span> cx = r.exactCenterX();</div><div class="line">        <span class="keyword">float</span> cy = r.exactCenterY();</div><div class="line">        canvas.drawCircle(cx,cy,Math.min(cx,cy),mPaint);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAlpha</span><span class="params">(@IntRange(from = <span class="number">0</span>, to = <span class="number">255</span>)</span> <span class="keyword">int</span> alpha) </span>&#123;</div><div class="line">        mPaint.setAlpha(alpha);</div><div class="line">        invalidateSelf();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setColorFilter</span><span class="params">(@Nullable ColorFilter colorFilter)</span> </span>&#123;</div><div class="line">        mPaint.setColorFilter(colorFilter);</div><div class="line">        invalidateSelf();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getOpacity</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> PixelFormat.TRANSLUCENT;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在自定义Drawable时，draw、setAlpha、setColorFilter、getOpacity这几个方法都是必须要实现的,其中draw是最主要的方法。getIntrinsicWidth和getIntrinsicHeight这两个方法需要注意，当自定义的Drawable有固有大小时，最好重写这两个方法，因为它会影响到View的wrap_content布局，比如自定义Drawable是绘制一张图片，那么这个Drawable的内部大小就可以选用图片的大小，内部大小不等于Drawable的实际区域大小，Drawable的实际区域大小可以通过它的getBounds方法来得到，一般来说它和View的尺寸相同。</p>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/2017/08/01/Algorithm-38/" data-toggle="tooltip" data-placement="top" title="Algorithm_38">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                    <div class="comment">
+                        <div id="disqus_thread" class="disqus-thread"></div>
+                    </div>
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#drawable简介"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">Drawable简介</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#drawable的分类"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">Drawable的分类</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#bitmapdrawable"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text">BitmapDrawable</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#shapedrawable"><span class="toc-nav-number">2.2.</span> <span class="toc-nav-text">ShapeDrawable</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#layerdrawable"><span class="toc-nav-number">2.3.</span> <span class="toc-nav-text">LayerDrawable</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#statelistdrawable"><span class="toc-nav-number">2.4.</span> <span class="toc-nav-text">StateListDrawable</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#levellistdrawable"><span class="toc-nav-number">2.5.</span> <span class="toc-nav-text">LevelListDrawable</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#transitiondrawable"><span class="toc-nav-number">2.6.</span> <span class="toc-nav-text">TransitionDrawable</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#insetdrawable"><span class="toc-nav-number">2.7.</span> <span class="toc-nav-text">InsetDrawable</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#scaledrawable"><span class="toc-nav-number">2.8.</span> <span class="toc-nav-text">ScaleDrawable</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#clipdrawable"><span class="toc-nav-number">2.9.</span> <span class="toc-nav-text">ClipDrawable</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#自定义drawable"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">自定义Drawable</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#Android" title="Android">Android</a>
+                        
+                          <a class="tag" href="/tags/#Drawable" title="Drawable">Drawable</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus embedded js code start (one page only need to embed once) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "your-disqus-ID";
+    var disqus_identifier = "http://andfanswzp.pw/2017/08/01/Android中的Drawable/";
+    var disqus_url = "http://andfanswzp.pw/2017/08/01/Android中的Drawable/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus embedded js code start end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/flyings-sky">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Andfans 2017 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://andfanswzp.pw/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-XXXXXXXX-X';
+    var _gaDomain = 'yoursite';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="http://andfanswzp.pw/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
