@@ -136,14 +136,14 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -210,6 +210,76 @@
             
                 <!-- Main Content -->
 
+
+<div class="post-preview">
+
+    <a href="/2017/07/25/排序算法之归并排序/">
+        <h2 class="post-title">
+            排序算法之归并排序
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            准备
+在说明该算法之前，先给出一个在该算法之中用到的一个算法：合并两个有序数列A，B，这个算法非常简单
+算法思想
+
+使用两个整型变量index1、index2分别来表示当前在两个数组中要比较的两个数的下标
+遍历两个数组，比较数组A的下标index1和数组B的下标index2对应的值，将较小的值/较大的值放到另一个数组C(下标为indexTemp)中，将indexTemp和较小值/较大值对应的......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Andfans on
+            2017-07-25
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#经典算法" title="经典算法">经典算法</a>
+            
+              <a href="/tags/#排序算法" title="排序算法">排序算法</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2017/07/24/Binder初探/">
+        <h2 class="post-title">
+            Binder初探
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            Binder起源
+Android为什么选择Binder？
+众所周知，Android系统是基于Linux内核实现的，Linux内核拥有非常多的跨进程通信机制，比如：管道、System V、Socket等；为什么Android还要单独搞一个Linux系统不直接支持的Binder出来呢？
+原因有二：性能和安全。在移动设备上，跨进程通信使用的非常广泛，因此移动设备对通信机制有着更加严格的要求;Bin......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Andfans on
+            2017-07-24
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Android" title="Android">Android</a>
+            
+              <a href="/tags/#Binder" title="Binder">Binder</a>
+            
+              <a href="/tags/#IPC" title="IPC">IPC</a>
+            
+        </div>
+    
+
+</div>
+<hr>
 
 <div class="post-preview">
 
@@ -484,70 +554,6 @@ Paused：暂停状态，此时Activity仍然处于可见状态，但是不能与
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2017/07/17/Algorithm-15/">
-        <h2 class="post-title">
-            Algorithm_15
-        </h2>
-        <h3 class="post-subtitle">
-            数组中出现次数超过一半的数字
-        </h3>
-        <div class="post-content-preview">
-            题目描述
-数组中有一个数字出现的次数超过数组长度的一半，请找出这个数字。例如:输入一个长度为9的数组{1,2,3,2,2,2,5,4,2}。由于数字2在数组中出现了5次，超过了数组长度的一半，因此输出2，如果不存在这样的数字，则输出0
-解题思路
-数组中有一个数字出现的次数超过数组长度的一半，也就是说它出现的次数比其他所有数字出现的次数的和还要多。因此，可以从头到尾遍历一遍数组，在遍历的同时保......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Andfans on
-            2017-07-17
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#算法题" title="算法题">算法题</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2017/07/17/Algorithm-14/">
-        <h2 class="post-title">
-            Algorithm_14
-        </h2>
-        <h3 class="post-subtitle">
-            将二叉搜索树变成一个双向链表
-        </h3>
-        <div class="post-content-preview">
-            题目描述
-输入一棵二叉搜索树，将该二叉搜索树转换成一个排序的双向链表。要求不能创建任何新的结点，只能调整树中结点指针的指向。
-题目考点
-二叉树的中序遍历，二叉搜索树的特点
-解题思路
-由于二叉搜索树的特点，二叉搜索树中序遍历的结果是一个递增序列，所以我们只需要按照中序遍历二叉搜索树，并且用每个结点的left指针指向前一个节点，right指针指向后一个节点即可，用一个指针pLast来记录当前遍历......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Andfans on
-            2017-07-17
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#算法题" title="算法题">算法题</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -594,19 +600,19 @@ Paused：暂停状态，此时Activity仍然处于可见状态，但是不能与
             
         
             
-            <a href="/tags/#算法题" title="算法题" rel="36">算法题</a>
+            <a href="/tags/#算法题" title="算法题" rel="38">算法题</a>
+            
+        
+            
+        
+            
+        
             
         
             
         
             
             <a href="/tags/#Java" title="Java" rel="6">Java</a>
-            
-        
-            
-        
-            
-        
             
         
             
@@ -685,6 +691,14 @@ Paused：暂停状态，此时Activity仍然处于可见状态，但是不能与
     <ul>
       
         <li>
+          <a href="/2017/08/01/Algorithm-38/">Algorithm_38</a>
+        </li>
+      
+        <li>
+          <a href="/2017/08/01/Algorithm-37/">Algorithm_37</a>
+        </li>
+      
+        <li>
           <a href="/2017/07/31/理解RemoteViews/">理解RemoteViews</a>
         </li>
       
@@ -696,14 +710,6 @@ Paused：暂停状态，此时Activity仍然处于可见状态，但是不能与
           <a href="/2017/07/31/Algorithm-35/">Algorithm_35</a>
         </li>
       
-        <li>
-          <a href="/2017/07/30/Algorithm-34/">Algorithm_34</a>
-        </li>
-      
-        <li>
-          <a href="/2017/07/30/Algorithm-33/">Algorithm_33</a>
-        </li>
-      
     </ul>
   </div>
 
@@ -712,7 +718,7 @@ Paused：暂停状态，此时Activity仍然处于可见状态，但是不能与
         
     <h5>ARCHIVES</h5>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">42</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">9</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">42</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">9</span></li></ul>
     </div>
 
         <hr>

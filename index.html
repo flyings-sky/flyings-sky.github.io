@@ -136,14 +136,14 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -210,6 +210,82 @@
             
                 <!-- Main Content -->
 
+
+<div class="post-preview">
+
+    <a href="/2017/08/01/Algorithm-38/">
+        <h2 class="post-title">
+            Algorithm_38
+        </h2>
+        <h3 class="post-subtitle">
+            将字符串转换成整数
+        </h3>
+        <div class="post-content-preview">
+            题目描述
+将一个字符串转换成一个整数，要求不能使用字符串转换整数的库函数。数值为0或者字符串不是一个合法的数值则返回0
+解题思路
+这个题目的实际有效代码其实很简单，这个题目重点考察的是我们写的代码是否具有良好的鲁棒性，能否考虑到各种异常输入的情况。
+可能的输入：
+
+字符串为null或者空串
+字符串中间(非第一个字符)包含除0~9的数
+字符串开头第一个字符含有除了0~9和+/-以外的字符
+字符......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Andfans on
+            2017-08-01
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#算法题" title="算法题">算法题</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2017/08/01/Algorithm-37/">
+        <h2 class="post-title">
+            Algorithm_37
+        </h2>
+        <h3 class="post-subtitle">
+            不用加减乘除做加法
+        </h3>
+        <div class="post-content-preview">
+            题目描述
+写一个函数，求两个整数之和，要求在函数体内不得使用+、-、*、/四则运算符号
+解题思路
+可以将加法的运算分成三步：
+
+使各位相加求sum，不计进位
+只算进位求carry
+将carry与sum相加
+
+因为不能使用四则运算，所以我们只能考虑使用位运算来实现，接下来我们就找一下位运算中的规律：
+
+对于第一步，相加不考虑进位，则 0  op  0 = 0，0 op 1 = 1，1 op 0......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Andfans on
+            2017-08-01
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#算法题" title="算法题">算法题</a>
+            
+        </div>
+    
+
+</div>
+<hr>
 
 <div class="post-preview">
 
@@ -483,70 +559,6 @@ RemoteViews的应用
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2017/07/28/View的工作原理/">
-        <h2 class="post-title">
-            View的工作原理
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            初识ViewRoot和DecorView
-ViewRoot对应于ViewRootImpl类，它是连接WindowManager和DecorView的纽带，View的三大流程均是通过ViewRoot来完成的。在ActivityThread中，当Activity对象被创建完毕后，会将DecorView添加到Window中，同时会创建ViewRootImpl对象，并将ViewRootImpl对象和......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Andfans on
-            2017-07-28
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Android" title="Android">Android</a>
-            
-              <a href="/tags/#View" title="View">View</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2017/07/28/Algorithm-29/">
-        <h2 class="post-title">
-            Algorithm_29
-        </h2>
-        <h3 class="post-subtitle">
-            和为S的连续正数序列
-        </h3>
-        <div class="post-content-preview">
-            题目描述
-输入一个正数s，打印出所有和为s的连续正数序列(至少有两个数)。例如输入15，由于1+2+3+4+5=4+5+6=7+8，所以结果为1~5、4~6和7~8。
-解题思路
-这个题目借鉴Algorithm_28题的思路。
-
-一开始将left和right定义成最小的相邻正数1、2，定义count作为计数器，记录从left到right整个数列的和，使用temp(ArrayList)来记录整个......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Andfans on
-            2017-07-28
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#算法题" title="算法题">算法题</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -589,19 +601,19 @@ ViewRoot对应于ViewRootImpl类，它是连接WindowManager和DecorView的纽�
             
         
             
-            <a href="/tags/#算法题" title="算法题" rel="36">算法题</a>
+            <a href="/tags/#算法题" title="算法题" rel="38">算法题</a>
+            
+        
+            
+        
+            
+        
             
         
             
         
             
             <a href="/tags/#Java" title="Java" rel="6">Java</a>
-            
-        
-            
-        
-            
-        
             
         
             
@@ -680,6 +692,14 @@ ViewRoot对应于ViewRootImpl类，它是连接WindowManager和DecorView的纽�
     <ul>
       
         <li>
+          <a href="/2017/08/01/Algorithm-38/">Algorithm_38</a>
+        </li>
+      
+        <li>
+          <a href="/2017/08/01/Algorithm-37/">Algorithm_37</a>
+        </li>
+      
+        <li>
           <a href="/2017/07/31/理解RemoteViews/">理解RemoteViews</a>
         </li>
       
@@ -691,14 +711,6 @@ ViewRoot对应于ViewRootImpl类，它是连接WindowManager和DecorView的纽�
           <a href="/2017/07/31/Algorithm-35/">Algorithm_35</a>
         </li>
       
-        <li>
-          <a href="/2017/07/30/Algorithm-34/">Algorithm_34</a>
-        </li>
-      
-        <li>
-          <a href="/2017/07/30/Algorithm-33/">Algorithm_33</a>
-        </li>
-      
     </ul>
   </div>
 
@@ -707,7 +719,7 @@ ViewRoot对应于ViewRootImpl类，它是连接WindowManager和DecorView的纽�
         
     <h5>ARCHIVES</h5>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">42</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">9</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">42</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">9</span></li></ul>
     </div>
 
         <hr>

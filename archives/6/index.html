@@ -136,14 +136,14 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -210,6 +210,74 @@
             
                 <!-- Main Content -->
 
+
+<div class="post-preview">
+
+    <a href="/2017/05/29/Intellij-idea快速查看Java类字节码/">
+        <h2 class="post-title">
+            Intellij idea快速查看Java类字节码
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            前言
+最近在研究String类在堆中的对象和常量池中的对象的联系，然而在网上没有找到可以详细显示程序运行时内存变化状况的工具，所以就决定将代码反编译，从微观字节码角度来探索Java中的String对象的内存分配的详细情况，每次在cmd使用反编译命令javap来得到字节码，过程太过繁琐，于是就到网上找到了直接在Intellij idea中查看字节码的方法。
+实现方式
+在idea内直接执行jav......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Andfans on
+            2017-05-29
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Tools" title="Tools">Tools</a>
+            
+              <a href="/tags/#Java" title="Java">Java</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2017/05/27/探索Java中的深复制和浅复制/">
+        <h2 class="post-title">
+            图解Java中的深拷贝和浅拷贝
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            概念
+
+浅拷贝：仅仅拷贝基本类型的值，如果不是基本类型则只拷贝其对象的引用。
+深拷贝：拷贝生成的对象和原来对象中的值完全相同，如果拷贝时遇到非基本类型的情况，会给非基本类型的对象重新分配内存空间，将对象的引用指向新分配的空间。
+Java中的clone()方法
+
+对任何的对象x，都有x.clone() !=x//克隆对象与原对象不是同一个对象
+对任何的对象x，都有x.clone().getCl......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Andfans on
+            2017-05-27
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Java" title="Java">Java</a>
+            
+        </div>
+    
+
+</div>
+<hr>
 
 <div class="post-preview">
 
@@ -479,19 +547,19 @@
             
         
             
-            <a href="/tags/#算法题" title="算法题" rel="36">算法题</a>
+            <a href="/tags/#算法题" title="算法题" rel="38">算法题</a>
+            
+        
+            
+        
+            
+        
             
         
             
         
             
             <a href="/tags/#Java" title="Java" rel="6">Java</a>
-            
-        
-            
-        
-            
-        
             
         
             
@@ -570,6 +638,14 @@
     <ul>
       
         <li>
+          <a href="/2017/08/01/Algorithm-38/">Algorithm_38</a>
+        </li>
+      
+        <li>
+          <a href="/2017/08/01/Algorithm-37/">Algorithm_37</a>
+        </li>
+      
+        <li>
           <a href="/2017/07/31/理解RemoteViews/">理解RemoteViews</a>
         </li>
       
@@ -581,14 +657,6 @@
           <a href="/2017/07/31/Algorithm-35/">Algorithm_35</a>
         </li>
       
-        <li>
-          <a href="/2017/07/30/Algorithm-34/">Algorithm_34</a>
-        </li>
-      
-        <li>
-          <a href="/2017/07/30/Algorithm-33/">Algorithm_33</a>
-        </li>
-      
     </ul>
   </div>
 
@@ -597,7 +665,7 @@
         
     <h5>ARCHIVES</h5>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">42</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">9</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">42</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">9</span></li></ul>
     </div>
 
         <hr>

@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          生词本 - Andfans
+          Algorithm_37 - Andfans
         
     </title>
 
-    <link rel="canonical" href="http://andfanswzp.pw/2017/06/07/生词本/">
+    <link rel="canonical" href="http://andfanswzp.pw/2017/08/01/Algorithm-37/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -90,14 +90,14 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#Word" title="Word">Word</a>
+                              <a class="tag" href="/tags/#算法题" title="算法题">算法题</a>
                             
                         </div>
-                        <h1>生词本</h1>
-                        <h2 class="subheading"></h2>
+                        <h1>Algorithm_37</h1>
+                        <h2 class="subheading">不用加减乘除做加法</h2>
                         <span class="meta">
                             Posted by Andfans on
-                            2017-06-07
+                            2017-08-01
                         </span>
                     </div>
                 
@@ -214,54 +214,23 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <table>
-<thead>
-<tr>
-<th style="text-align:center">adoption：采用，采纳</th>
-<th style="text-align:center">expressive：具有表现力的</th>
-<th style="text-align:center">concise：简洁的</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"><strong>in terms of：在…方面</strong></td>
-<td style="text-align:center"><strong>nullability：空性</strong></td>
-<td style="text-align:center"><strong>immutability：不变性</strong></td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>performant：高性能</strong></td>
-<td style="text-align:center"><strong>interoperable：互操作性</strong></td>
-<td style="text-align:center"><strong>bi-directionally：双向</strong></td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>crucial：关键</strong></td>
-<td style="text-align:center"><strong>inherit：继承</strong></td>
-<td style="text-align:center"><strong>primarily：主要</strong></td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>reaffirm：重申</strong></td>
-<td style="text-align:center"><strong>ecosystem：生态系统</strong></td>
-<td style="text-align:center"><strong>evolve：发展</strong></td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>ongoing：不断的</strong></td>
-<td style="text-align:center"><strong>profiling：分析</strong></td>
-<td style="text-align:center"><strong>addition：补充</strong></td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>alternatively：另外</strong></td>
-<td style="text-align:center"><strong>seamlessly：无缝</strong></td>
-<td style="text-align:center"><strong>preferred：首选</strong></td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>strive：努力</strong></td>
-<td style="text-align:center"><strong>semantic：语义</strong></td>
-<td style="text-align:center"><strong>bundled：捆绑</strong></td>
-</tr>
-</tbody>
-</table>
-<p>最后编辑时间:2017.6.8  1:06</p>
-
+                <h2 id="题目描述">题目描述</h2>
+<p>写一个函数，求两个整数之和，要求在函数体内不得使用+、-、*、/四则运算符号</p>
+<h2 id="解题思路">解题思路</h2>
+<p>可以将加法的运算分成三步：</p>
+<ul>
+<li>使各位相加求sum，不计进位</li>
+<li>只算进位求carry</li>
+<li>将carry与sum相加</li>
+</ul>
+<p>因为不能使用四则运算，所以我们只能考虑使用位运算来实现，接下来我们就找一下位运算中的规律：</p>
+<ul>
+<li>对于第一步，相加不考虑进位，则 0  op  0 = 0，0 op 1 = 1，1 op 0 = 1，1 op 1 = 0，很轻松地可以看出这是异或运算，所以op为^</li>
+<li>对于第二步，相加只考虑进位，则0  op  0 = 0，0 op 1 = 0，1 op 0 = 0，1 op 1 = 1，这很明显是与运算，所以op为&amp;</li>
+<li>对于第三步，又可以分为上述三步来进行，直到不产生进位为止。</li>
+</ul>
+<h2 id="实现代码">实现代码</h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">Add</span><span class="params">(<span class="keyword">int</span> num1,<span class="keyword">int</span> num2)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> sum,carry;</div><div class="line">        <span class="keyword">do</span>&#123;</div><div class="line">            sum = num1 ^ num2;</div><div class="line">            carry = (num1 &amp; num2) &lt;&lt; <span class="number">1</span>;</div><div class="line">            </div><div class="line">            num1 = sum;</div><div class="line">            num2 = carry;</div><div class="line">        &#125;<span class="keyword">while</span>(carry != <span class="number">0</span>);</div><div class="line">      </div><div class="line">        <span class="keyword">return</span> sum;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
                 
 
                 <hr>
@@ -269,12 +238,12 @@
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/2017/06/09/Algorithm-1/" data-toggle="tooltip" data-placement="top" title="Algorithm_1">&larr; Previous Post</a>
+                            <a href="/2017/08/01/Algorithm-38/" data-toggle="tooltip" data-placement="top" title="Algorithm_38">&larr; Previous Post</a>
                         </li>
                     
                     
                         <li class="next">
-                            <a href="/2017/05/29/Intellij-idea快速查看Java类字节码/" data-toggle="tooltip" data-placement="top" title="Intellij idea快速查看Java类字节码">Next Post &rarr;</a>
+                            <a href="/2017/07/31/理解RemoteViews/" data-toggle="tooltip" data-placement="top" title="理解RemoteViews">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -304,7 +273,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="nav">none</ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#题目描述"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">题目描述</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#解题思路"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">解题思路</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#实现代码"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">实现代码</span></a></li></ol>
         
         </div>
       </aside>
@@ -324,7 +293,7 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#Word" title="Word">Word</a>
+                          <a class="tag" href="/tags/#算法题" title="算法题">算法题</a>
                         
                     </div>
                 </section>
@@ -353,8 +322,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "your-disqus-ID";
-    var disqus_identifier = "http://andfanswzp.pw/2017/06/07/生词本/";
-    var disqus_url = "http://andfanswzp.pw/2017/06/07/生词本/";
+    var disqus_identifier = "http://andfanswzp.pw/2017/08/01/Algorithm-37/";
+    var disqus_url = "http://andfanswzp.pw/2017/08/01/Algorithm-37/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
