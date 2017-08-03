@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          Andfans
+          Algorithm_40 - Andfans
         
     </title>
 
-    <link rel="canonical" href="http://andfanswzp.pw/archives/7/">
+    <link rel="canonical" href="http://andfanswzp.pw/2017/08/03/Algorithm-40/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -69,8 +69,8 @@
 <style type="text/css">
     header.intro-header{
         
-            background-image: url('/img/header_img/home-bg-2-dark.png') 
-            /*config*/
+            background-image: url('http://i1.piimg.com/588926/14c9e94b1c44706b.png')
+            /*post*/
         
     }
     
@@ -87,10 +87,18 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 
-                    <div class="site-heading">
-                        <h1>Andfans</h1>
-                        <!--<hr class="small">-->
-                        <span class="subheading">Create the future with code!</span>
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#算法题" title="算法题">算法题</a>
+                            
+                        </div>
+                        <h1>Algorithm_40</h1>
+                        <h2 class="subheading">构建乘积数组</h2>
+                        <span class="meta">
+                            Posted by Andfans on
+                            2017-08-03
+                        </span>
                     </div>
                 
 
@@ -193,298 +201,167 @@
 
 
     <!-- Main Content -->
-    <!-- Main Content -->
-<div class="container">
-    <div class="row">
-        
+    <!-- Modify by Yu-Hsuan Yen -->
 
-<!-- USE SIDEBAR -->
-    <!-- Post Container -->
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
             <div class="
-                col-lg-8 col-lg-offset-1
-                col-md-8 col-md-offset-1
-                col-sm-12
-                col-xs-12
-                post-container
-            ">
-            
-                <!-- Main Content -->
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
 
-
-<div class="post-preview">
-
-    <a href="/2017/05/20/记一次令人崩溃的Android踩坑之旅/">
-        <h2 class="post-title">
-            Android Studio创建项目直接编译出错的解决办法
-        </h2>
-        <h3 class="post-subtitle">
-            记一次令人崩溃的Android踩坑之旅
-        </h3>
-        <div class="post-content-preview">
-            错误产生经过
-昨天下午坐到实验里，正准备体验一把最近因为Google I/O大会火的一塌糊涂的Kotlin，我看到网上在Android Studio上Kotlin开发环境配置教程都比较旧了，所以我也做好了踩坑的准备，但是没想到事情远没有那么简单，按照教程配了一波，差不多了以后clean-&gt;rebuild，如我所料，出现了错误，错误信息如下:
-
-错误信息里提示我去找Logs，我就傻傻的去......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Andfans on
-            2017-05-20
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Android" title="Android">Android</a>
-            
-              <a href="/tags/#Bugs" title="Bugs">Bugs</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2017/05/19/加速Android项目构建/">
-        <h2 class="post-title">
-            加速Android项目构建
-        </h2>
-        <h3 class="post-subtitle">
-            Gradle编译速度优化
-        </h3>
-        <div class="post-content-preview">
-            开启Gradle单独的守护进程
-只优化单个项目
-修改项目下的gradle.properties文件:
-12345678910111213141516171819202122# Project-wide Gradle settings.# IDE (e.g. Android Studio) users:# Settings specified in this file will overrid......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Andfans on
-            2017-05-19
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Android" title="Android">Android</a>
-            
-              <a href="/tags/#Gradle" title="Gradle">Gradle</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2017/05/19/my-first-blog/">
-        <h2 class="post-title">
-            开篇
-        </h2>
-        <h3 class="post-subtitle">
-            新博客搭建完成的第一篇文章
-        </h3>
-        <div class="post-content-preview">
-            经过大半天的折腾，新博客终于搭建的差不多了。瞬间感觉动力满满，希望能尽快把博客搬迁过来，否则显得空荡荡的，最近有项目要赶，可能博客更新有限。
-时间宝贵，这篇博客就到这吧，等有时间再扯闲篇。
-...
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Andfans on
-            2017-05-19
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#随笔" title="随笔">随笔</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-
-
-<!-- Pager -->
-
-<ul class="pager">
-    
-        <li class="previous">
-            <a href="/archives/6/">&larr; Newer Posts</a>
-        </li>
-    
-    
+                <h2 id="题目描述">题目描述</h2>
+<p>给定一个数组A[0,1,…,n-1]，请构建一个数组B[0,1,…,n-1]，其中B的元素B[i] = A[0]*A[1]*…*A[i-1]*A[i+1]*…*A[n-1]。不能使用除法。</p>
+<h2 id="解题思路">解题思路</h2>
+<p>既然题目要求不能用除法，那么我们就分为两步来做：先计算A[0]*A[1]*…*A[i-1]的积，再计算A[i+1]*…*A[n-1]的积，先将要求的部分分为两部分：</p>
+<ul>
+<li>令C[i] = A[0]*A[1]*…*A[i-1]，则有C[i] = C[i-1]*A[i-1]</li>
+<li>令D[i] = A[i+1]*…*A[n-1]，则有D[i] = D[i+1]*A[i+1]</li>
 </ul>
+<p>最后B[i] = C[i] * D[i];</p>
+<p>引入这么多辅助数组只是为便于讲解，真正在写代码时，只需要一个辅助数组即可，详见代码</p>
+<h2 id="实现代码">实现代码</h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span></span>&#123;</div><div class="line">  <span class="keyword">public</span> <span class="keyword">int</span>[] multiply(<span class="keyword">int</span> [] A)&#123;</div><div class="line">    <span class="keyword">int</span> len = A.length;</div><div class="line">    <span class="keyword">int</span> [] arrB = <span class="keyword">new</span> <span class="keyword">int</span>[len];</div><div class="line">    </div><div class="line">    <span class="keyword">if</span>(A == <span class="keyword">null</span>||len == <span class="number">0</span>)&#123;</div><div class="line">      <span class="keyword">return</span> arrB;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    arrB[<span class="number">0</span>] = <span class="number">1</span>;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>;i &lt; len;i++)&#123;</div><div class="line">      arrB[i] = arrB[i-<span class="number">1</span>] * A[i-<span class="number">1</span>];</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">int</span> temp = <span class="number">1</span>;</div><div class="line">    </div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = len-<span class="number">1</span>;i &gt;= <span class="number">0</span>;i--)&#123;</div><div class="line">      arrB[i] *= temp;</div><div class="line">      temp *= A[i];</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> arrB;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
+                
 
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/2017/08/02/Android中的动画/" data-toggle="tooltip" data-placement="top" title="Android中的动画">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
 
-                <!-- 如果开启评论功能 -->
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                    <div class="comment">
+                        <div id="disqus_thread" class="disqus-thread"></div>
+                    </div>
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#题目描述"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">题目描述</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#解题思路"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">解题思路</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#实现代码"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">实现代码</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#算法题" title="算法题">算法题</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
+                    
+                </ul>
                 
             </div>
-
-          <!-- Sidebar Container -->
-<div class="
-    col-lg-3 col-lg-offset-0
-    col-md-3 col-md-offset-0
-    col-sm-12
-    col-xs-12
-    sidebar-container
-">
-    
-        <!-- Featured Tags -->
-
-<section>
-    <!-- no hr -->
-    <h5><a href="/tags/">FEATURED TAGS</a></h5>
-    <div class="tags">
-        
-            
-            <a href="/tags/#算法题" title="算法题" rel="40">算法题</a>
-            
-        
-            
-        
-            
-            <a href="/tags/#Android" title="Android" rel="11">Android</a>
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-            <a href="/tags/#Java" title="Java" rel="6">Java</a>
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
+        </div>
     </div>
-</section>
+</article>
 
-        <hr>
-    
-        <!-- Short About -->
-<section class="visible-md visible-lg">
-    <h5><a href="/about/">ABOUT ME</a></h5>
-    <div class="short-about">
 
-        
-            <img id = "avatar_pic" src="/img/head.jpg" />
-        
 
-        
-            <p>I&#39;m a coder farmer</p>
-        
 
-        <!-- SNS Link -->
-        <ul class="list-inline">
-            
-            
-            
+<!-- disqus embedded js code start (one page only need to embed once) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "your-disqus-ID";
+    var disqus_identifier = "http://andfanswzp.pw/2017/08/03/Algorithm-40/";
+    var disqus_url = "http://andfanswzp.pw/2017/08/03/Algorithm-40/";
 
-            
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus embedded js code start end -->
 
-            
 
-            
-                <li>
-                    <a target="_blank"  href="https://github.com/flyings-sky">
-                        <span class="fa-stack fa-lg">
-                            <i class="fa fa-circle fa-stack-2x"></i>
-                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                        </span>
-                    </a>
-                </li>
-            
-            
-            
-            
-        </ul>
-    </div>
-</section>
-        <hr>
-    
-        
-  <h5>RECENT POSTS</h3>
-  <div class="widget">
-    <ul>
-      
-        <li>
-          <a href="/2017/08/03/Algorithm-40/">Algorithm_40</a>
-        </li>
-      
-        <li>
-          <a href="/2017/08/02/Android中的动画/">Android中的动画</a>
-        </li>
-      
-        <li>
-          <a href="/2017/08/02/Algorithm-39/">Algorithm_39</a>
-        </li>
-      
-        <li>
-          <a href="/2017/08/01/Android中的Drawable/">Android中的Drawable</a>
-        </li>
-      
-        <li>
-          <a href="/2017/08/01/Algorithm-38/">Algorithm_38</a>
-        </li>
-      
-    </ul>
-  </div>
 
-        <hr>
-    
-        
-    <h5>ARCHIVES</h5>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">42</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">9</span></li></ul>
-    </div>
 
-        <hr>
-    
-        <!-- Categories -->
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
 
-        <hr>
-    
-</div>
-
-        
-    </div>
-</div>
 
 
     <!-- Footer -->
