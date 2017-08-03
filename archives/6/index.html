@@ -213,6 +213,38 @@
 
 <div class="post-preview">
 
+    <a href="/2017/06/22/JAVA虚拟机之Full-GC/">
+        <h2 class="post-title">
+            JAVA虚拟机之Full GC
+        </h2>
+        <h3 class="post-subtitle">
+            Full GC的触发条件以及减少Full GC的方法
+        </h3>
+        <div class="post-content-preview">
+            1.System.gc()方法的调用
+这个方法会建议虚拟机做一些工作来努力回收没有用的对象，以便能够快速的重用这些对象当前占用的内存。当控制权从方法调用中返回时，虚拟机已经尽最大努力从所有没有用的对象中回收了空间。因此，可以简单地认为，System.gc()方法的调用会建议虚拟机调用一次Full GC，从而增加Full GC的频率，也增加了间歇性停顿的次数。
+减少这种Full GC发生的方法......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Andfans on
+            2017-06-22
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Java" title="Java">Java</a>
+            
+              <a href="/tags/#Jvm" title="Jvm">Jvm</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
     <a href="/2017/06/19/JAVA虚拟机之垃圾回收机制与内存分配策略/">
         <h2 class="post-title">
             JAVA虚拟机之垃圾回收机制与内存分配策略
@@ -389,9 +421,9 @@ r......
         </p>
         <div class="tags">
             
-              <a href="/tags/#Java" title="Java">Java</a>
-            
               <a href="/tags/#Tools" title="Tools">Tools</a>
+            
+              <a href="/tags/#Java" title="Java">Java</a>
             
         </div>
     
@@ -467,35 +499,6 @@ Java中的clone()方法
               <a href="/tags/#读书笔记" title="读书笔记">读书笔记</a>
             
               <a href="/tags/#基础" title="基础">基础</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2017/05/25/RxJava从放弃到入门/">
-        <h2 class="post-title">
-            RxJava从放弃到入门
-        </h2>
-        <h3 class="post-subtitle">
-            重读扔物线大神的RxJava大作
-        </h3>
-        <div class="post-content-preview">
-            前言
-自从去年因为实验室组内分享，拜读了一下扔物线大神的给 Android 开发者的 RxJava 详解一文，到现在已经有差不多3个月没有再去进一步学习RxJava了，感觉扔物线大神对RxJava的理解非常深刻，讲解深入浅出，让人印象深刻，因此，在这里强势安利一波，但是扔物线大神的这篇文章是针对RxJava1.x版本的，而RxJava2.0版本是对1.x版本的一次完全的推倒重写，所以二者的区......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Andfans on
-            2017-05-25
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#RxJava1.0" title="RxJava1.0">RxJava1.0</a>
             
         </div>
     
@@ -606,13 +609,11 @@ Java中的clone()方法
             
         
             
-            <a href="/tags/#Android" title="Android" rel="11">Android</a>
+            <a href="/tags/#Android" title="Android" rel="12">Android</a>
             
         
             
             <a href="/tags/#算法题" title="算法题" rel="40">算法题</a>
-            
-        
             
         
             
@@ -705,6 +706,10 @@ Java中的clone()方法
     <ul>
       
         <li>
+          <a href="/2017/08/03/理解Window和WindowManager/">理解Window和WindowManager</a>
+        </li>
+      
+        <li>
           <a href="/2017/08/03/Algorithm-40/">Algorithm_40</a>
         </li>
       
@@ -720,10 +725,6 @@ Java中的clone()方法
           <a href="/2017/08/01/Android中的Drawable/">Android中的Drawable</a>
         </li>
       
-        <li>
-          <a href="/2017/08/01/Algorithm-38/">Algorithm_38</a>
-        </li>
-      
     </ul>
   </div>
 
@@ -732,7 +733,7 @@ Java中的clone()方法
         
     <h5>ARCHIVES</h5>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">42</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">9</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">42</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">8</span></li></ul>
     </div>
 
         <hr>
