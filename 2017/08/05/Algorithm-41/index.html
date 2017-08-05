@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          Intellij idea快速查看Java类字节码 - Andfans
+          Algorithm_41 - Andfans
         
     </title>
 
-    <link rel="canonical" href="http://andfanswzp.pw/2017/05/29/Intellij-idea快速查看Java类字节码/">
+    <link rel="canonical" href="http://andfanswzp.pw/2017/08/05/Algorithm-41/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -90,16 +90,14 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#Java" title="Java">Java</a>
-                            
-                              <a class="tag" href="/tags/#Tools" title="Tools">Tools</a>
+                              <a class="tag" href="/tags/#算法题" title="算法题">算法题</a>
                             
                         </div>
-                        <h1>Intellij idea快速查看Java类字节码</h1>
-                        <h2 class="subheading"></h2>
+                        <h1>Algorithm_41</h1>
+                        <h2 class="subheading">正则表达式匹配</h2>
                         <span class="meta">
                             Posted by Andfans on
-                            2017-05-29
+                            2017-08-05
                         </span>
                     </div>
                 
@@ -216,25 +214,22 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h2 id="前言">前言</h2>
-<p>最近在研究String类在堆中的对象和常量池中的对象的联系，然而在网上没有找到可以详细显示程序运行时内存变化状况的工具，所以就决定将代码反编译，从微观字节码角度来探索Java中的String对象的内存分配的详细情况，每次在cmd使用反编译命令javap来得到字节码，过程太过繁琐，于是就到网上找到了直接在Intellij idea中查看字节码的方法。</p>
-<h2 id="实现方式">实现方式</h2>
-<p>在idea内直接执行javap，将内容打印在idea的Console中。</p>
-<h2 id="实现方式">实现方式</h2>
-<p>1.打开File-Settings</p>
-<p><img src="http://ghost-blog.b0.upaiyun.com/image/9/2e/33bd6ca7fd4dc4da6a420a78f6fa7.jpg" alt="pic1"></p>
-<p>2.打开Tools-External Tools，右侧点击绿色的&quot;+&quot;号</p>
-<p><img src="http://ghost-blog.b0.upaiyun.com/image/4/75/0b13d82d4665425a8654314887e24.png" alt="pic2"></p>
-<p>3.添加规则如下</p>
-<p><img src="http://ghost-blog.b0.upaiyun.com/image/c/8c/63b58920dc5923ce68a2bf510e0c7.png" alt="pic3"></p>
-<p>4.代码处右键，即可找到添加的功能</p>
-<p><img src="http://ghost-blog.b0.upaiyun.com/image/7/c1/4e96cd4e3c89c3e4776d86951345e.png" alt="pic4"></p>
-<p>5.效果如下</p>
-<p><img src="http://oqnfoupsj.bkt.clouddn.com/17-5-29/51837374.jpg" alt="pic5"></p>
-<h2 id="注意">注意</h2>
-<p>每次代码修改完之后，如果立即使用步骤4的操作，得到的字节码还是修改之前的文件生成的字节码，因为反编译是对.class文件进行的，修改完之后并没有重新生成.class文件，所以如果想得到修改后文件的字节码，需要在使用步骤4之前，先运行一遍修改过的代码。</p>
-<h2 id="参考">参考</h2>
-<p><a href="http://allan.li/intellij-ideakuai-su-cha-kan-javalei-zi-jie-ma/" target="_blank" rel="external">Intellij idea快速查看Java类字节码</a></p>
+                <h2 id="题目描述">题目描述</h2>
+<p>请实现一个函数用来匹配包括&quot;.“和”*“的正则表达式。模式中的字符”.“表示任意一个字符，而”*&quot;表示它前面的字符可以出现任意次(包括0次)。在本题中，匹配是指字符串的所有字符串匹配整个模式。例如：字符串&quot;aaa&quot;与模式&quot;a.a&quot;和&quot;ab<em>ac</em>a&quot;匹配,但是与&quot;aa.a&quot;和&quot;ab*a&quot;均不匹配。</p>
+<h2 id="解题思路">解题思路</h2>
+<p>这个题目大体上分为两种情况去考虑：</p>
+<ol>
+<li>当模式的第二个字符不是&quot;*“时，如果字符串中的第一个字符和模式中的第一个字符相匹配(模式字符为”.&quot;或者与字符串的字符相同)，那么在字符串和模式上都向后移动一个字符，然后匹配剩余的字符串和模式。如果字符串中的第一个字符和模式中的第一个字符不相匹配时，直接返回false</li>
+<li>当模式中第二个字符是&quot;*&quot;时，分三种情况来考虑：
+<ol>
+<li>将模式字符串后移两个字符，这种情况是*匹配字符串中0个字符的情况，等价于将&quot;*&quot;和它前面的字符忽略掉了；</li>
+<li>如果模式中的第一个字符和字符串中的第一个字符相匹配时(模式字符为&quot;.&quot;或者与字符串的字符相同)，则将字符串向后移动一个字符，模式字符串向后移动两个字符，这种情况等价于*匹配字符串中一个字符的情况；</li>
+<li>如果模式中第一个字符和字符串中第一个字符相匹配时(模式字符为&quot;.&quot;或者与字符串的字符相同)，则将字符串向后移动一个字符，模式字符串不变，这种情况等价于*匹配字符串中多个字符的情况；</li>
+</ol>
+</li>
+</ol>
+<h2 id="实现代码">实现代码</h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span></span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">match</span><span class="params">(<span class="keyword">char</span> [] str,<span class="keyword">char</span> [] pattern)</span></span>&#123;</div><div class="line">        <span class="keyword">if</span>(str == <span class="keyword">null</span>||pattern == <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">return</span> matchCore(str,<span class="number">0</span>,pattern,<span class="number">0</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">matchCore</span><span class="params">(<span class="keyword">char</span> [] str,<span class="keyword">int</span> strIndex,<span class="keyword">char</span> [] pattern,<span class="keyword">int</span> patternIndex)</span></span>&#123;</div><div class="line">        <span class="comment">//如果字符串和匹配字符串同时到达了结束位置，则表明匹配成功，返回true</span></div><div class="line">        <span class="keyword">if</span>(strIndex == str.length &amp;&amp; patternIndex == pattern.length)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//pattern先匹配到结尾，匹配失败</span></div><div class="line">        <span class="comment">//pattern先到尾，匹配失败</span></div><div class="line">        <span class="keyword">if</span> (strIndex != str.length &amp;&amp; patternIndex == pattern.length) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//模式第2个是*，且字符串第1个跟模式第1个匹配,分3种匹配模式；如不匹配，模式后移2位</span></div><div class="line">        <span class="keyword">if</span> (patternIndex + <span class="number">1</span> &lt; pattern.length &amp;&amp; pattern[patternIndex + <span class="number">1</span>] == <span class="string">'*'</span>) &#123;</div><div class="line">            <span class="keyword">if</span> (strIndex != str.length &amp;&amp; (pattern[patternIndex] == str[strIndex]||pattern[patternIndex] == <span class="string">'.'</span>)) &#123;</div><div class="line">                <span class="keyword">return</span> matchCore(str, strIndex, pattern, patternIndex + <span class="number">2</span>)<span class="comment">//模式后移2，视为x*匹配0个字符</span></div><div class="line">                        || matchCore(str, strIndex + <span class="number">1</span>, pattern, patternIndex + <span class="number">2</span>)<span class="comment">//视为模式匹配1个字符</span></div><div class="line">                        || matchCore(str, strIndex + <span class="number">1</span>, pattern, patternIndex);<span class="comment">//*匹配1个，再匹配str中的下一个</span></div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                <span class="keyword">return</span> matchCore(str, strIndex, pattern, patternIndex + <span class="number">2</span>);<span class="comment">//模式后移2，匹配0个字符</span></div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//模式第2个不是*，且字符串第1个跟模式第1个匹配，则都后移1位，否则直接返回false</span></div><div class="line">        <span class="keyword">if</span> (strIndex != str.length</div><div class="line">        &amp;&amp; (pattern[patternIndex] == str[strIndex] || pattern[patternIndex] == <span class="string">'.'</span>)) &#123;</div><div class="line">            </div><div class="line">            <span class="keyword">return</span> matchCore(str, strIndex + <span class="number">1</span>, pattern, patternIndex + <span class="number">1</span>);</div><div class="line">        &#125;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
                 
 
@@ -242,13 +237,9 @@
                 <!-- Pager -->
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2017/06/07/生词本/" data-toggle="tooltip" data-placement="top" title="生词本">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/2017/05/27/探索Java中的深复制和浅复制/" data-toggle="tooltip" data-placement="top" title="图解Java中的深拷贝和浅拷贝">Next Post &rarr;</a>
+                            <a href="/2017/08/03/理解Window和WindowManager/" data-toggle="tooltip" data-placement="top" title="理解Window和WindowManager">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -278,7 +269,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#前言"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">前言</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#实现方式"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">实现方式</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#实现方式"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">实现方式</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#注意"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">注意</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#参考"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">参考</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#题目描述"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">题目描述</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#解题思路"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">解题思路</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#实现代码"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">实现代码</span></a></li></ol>
         
         </div>
       </aside>
@@ -298,9 +289,7 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#Java" title="Java">Java</a>
-                        
-                          <a class="tag" href="/tags/#Tools" title="Tools">Tools</a>
+                          <a class="tag" href="/tags/#算法题" title="算法题">算法题</a>
                         
                     </div>
                 </section>
@@ -329,8 +318,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "your-disqus-ID";
-    var disqus_identifier = "http://andfanswzp.pw/2017/05/29/Intellij-idea快速查看Java类字节码/";
-    var disqus_url = "http://andfanswzp.pw/2017/05/29/Intellij-idea快速查看Java类字节码/";
+    var disqus_identifier = "http://andfanswzp.pw/2017/08/05/Algorithm-41/";
+    var disqus_url = "http://andfanswzp.pw/2017/08/05/Algorithm-41/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

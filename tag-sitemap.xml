@@ -128,13 +128,6 @@
     </url>
 
     <url>
-        <loc>http://andfanswzp.pw/tags/%E7%AE%97%E6%B3%95%E9%A2%98/</loc>
-        <lastmod>2017-08-03T03:04:38.471Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>http://andfanswzp.pw/tags/%E5%8A%A8%E7%94%BB/</loc>
         <lastmod>2017-08-03T06:22:33.399Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -144,6 +137,13 @@
     <url>
         <loc>http://andfanswzp.pw/tags/Android/</loc>
         <lastmod>2017-08-03T14:13:40.369Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://andfanswzp.pw/tags/%E7%AE%97%E6%B3%95%E9%A2%98/</loc>
+        <lastmod>2017-08-05T03:48:50.542Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
