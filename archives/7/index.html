@@ -143,14 +143,14 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -213,37 +213,32 @@
 
 <div class="post-preview">
 
-    <a href="/2017/05/26/谢希仁版计算机网络读书笔记/">
+    <a href="/2017/05/27/探索Java中的深复制和浅复制/">
         <h2 class="post-title">
-            谢希仁版计算机网络读书笔记(未完待续)
+            图解Java中的深拷贝和浅拷贝
         </h2>
         <h3 class="post-subtitle">
             
         </h3>
         <div class="post-content-preview">
-            第一章
-计算机网络的功能
+            概念
 
-连通性:计算机网络使上网的用户可以彼此交换信息。
-共享:上网的用户可以共享网上的所有资源。
+浅拷贝：仅仅拷贝基本类型的值，如果不是基本类型则只拷贝其对象的引用。
+深拷贝：拷贝生成的对象和原来对象中的值完全相同，如果拷贝时遇到非基本类型的情况，会给非基本类型的对象重新分配内存空间，将对象的引用指向新分配的空间。
+Java中的clone()方法
 
-若干概念
-网络由若干结点和连接这些结点的链路组成。网络中的结点可以是计算机、集线器、交换机或路由器。
-网络和网络可以通过路由器互连起来，因此互联网就是指&quot;网络的网络&quot;。
-因特网是世界上最大的互连网络，习惯上，大家把连接在因特网上的计算机都称为主机。
-网......
+对任何的对象x，都有x.clone() !=x//克隆对象与原对象不是同一个对象
+对任何的对象x，都有x.clone().getCl......
         </div>
     </a>
     
         <p class="post-meta" style="margin: 10px 0;">
             Posted by Andfans on
-            2017-05-26
+            2017-05-27
         </p>
         <div class="tags">
             
-              <a href="/tags/#读书笔记" title="读书笔记">读书笔记</a>
-            
-              <a href="/tags/#基础" title="基础">基础</a>
+              <a href="/tags/#Java" title="Java">Java</a>
             
         </div>
     
@@ -444,13 +439,15 @@
     <div class="tags">
         
             
+            <a href="/tags/#算法题" title="算法题" rel="43">算法题</a>
+            
+        
+            
         
             
             <a href="/tags/#Android" title="Android" rel="12">Android</a>
             
         
-            
-            <a href="/tags/#算法题" title="算法题" rel="43">算法题</a>
             
         
             
@@ -463,10 +460,6 @@
         
             
             <a href="/tags/#Java" title="Java" rel="6">Java</a>
-            
-        
-            
-        
             
         
             
@@ -543,6 +536,10 @@
     <ul>
       
         <li>
+          <a href="/2017/08/06/谢希仁版计算机网络读书笔记/">谢希仁版计算机网络读书笔记第一章</a>
+        </li>
+      
+        <li>
           <a href="/2017/08/06/Algorithm-43/">Algorithm_43</a>
         </li>
       
@@ -558,10 +555,6 @@
           <a href="/2017/08/03/理解Window和WindowManager/">理解Window和WindowManager</a>
         </li>
       
-        <li>
-          <a href="/2017/08/03/Algorithm-40/">Algorithm_40</a>
-        </li>
-      
     </ul>
   </div>
 
@@ -570,7 +563,7 @@
         
     <h5>ARCHIVES</h5>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">42</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">8</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">42</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">7</span></li></ul>
     </div>
 
         <hr>
