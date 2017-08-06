@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          Algorithm_31 - Andfans
+          Algorithm_42 - Andfans
         
     </title>
 
-    <link rel="canonical" href="http://andfanswzp.pw/2017/07/29/Algorithm-31/">
+    <link rel="canonical" href="http://andfanswzp.pw/2017/08/06/Algorithm-42/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -93,11 +93,11 @@
                               <a class="tag" href="/tags/#算法题" title="算法题">算法题</a>
                             
                         </div>
-                        <h1>Algorithm_31</h1>
-                        <h2 class="subheading">翻转单词序列</h2>
+                        <h1>Algorithm_42</h1>
+                        <h2 class="subheading">表示数值的字符串</h2>
                         <span class="meta">
                             Posted by Andfans on
-                            2017-07-29
+                            2017-08-06
                         </span>
                     </div>
                 
@@ -215,24 +215,28 @@
                 post-container">
 
                 <h2 id="题目描述">题目描述</h2>
-<p>输入一个英文句子，翻转句子中单词的顺序，但单词内字符的顺序不变。为简单起见，标点符号和普通字母一样处理。处理输入字符串&quot;I am a student.&quot;，则输出&quot;student. a am I&quot;</p>
+<p>请实现一个函数用来判断字符串是否表示数值(包括整数和小数)。例如：字符串&quot;+100&quot;，“5e2”，&quot;-123&quot;，“3.1416”，&quot;-1E-16&quot;都表示数值，但是&quot;12e&quot;，“1a3.14”，“1.2.3”，“±5”，&quot;12e4.3&quot;都不是合法数值表示。</p>
 <h2 id="解题思路">解题思路</h2>
-<p>将字符串转换成字符数组，遍历这个字符数组，使用两个标志位first,second来记录相邻两个单词的起始位置下标，单词之间以空格分隔，对每个单词调用<a href="http://andfanswzp.pw/2017/07/29/Algorithm-30/">上一题</a>用到的reverse翻转函数，需要注意的是：最后一个单词在遍历时是无法分隔出来的，所以对最后一个单词的翻转要单独调用，对每个单词完成翻转后，再对整个字符数组进行翻转，这样即可得到正确结果。</p>
+<p>采用正则表达式来做，是最好的办法，这里来简单说一下在该题中用到的一些正则表达式的用法。</p>
+<ul>
+<li>?表示前面的字符重复0/1次;</li>
+<li>*表示前面的字符重复0或多次;</li>
+<li>\\.表示将.的特殊含义消除；</li>
+<li>+表示重复次数为1或更多；</li>
+<li>[]表示可以出现的字符集；</li>
+</ul>
 <h2 id="实现代码">实现代码</h2>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">ReverseSentence</span><span class="params">(String str)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(str == <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">if</span>(str.length() == <span class="number">0</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="string">""</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//记录相邻两个单词的起始位置下标</span></div><div class="line">        <span class="keyword">int</span> first,second = <span class="number">0</span>;</div><div class="line">        <span class="keyword">char</span> [] ch = str.toCharArray();</div><div class="line">        </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; ch.length;i++)&#123;</div><div class="line">            <span class="keyword">char</span> c = ch[i];</div><div class="line">            <span class="keyword">if</span>(c == <span class="string">' '</span>)&#123;</div><div class="line">                first = second;</div><div class="line">                second = i + <span class="number">1</span>;</div><div class="line">                reverse(ch,first,second - <span class="number">2</span>);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//注意对最后一个单词的翻转需要在循环外单独调用</span></div><div class="line">        reverse(ch,second,ch.length-<span class="number">1</span>);</div><div class="line">        reverse(ch,<span class="number">0</span>,ch.length-<span class="number">1</span>);</div><div class="line">        StringBuilder sb = <span class="keyword">new</span> StringBuilder();</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">char</span> c:ch) sb.append(c);</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> sb.toString();</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">reverse</span><span class="params">(<span class="keyword">char</span> [] ch,<span class="keyword">int</span> begin,<span class="keyword">int</span> end)</span></span>&#123;</div><div class="line">        <span class="keyword">while</span>(begin &lt; end)&#123;</div><div class="line">            <span class="keyword">char</span> c = ch[begin];</div><div class="line">        	ch[begin] = ch[end];</div><div class="line">        	ch[end] = c;</div><div class="line">            end--;</div><div class="line">            begin++;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isNumeric</span><span class="params">(<span class="keyword">char</span>[] str)</span> </span>&#123;</div><div class="line">        String s=String.valueOf(str);</div><div class="line">        <span class="keyword">return</span> s.matches(<span class="string">"[+-]?[0-9]*(\\.[0-9]*)?([eE][+-]?[0-9]+)?"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
                 
 
                 <hr>
                 <!-- Pager -->
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2017/07/30/Algorithm-32/" data-toggle="tooltip" data-placement="top" title="Algorithm_32">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/2017/07/29/Algorithm-30/" data-toggle="tooltip" data-placement="top" title="Algorithm_30">Next Post &rarr;</a>
+                            <a href="/2017/08/05/Algorithm-41/" data-toggle="tooltip" data-placement="top" title="Algorithm_41">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -311,8 +315,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "your-disqus-ID";
-    var disqus_identifier = "http://andfanswzp.pw/2017/07/29/Algorithm-31/";
-    var disqus_url = "http://andfanswzp.pw/2017/07/29/Algorithm-31/";
+    var disqus_identifier = "http://andfanswzp.pw/2017/08/06/Algorithm-42/";
+    var disqus_url = "http://andfanswzp.pw/2017/08/06/Algorithm-42/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
