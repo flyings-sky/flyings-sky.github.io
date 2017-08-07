@@ -136,7 +136,7 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -150,7 +150,7 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -213,12 +213,78 @@
 
 <div class="post-preview">
 
+    <a href="/2017/08/07/Algorithm-44/">
+        <h2 class="post-title">
+            Algorithm_44
+        </h2>
+        <h3 class="post-subtitle">
+            链表中环的入口结点
+        </h3>
+        <div class="post-content-preview">
+            题目描述
+一个链表中可能包含环，如果包含找出该链表中环的入口结点，否则返回null
+解题思路
+解法1
+
+遍历链表，将链表的结点存到一个ArrayList中，每次判断该结点是否已经在ArrayList中了，如果该结点已经在ArrayList中了，则表示该结点就是环的入口，将其返回即可，否则返回null
+
+解法2
+
+利用快慢两个指针(快指针每次走两步，慢指针每次走一步)，遍历这个链表，直到两个指......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Andfans on
+            2017-08-07
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#算法题" title="算法题">算法题</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2017/08/06/谢希仁版计算机网络读书笔记第二章/">
+        <h2 class="post-title">
+            谢希仁版计算机网络读书笔记第二章
+        </h2>
+        <h3 class="post-subtitle">
+            物理层
+        </h3>
+        <div class="post-content-preview">
+            物理层的基本概念
+...
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Andfans on
+            2017-08-06
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#读书笔记" title="读书笔记">读书笔记</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
     <a href="/2017/08/06/谢希仁版计算机网络读书笔记/">
         <h2 class="post-title">
             谢希仁版计算机网络读书笔记第一章
         </h2>
         <h3 class="post-subtitle">
-            
+            概述
         </h3>
         <div class="post-content-preview">
             计算机网络的功能
@@ -468,75 +534,6 @@ View动画通过对场景里的对象不断做图像变换(平移、缩放、旋
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2017/08/01/Android中的Drawable/">
-        <h2 class="post-title">
-            Android中的Drawable
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            Drawable表示的是一种可以在Canvas上进行绘制的抽象的概念，它的种类有很多，最常见的颜色和图片都可以是一个Drawable。熟练掌握各种类型的Drawable可以方便我们做出一些特殊的UI效果，它使用简单，比自定义View的成本要低，非图片类型的Drawable占用空间较小，对于减小apk的大小也很有帮助。
-Drawable简介
-Drawable有很多种，它们都表示一种图像的概念，......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Andfans on
-            2017-08-01
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Android" title="Android">Android</a>
-            
-              <a href="/tags/#Drawable" title="Drawable">Drawable</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2017/08/01/Algorithm-38/">
-        <h2 class="post-title">
-            Algorithm_38
-        </h2>
-        <h3 class="post-subtitle">
-            将字符串转换成整数
-        </h3>
-        <div class="post-content-preview">
-            题目描述
-将一个字符串转换成一个整数，要求不能使用字符串转换整数的库函数。数值为0或者字符串不是一个合法的数值则返回0
-解题思路
-这个题目的实际有效代码其实很简单，这个题目重点考察的是我们写的代码是否具有良好的鲁棒性，能否考虑到各种异常输入的情况。
-可能的输入：
-
-字符串为null或者空串
-字符串中间(非第一个字符)包含除0~9的数
-字符串开头第一个字符含有除了0~9和+/-以外的字符
-字符......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Andfans on
-            2017-08-01
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#算法题" title="算法题">算法题</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -573,13 +570,15 @@ Drawable有很多种，它们都表示一种图像的概念，......
     <div class="tags">
         
             
-            <a href="/tags/#算法题" title="算法题" rel="43">算法题</a>
-            
-        
-            
         
             
             <a href="/tags/#Android" title="Android" rel="12">Android</a>
+            
+        
+            
+            <a href="/tags/#算法题" title="算法题" rel="44">算法题</a>
+            
+        
             
         
             
@@ -594,8 +593,6 @@ Drawable有很多种，它们都表示一种图像的概念，......
         
             
             <a href="/tags/#Java" title="Java" rel="6">Java</a>
-            
-        
             
         
             
@@ -670,6 +667,14 @@ Drawable有很多种，它们都表示一种图像的概念，......
     <ul>
       
         <li>
+          <a href="/2017/08/07/Algorithm-44/">Algorithm_44</a>
+        </li>
+      
+        <li>
+          <a href="/2017/08/06/谢希仁版计算机网络读书笔记第二章/">谢希仁版计算机网络读书笔记第二章</a>
+        </li>
+      
+        <li>
           <a href="/2017/08/06/谢希仁版计算机网络读书笔记/">谢希仁版计算机网络读书笔记第一章</a>
         </li>
       
@@ -681,14 +686,6 @@ Drawable有很多种，它们都表示一种图像的概念，......
           <a href="/2017/08/06/Algorithm-42/">Algorithm_42</a>
         </li>
       
-        <li>
-          <a href="/2017/08/05/Algorithm-41/">Algorithm_41</a>
-        </li>
-      
-        <li>
-          <a href="/2017/08/03/理解Window和WindowManager/">理解Window和WindowManager</a>
-        </li>
-      
     </ul>
   </div>
 
@@ -697,7 +694,7 @@ Drawable有很多种，它们都表示一种图像的概念，......
         
     <h5>ARCHIVES</h5>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">42</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">7</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">13</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">42</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">7</span></li></ul>
     </div>
 
         <hr>
