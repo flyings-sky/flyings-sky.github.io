@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          WebView内存泄漏之惑(未完待续) - Andfans
+        
+    </title>
+
+    <link rel="canonical" href="http://andfanswzp.pw/2017/08/08/WebView内存泄漏之惑/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('http://i1.piimg.com/588926/14c9e94b1c44706b.png')
+            /*post*/
+        
+    }
+    
+    #signature{
+        background-image: url('/img/signature/BeanTechSign-white.png');
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#Android" title="Android">Android</a>
+                            
+                              <a class="tag" href="/tags/#WebView" title="WebView">WebView</a>
+                            
+                              <a class="tag" href="/tags/#内存泄漏" title="内存泄漏">内存泄漏</a>
+                            
+                        </div>
+                        <h1>WebView内存泄漏之惑(未完待续)</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by Andfans on
+                            2017-08-08
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Andfans</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <blockquote>
+<p>本文所写均属作者个人理解，如有错误，望能指出。</p>
+</blockquote>
+<p>昨天面试时被问到了一个问题：WebView造成内存泄露的原因？我便很机械的回答了&quot;长生命周期的对象引用了短声明周期的对象，导致短生命周期的对象的工作在执行完后，无法在GC时，被正常回收&quot;，然后面试官接着问我那在这个场景中谁是长生命周期的对象，谁是短生命周期的对象呢？我竟一时语塞，不知该如何回答，于是今天就想把我自己挖的这个坑给填起来，但是今天在谷歌上转了一天，也没找到能完全填坑的方案，只把今天获得的一点收获总结成此文，希望广大同仁能见仁见智，各抒己见，指出不当之处，协助我一块把这个坑给填起来。</p>
+<p>在介绍WebView发生的内存泄漏之前，先来回顾一下Handler造成内存泄漏的原因(这里假设大家书写的代码并不规范)：因为子线程中执行的耗时操作在Activity退出之前没有执行完毕，所以线程持有了Handler对象的引用，而Handler作为Activity的一个非静态内部类(假设大家用的是非静态)，Handler对象自然也就会隐式持有Activity的引用，因此就有了一条这样的引用链：Thread-&gt;Handler-&gt;Activity，这样当Activity执行finish方法后，Activity的onDestroy()方法就会被执行，此时Activity对象所占有的内存应该已经算是一块无用内存了，毕竟Activity已经调用了finish方法，说明Activity认为自己的任务已经执行完了，所以这块内存按道理来讲，在下次GC时，是要回收的，但是由于Activity仍然处在一条引用链上，因此这次GC并不会回收这个Activity所占有的内存，这样就造成了内存泄漏。</p>
+<h2 id="android-43中发生的webview内存泄漏">Android 4.3中发生的WebView内存泄漏</h2>
+<h3 id="可能产生内存泄漏的原因">可能产生内存泄漏的原因</h3>
+<p>因为分析过程可能过于冗长，所以先点出直接原因，接下来再一点点分析为什么这样会造成内存泄漏。</p>
+<p>其实在这里造成内存泄露的原因和Handler造成内存泄漏的原因非常类似，因为与WebView的内部实现有关的一个类叫做BrowserFrame，该类是Handler的子类，这个类的对象是用于native层和”WebViewCoreThread”线程进行交互的，这个类的对象会在native层被调用用于向WebViewCoreThread发送一些消息，然后在”WebViewCoreThread”线程中根据收到的消息去执行相应的业务逻辑，如果它在Activity即将退出之前，恰巧在native层被调用往WebViewCoreThread发送了一个延时消息，那么此时便会建立起一条这样的引用链：Thread-&gt;MessageQueue-&gt;Message-&gt;Handler(BrowserFrame)-&gt;Activity的一条引用链，因此在下次GC时，这个Activity就不会被回收，就发生了内存泄漏。</p>
+<p>看完上面这些内容，大家可能会对BrowserFrame持有Activity的引用，产生一些疑问，接下来我们就来结合源码详细分析一下：为什么BrowserFrame会持有Activity的引用？</p>
+<p>先从WebView的构造方法入手：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">WebView</span><span class="params">(Context context)</span> </span>&#123;</div><div class="line">    <span class="keyword">this</span>(context, <span class="keyword">null</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">WebView</span><span class="params">(Context context, AttributeSet attrs)</span> </span>&#123;</div><div class="line">    <span class="keyword">this</span>(context, attrs, com.android.internal.R.attr.webViewStyle);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">WebView</span><span class="params">(Context context, AttributeSet attrs, <span class="keyword">int</span> defStyle)</span> </span>&#123;</div><div class="line">    <span class="keyword">this</span>(context, attrs, defStyle, <span class="keyword">false</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">WebView</span><span class="params">(Context context, AttributeSet attrs, <span class="keyword">int</span> defStyle,</span></span></div><div class="line">        <span class="keyword">boolean</span> privateBrowsing) &#123;</div><div class="line">    <span class="keyword">this</span>(context, attrs, defStyle, <span class="keyword">null</span>, privateBrowsing);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">protected</span> <span class="title">WebView</span><span class="params">(Context context, AttributeSet attrs, <span class="keyword">int</span> defStyle,</span></span></div><div class="line">        Map&lt;String, Object&gt; javaScriptInterfaces, <span class="keyword">boolean</span> privateBrowsing) &#123;</div><div class="line">    <span class="keyword">super</span>(context, attrs, defStyle);</div><div class="line">    <span class="keyword">if</span> (context == <span class="keyword">null</span>) &#123;</div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Invalid context argument"</span>);</div><div class="line">    &#125;</div><div class="line">    sEnforceThreadChecking = context.getApplicationInfo().targetSdkVersion &gt;=</div><div class="line">            Build.VERSION_CODES.JELLY_BEAN_MR2;</div><div class="line">    checkThread();</div><div class="line"></div><div class="line">    ensureProviderCreated();</div><div class="line">    mProvider.init(javaScriptInterfaces, privateBrowsing);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">ensureProviderCreated</span><span class="params">()</span> </span>&#123;</div><div class="line">    checkThread();</div><div class="line">    <span class="keyword">if</span> (mProvider == <span class="keyword">null</span>) &#123;</div><div class="line">        <span class="comment">// As this can get called during the base class constructor chain, pass the minimum</span></div><div class="line">        <span class="comment">// number of dependencies here; the rest are deferred to init().</span></div><div class="line">        mProvider = getFactory().createWebView(<span class="keyword">this</span>, <span class="keyword">new</span> PrivateAccess());</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>从上面源码看出，不管你调用哪个构造方法，你最终调用的构造方法其实是最下面的这个构造方法，这个构造方法的主要功能是调用了ensureProviderCreated();创建了WebViewProvider对象mProvider，确切的说是WebViewClassic，因为WebViewProvider是一个接口，这个mProvider对象才真正的实现了WebView内部真正的功能，通过看WebView的源码可以得知，机会每个方法里面，都调用了mProvider内部的方法，从ensureProviderCreated方法中可以看出，WebViewProvider的对象持有了WebView的引用。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> WebViewProvider <span class="title">createWebView</span><span class="params">(WebView webView, WebView.PrivateAccess privateAccess)</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> WebViewClassic(webView, privateAccess);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">WebViewClassic</span><span class="params">(WebView webView, WebView.PrivateAccess privateAccess)</span> </span>&#123;</div><div class="line">    mWebView = webView;</div><div class="line">    mWebViewPrivate = privateAccess;</div><div class="line">    mContext = webView.getContext();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>从这段我们看出确实是返回了一个WebViewClassic类的对象，而且WebViewClassic也确实持有了WebView对象的上下文(这个上下文是Activity的上下文)和引用，接下来，我们接着看WebView构造方法中的最后一条语句mProvider.init(javaScriptInterfaces, privateBrowsing);</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">(Map&lt;String, Object&gt; javaScriptInterfaces, <span class="keyword">boolean</span> privateBrowsing)</span> </span>&#123;</div><div class="line">    Context context = mContext;</div><div class="line">    ......</div><div class="line">    mWebViewCore = <span class="keyword">new</span> WebViewCore(context, <span class="keyword">this</span>, mCallbackProxy, javaScriptInterfaces);</div><div class="line">    mDatabase = WebViewDatabaseClassic.getInstance(context);</div><div class="line"></div><div class="line">    <span class="comment">/* The init method must follow the creation of certain member variables,</span></div><div class="line">     * such as the mZoomManager.</div><div class="line">     */</div><div class="line">    init();</div><div class="line">    .....</div><div class="line"></div><div class="line">    mAutoFillData = <span class="keyword">new</span> WebViewCore.AutoFillData();</div><div class="line">    mEditTextScroller = <span class="keyword">new</span> Scroller(context);</div><div class="line"></div><div class="line">    <span class="comment">// Calculate channel distance</span></div><div class="line">    calculateChannelDistance(context);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>从上面的代码可以看出，我们又使用Activity的上下文构造出了一个WebViewCore的对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// The thread name used to identify the WebCore thread and for use in</span></div><div class="line">    <span class="comment">// debugging other classes that require operation within the WebCore thread.</span></div><div class="line">    <span class="comment">/* package */</span> <span class="keyword">static</span> <span class="keyword">final</span> String THREAD_NAME = <span class="string">"WebViewCoreThread"</span>;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">WebViewCore</span><span class="params">(Context context, WebViewClassic w, CallbackProxy proxy,</span></span></div><div class="line">            Map&lt;String, Object&gt; javascriptInterfaces) &#123;</div><div class="line">        ......</div><div class="line">        mContext = context;</div><div class="line"></div><div class="line">        <span class="comment">// We need to wait for the initial thread creation before sending</span></div><div class="line">        <span class="comment">// a message to the WebCore thread.</span></div><div class="line">        <span class="comment">// <span class="doctag">XXX:</span> This is the only time the UI thread will wait for the WebCore</span></div><div class="line">        <span class="comment">// thread!</span></div><div class="line">        <span class="keyword">synchronized</span> (WebViewCore.class) &#123;</div><div class="line">            <span class="keyword">if</span> (sWebCoreHandler == <span class="keyword">null</span>) &#123;</div><div class="line">                <span class="comment">// Create a global thread and start it.</span></div><div class="line">                Thread t = <span class="keyword">new</span> Thread(<span class="keyword">new</span> WebCoreThread());</div><div class="line">                t.setName(THREAD_NAME);</div><div class="line">                t.start();</div><div class="line">                <span class="keyword">try</span> &#123;</div><div class="line">                    WebViewCore.class.wait();</div><div class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</div><div class="line">                    Log.e(LOGTAG, <span class="string">"Caught exception while waiting for thread "</span> +</div><div class="line">                           <span class="string">"creation."</span>);</div><div class="line">                    Log.e(LOGTAG, Log.getStackTraceString(e));</div><div class="line">                &#125;</div><div class="line"></div><div class="line">                <span class="keyword">if</span> (sShouldMonitorWebCoreThread) &#123;</div><div class="line">                    <span class="comment">// Start the singleton watchdog which will monitor the WebCore thread</span></div><div class="line">                    <span class="comment">// to verify it's still processing messages. Note that this is the only</span></div><div class="line">                    <span class="comment">// time we need to check the value as all the other public methods on</span></div><div class="line">                    <span class="comment">// the WebCoreThreadWatchdog are no-ops if start() is not called.</span></div><div class="line">                    WebCoreThreadWatchdog.start(sWebCoreHandler);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            <span class="comment">// Make sure the Watchdog is aware of this new WebView.</span></div><div class="line">            WebCoreThreadWatchdog.registerWebView(w);</div><div class="line">        &#125;</div><div class="line">        ......</div><div class="line"></div><div class="line">        <span class="comment">// Send a message to initialize the WebViewCore.</span></div><div class="line">        Message init = sWebCoreHandler.obtainMessage(</div><div class="line">                WebCoreThread.INITIALIZE, <span class="keyword">this</span>);</div><div class="line">        sWebCoreHandler.sendMessage(init);</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>从上述代码可以看出，在构造方法中先创建并开启了一个线程，然后又使用Handler发送了一个消息WebCoreThread.INITIALIZE，接下来我们看看这个线程中都做了什么工作？</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">WebCoreThread</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</div><div class="line">        <span class="comment">// Message id for initializing a new WebViewCore.</span></div><div class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> INITIALIZE = <span class="number">0</span>;</div><div class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> REDUCE_PRIORITY = <span class="number">1</span>;</div><div class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> RESUME_PRIORITY = <span class="number">2</span>;</div><div class="line"></div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">            Looper.prepare();</div><div class="line">            Assert.assertNull(sWebCoreHandler);</div><div class="line">            <span class="keyword">synchronized</span> (WebViewCore.class) &#123;</div><div class="line">                sWebCoreHandler = <span class="keyword">new</span> Handler() &#123;</div><div class="line">                    <span class="meta">@Override</span></div><div class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleMessage</span><span class="params">(Message msg)</span> </span>&#123;</div><div class="line">                        <span class="keyword">switch</span> (msg.what) &#123;</div><div class="line">                            <span class="keyword">case</span> INITIALIZE:</div><div class="line">                                WebViewCore core = (WebViewCore) msg.obj;</div><div class="line">                                core.initialize();</div><div class="line">                                <span class="keyword">break</span>;</div><div class="line"></div><div class="line">                            <span class="keyword">case</span> REDUCE_PRIORITY:</div><div class="line">                                <span class="comment">// 3 is an adjustable number.</span></div><div class="line">                                Process.setThreadPriority(</div><div class="line">                                        Process.THREAD_PRIORITY_DEFAULT + <span class="number">3</span> *</div><div class="line">                                        Process.THREAD_PRIORITY_LESS_FAVORABLE);</div><div class="line">                                <span class="keyword">break</span>;</div><div class="line"></div><div class="line">                            <span class="keyword">case</span> RESUME_PRIORITY:</div><div class="line">                                Process.setThreadPriority(</div><div class="line">                                        Process.THREAD_PRIORITY_DEFAULT);</div><div class="line">                                <span class="keyword">break</span>;</div><div class="line"></div><div class="line">                            <span class="keyword">case</span> EventHub.ADD_PACKAGE_NAME:</div><div class="line">                                <span class="keyword">if</span> (BrowserFrame.sJavaBridge == <span class="keyword">null</span>) &#123;</div><div class="line">                                    <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(</div><div class="line">                                            <span class="string">"No WebView has been created in this process!"</span>);</div><div class="line">                                &#125;</div><div class="line">                                BrowserFrame.sJavaBridge.addPackageName((String) msg.obj);</div><div class="line">                                <span class="keyword">break</span>;</div><div class="line"></div><div class="line">                            <span class="keyword">case</span> EventHub.REMOVE_PACKAGE_NAME:</div><div class="line">                                <span class="keyword">if</span> (BrowserFrame.sJavaBridge == <span class="keyword">null</span>) &#123;</div><div class="line">                                    <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(</div><div class="line">                                            <span class="string">"No WebView has been created in this process!"</span>);</div><div class="line">                                &#125;</div><div class="line">                                BrowserFrame.sJavaBridge.removePackageName((String) msg.obj);</div><div class="line">                                <span class="keyword">break</span>;</div><div class="line"></div><div class="line">                            ......</div><div class="line">                    &#125;</div><div class="line">                &#125;;</div><div class="line">                WebViewCore.class.notify();</div><div class="line">            &#125;</div><div class="line">            Looper.loop();</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>从上述源码可以看出，在线程执行时先创建了一个Handler对象(这个对象就是刚才在init方法中发送消息的那个Handler)，因为我们刚才发送的消息是INITIALIZE，所以接下来要执行的就是这段代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">case</span> INITIALIZE:</div><div class="line">    WebViewCore core = (WebViewCore) msg.obj;</div><div class="line">    core.initialize();</div><div class="line">    <span class="keyword">break</span>;</div></pre></td></tr></table></figure>
+<p>也就是说会执行WebViewCore类的initialize()方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* Initialize private data within the WebCore thread.</span></div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">initialize</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="comment">/* Initialize our private BrowserFrame class to handle all</span></div><div class="line">     * frame-related functions. We need to create a new view which</div><div class="line">     * in turn creates a C level FrameView and attaches it to the frame.</div><div class="line">     */</div><div class="line">    mBrowserFrame = <span class="keyword">new</span> BrowserFrame(mContext, <span class="keyword">this</span>, mCallbackProxy,</div><div class="line">            mSettings, mJavascriptInterfaces);</div><div class="line">    mJavascriptInterfaces = <span class="keyword">null</span>;</div><div class="line">    ......</div><div class="line">    <span class="comment">// The transferMessages call will transfer all pending messages to the</span></div><div class="line">    <span class="comment">// WebCore thread handler.</span></div><div class="line">    mEventHub.transferMessages();</div><div class="line">    <span class="keyword">if</span> (mWebViewClassic != <span class="keyword">null</span>) &#123;</div><div class="line">        Message.obtain(mWebViewClassic.mPrivateHandler,</div><div class="line">                WebViewClassic.WEBCORE_INITIALIZED_MSG_ID,</div><div class="line">                mNativeClass, <span class="number">0</span>).sendToTarget();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>挖了这么久源码，终于见到了这个关键的类BrowserFrame，这个类也是使用Activity的上下文创建的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">BrowserFrame</span> <span class="keyword">extends</span> <span class="title">Handler</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BrowserFrame</span><span class="params">(Context context, WebViewCore w, CallbackProxy proxy,</span></span></div><div class="line">            WebSettingsClassic settings, Map&lt;String, Object&gt; javascriptInterfaces) &#123;</div><div class="line"></div><div class="line">        Context appContext = context.getApplicationContext();</div><div class="line"></div><div class="line">        <span class="comment">// Create a global JWebCoreJavaBridge to handle timers and</span></div><div class="line">        <span class="comment">// cookies in the WebCore thread.</span></div><div class="line">        <span class="keyword">if</span> (sJavaBridge == <span class="keyword">null</span>) &#123;</div><div class="line">            sJavaBridge = <span class="keyword">new</span> JWebCoreJavaBridge();</div><div class="line">            <span class="comment">// set WebCore native cache size</span></div><div class="line">            ActivityManager am = (ActivityManager) context</div><div class="line">                    .getSystemService(Context.ACTIVITY_SERVICE);</div><div class="line">            <span class="keyword">if</span> (am.getMemoryClass() &gt; <span class="number">16</span>) &#123;</div><div class="line">                sJavaBridge.setCacheSize(<span class="number">8</span> * <span class="number">1024</span> * <span class="number">1024</span>);</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                sJavaBridge.setCacheSize(<span class="number">4</span> * <span class="number">1024</span> * <span class="number">1024</span>);</div><div class="line">            &#125;</div><div class="line">            <span class="comment">// create CookieSyncManager with current Context</span></div><div class="line">            CookieSyncManager.createInstance(appContext);</div><div class="line">            <span class="comment">// create PluginManager with current Context</span></div><div class="line">            PluginManager.getInstance(appContext);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (sConfigCallback == <span class="keyword">null</span>) &#123;</div><div class="line">            sConfigCallback = <span class="keyword">new</span> ConfigCallback(</div><div class="line">                    (WindowManager) appContext.getSystemService(</div><div class="line">                            Context.WINDOW_SERVICE));</div><div class="line">            ViewRootImpl.addConfigCallback(sConfigCallback);</div><div class="line">        &#125;</div><div class="line">        sConfigCallback.addHandler(<span class="keyword">this</span>);</div><div class="line"></div><div class="line">        mJavaScriptObjects = <span class="keyword">new</span> HashMap&lt;String, JSObject&gt;();</div><div class="line">        addJavaScriptObjects(javascriptInterfaces);</div><div class="line">        mRemovedJavaScriptObjects = <span class="keyword">new</span> HashSet&lt;Object&gt;();</div><div class="line"></div><div class="line">        mSettings = settings;</div><div class="line">        mContext = context;</div><div class="line">        mCallbackProxy = proxy;</div><div class="line">        mDatabase = WebViewDatabaseClassic.getInstance(appContext);</div><div class="line">        mWebViewCore = w;</div><div class="line"></div><div class="line">        AssetManager am = context.getAssets();</div><div class="line">        nativeCreateFrame(w, am, proxy.getBackForwardList());</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (DebugFlags.BROWSER_FRAME) &#123;</div><div class="line">            Log.v(LOGTAG, <span class="string">"BrowserFrame constructor: this="</span> + <span class="keyword">this</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在BrowserFrame的构造方法里，最后会调用一个native方法nativeCreateFrame(w, am, proxy.getBackForwardList());我们这个流程就暂时分析到这，我们接下来转到WebViewCore类中去看一下如何处理从Native层发来的消息，看initialize()方法的mEventHub.transferMessages();这条语句</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">transferMessages</span><span class="params">()</span> </span>&#123;</div><div class="line">            mTid = Process.myTid();</div><div class="line">            mSavedPriority = Process.getThreadPriority(mTid);</div><div class="line"></div><div class="line">            mHandler = <span class="keyword">new</span> Handler() &#123;</div><div class="line">                <span class="meta">@Override</span></div><div class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleMessage</span><span class="params">(Message msg)</span> </span>&#123;</div><div class="line">                    <span class="keyword">if</span> (DebugFlags.WEB_VIEW_CORE) &#123;</div><div class="line">                        Log.v(LOGTAG, (msg.what &lt; FIRST_PACKAGE_MSG_ID</div><div class="line">                                || msg.what &gt; LAST_PACKAGE_MSG_ID</div><div class="line">                                ? Integer.toString(msg.what)</div><div class="line">                                : HandlerDebugString[msg.what</div><div class="line">                                        - FIRST_PACKAGE_MSG_ID])</div><div class="line">                                + <span class="string">" arg1="</span> + msg.arg1 + <span class="string">" arg2="</span> + msg.arg2</div><div class="line">                                + <span class="string">" obj="</span> + msg.obj);</div><div class="line">                    &#125;</div><div class="line">                    <span class="keyword">switch</span> (msg.what) &#123;</div><div class="line">                    <span class="keyword">case</span> PAUSE_TIMERS:</div><div class="line">                        mSavedPriority = Process.getThreadPriority(mTid);</div><div class="line">                        Process.setThreadPriority(mTid,</div><div class="line">                            Process.THREAD_PRIORITY_BACKGROUND);</div><div class="line">                        pauseTimers();</div><div class="line">                        <span class="keyword">if</span> (mNativeClass != <span class="number">0</span>) &#123;</div><div class="line">                            nativeCloseIdleConnections(mNativeClass);</div><div class="line">                        &#125;</div><div class="line">                        <span class="keyword">return</span>;</div><div class="line"></div><div class="line">                    <span class="keyword">case</span> RESUME_TIMERS:</div><div class="line">                        Process.setThreadPriority(mTid, mSavedPriority);</div><div class="line">                        resumeTimers();</div><div class="line">                        <span class="keyword">return</span>;</div><div class="line">                    &#125;</div><div class="line"></div><div class="line">                    <span class="keyword">if</span> (mWebViewClassic == <span class="keyword">null</span> || mNativeClass == <span class="number">0</span>) &#123;</div><div class="line">                        <span class="keyword">if</span> (DebugFlags.WEB_VIEW_CORE) &#123;</div><div class="line">                            Log.w(LOGTAG, <span class="string">"Rejecting message "</span> + msg.what</div><div class="line">                                    + <span class="string">" because we are destroyed"</span>);</div><div class="line">                        &#125;</div><div class="line">                        <span class="keyword">return</span>;</div><div class="line">                    &#125;</div><div class="line">                    <span class="keyword">if</span> (mDestroying == <span class="keyword">true</span></div><div class="line">                            &amp;&amp; msg.what != EventHub.DESTROY) &#123;</div><div class="line">                        <span class="keyword">if</span> (DebugFlags.WEB_VIEW_CORE) &#123;</div><div class="line">                            Log.v(LOGTAG, <span class="string">"Rejecting message "</span> + msg.what</div><div class="line">                                    + <span class="string">" because we are being destroyed"</span>);</div><div class="line">                        &#125;</div><div class="line">                        <span class="keyword">return</span>;</div><div class="line">                    &#125;</div><div class="line">                    <span class="keyword">switch</span> (msg.what) &#123;</div><div class="line">                        <span class="keyword">case</span> WEBKIT_DRAW:</div><div class="line">                            webkitDraw();</div><div class="line">                            <span class="keyword">break</span>;</div><div class="line"></div><div class="line">                        <span class="keyword">case</span> DESTROY:</div><div class="line">                            <span class="comment">// Time to take down the world. Cancel all pending</span></div><div class="line">                            <span class="comment">// loads and destroy the native view and frame.</span></div><div class="line">                            <span class="keyword">synchronized</span> (WebViewCore.<span class="keyword">this</span>) &#123;</div><div class="line">                                mCallbackProxy.shutdown();</div><div class="line">                                <span class="comment">// Wake up the WebCore thread just in case it is waiting for a</span></div><div class="line">                                <span class="comment">// JavaScript dialog.</span></div><div class="line">                                <span class="keyword">synchronized</span> (mCallbackProxy) &#123;</div><div class="line">                                    mCallbackProxy.notify();</div><div class="line">                                &#125;</div><div class="line">                                mBrowserFrame.destroy();</div><div class="line">                                mBrowserFrame = <span class="keyword">null</span>;</div><div class="line">                                mSettings.onDestroyed();</div><div class="line">                                mNativeClass = <span class="number">0</span>;</div><div class="line">                                WebCoreThreadWatchdog.unregisterWebView(mWebViewClassic);</div><div class="line">                                mWebViewClassic = <span class="keyword">null</span>;</div><div class="line">                            &#125;</div><div class="line">                            <span class="keyword">break</span>;</div><div class="line"></div><div class="line">                        <span class="keyword">case</span> LOAD_URL: &#123;</div><div class="line">                            CookieManagerClassic.getInstance().waitForCookieOperationsToComplete();</div><div class="line">                            GetUrlData param = (GetUrlData) msg.obj;</div><div class="line">                            loadUrl(param.mUrl, param.mExtraHeaders);</div><div class="line">                            <span class="keyword">break</span>;</div><div class="line">                        &#125;</div><div class="line"></div><div class="line">                        <span class="keyword">case</span> POST_URL: &#123;</div><div class="line">                            CookieManagerClassic.getInstance().waitForCookieOperationsToComplete();</div><div class="line">                            PostUrlData param = (PostUrlData) msg.obj;</div><div class="line">                            mBrowserFrame.postUrl(param.mUrl, param.mPostData);</div><div class="line">                            <span class="keyword">break</span>;</div><div class="line">                        &#125;</div><div class="line">                        <span class="keyword">case</span> LOAD_DATA:</div><div class="line">                            CookieManagerClassic.getInstance().waitForCookieOperationsToComplete();</div><div class="line">                            BaseUrlData loadParams = (BaseUrlData) msg.obj;</div><div class="line">                            String baseUrl = loadParams.mBaseUrl;</div><div class="line">                            <span class="keyword">if</span> (baseUrl != <span class="keyword">null</span>) &#123;</div><div class="line">                                <span class="keyword">int</span> i = baseUrl.indexOf(<span class="string">':'</span>);</div><div class="line">                                <span class="keyword">if</span> (i &gt; <span class="number">0</span>) &#123;</div><div class="line">                                    <span class="comment">// In 1.0, WebView.loadDataWithBaseURL() could access local</span></div><div class="line">                                    <span class="comment">// asset files using 'file' scheme URLs as long as the data is</span></div><div class="line">                                    <span class="comment">// valid. Later versions of WebKit have tightened the</span></div><div class="line">                                    <span class="comment">// restriction around when pages can access such local URLs.</span></div><div class="line">                                    <span class="comment">// To maintain compatibility with 1.0, we register the scheme of</span></div><div class="line">                                    <span class="comment">// the baseUrl to be considered local, as long as it is not</span></div><div class="line">                                    <span class="comment">// http(s)/ftp(s)/about/javascript.</span></div><div class="line">                                    String scheme = baseUrl.substring(<span class="number">0</span>, i);</div><div class="line">                                    <span class="keyword">if</span> (!scheme.startsWith(<span class="string">"http"</span>) &amp;&amp;</div><div class="line">                                            !scheme.startsWith(<span class="string">"ftp"</span>) &amp;&amp;</div><div class="line">                                            !scheme.startsWith(<span class="string">"about"</span>) &amp;&amp;</div><div class="line">                                            !scheme.startsWith(<span class="string">"javascript"</span>)) &#123;</div><div class="line">                                        nativeRegisterURLSchemeAsLocal(mNativeClass,</div><div class="line">                                                scheme);</div><div class="line">                                    &#125;</div><div class="line">                                &#125;</div><div class="line">                            &#125;</div><div class="line">                            mBrowserFrame.loadData(baseUrl,</div><div class="line">                                    loadParams.mData,</div><div class="line">                                    loadParams.mMimeType,</div><div class="line">                                    loadParams.mEncoding,</div><div class="line">                                    loadParams.mHistoryUrl);</div><div class="line">                            nativeContentInvalidateAll(mNativeClass);</div><div class="line">                            <span class="keyword">break</span>;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">                        <span class="keyword">case</span> GO_BACK_FORWARD:</div><div class="line">                            <span class="comment">// If it is a standard load and the load is not</span></div><div class="line">                            <span class="comment">// committed yet, we interpret BACK as RELOAD</span></div><div class="line">                            <span class="keyword">if</span> (!mBrowserFrame.committed() &amp;&amp; msg.arg1 == -<span class="number">1</span> &amp;&amp;</div><div class="line">                                    (mBrowserFrame.loadType() ==</div><div class="line">                                    BrowserFrame.FRAME_LOADTYPE_STANDARD)) &#123;</div><div class="line">                                mBrowserFrame.reload(<span class="keyword">true</span>);</div><div class="line">                            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                                mBrowserFrame.goBackOrForward(msg.arg1);</div><div class="line">                            &#125;</div><div class="line">                            <span class="keyword">break</span>;</div><div class="line"></div><div class="line"></div><div class="line">                        <span class="keyword">case</span> SET_NETWORK_STATE:</div><div class="line">                            <span class="keyword">if</span> (BrowserFrame.sJavaBridge == <span class="keyword">null</span>) &#123;</div><div class="line">                                <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(<span class="string">"No WebView "</span> +</div><div class="line">                                        <span class="string">"has been created in this process!"</span>);</div><div class="line">                            &#125;</div><div class="line">                            BrowserFrame.sJavaBridge</div><div class="line">                                    .setNetworkOnLine(msg.arg1 == <span class="number">1</span>);</div><div class="line">                            <span class="keyword">break</span>;</div><div class="line"></div><div class="line">                        <span class="keyword">case</span> SET_NETWORK_TYPE:</div><div class="line">                            <span class="keyword">if</span> (BrowserFrame.sJavaBridge == <span class="keyword">null</span>) &#123;</div><div class="line">                                <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(<span class="string">"No WebView "</span> +</div><div class="line">                                        <span class="string">"has been created in this process!"</span>);</div><div class="line">                            &#125;</div><div class="line">                            Map&lt;String, String&gt; map = (Map&lt;String, String&gt;) msg.obj;</div><div class="line">                            BrowserFrame.sJavaBridge</div><div class="line">                                    .setNetworkType(map.get(<span class="string">"type"</span>), map.get(<span class="string">"subtype"</span>));</div><div class="line">                            <span class="keyword">break</span>;</div><div class="line"></div><div class="line"></div><div class="line">                        <span class="keyword">case</span> ADD_JS_INTERFACE:</div><div class="line">                            JSInterfaceData jsData = (JSInterfaceData) msg.obj;</div><div class="line">                            mBrowserFrame.addJavascriptInterface(jsData.mObject,</div><div class="line">                                    jsData.mInterfaceName, jsData.mRequireAnnotation);</div><div class="line">                            <span class="keyword">break</span>;</div><div class="line"></div><div class="line">                        <span class="keyword">case</span> REMOVE_JS_INTERFACE:</div><div class="line">                            jsData = (JSInterfaceData) msg.obj;</div><div class="line">                            mBrowserFrame.removeJavascriptInterface(</div><div class="line">                                    jsData.mInterfaceName);</div><div class="line">                            <span class="keyword">break</span>;</div><div class="line"></div><div class="line">                        <span class="keyword">case</span> REQUEST_EXT_REPRESENTATION:</div><div class="line">                            mBrowserFrame.externalRepresentation(</div><div class="line">                                    (Message) msg.obj);</div><div class="line">                            <span class="keyword">break</span>;</div><div class="line"></div><div class="line">                        <span class="keyword">case</span> REQUEST_DOC_AS_TEXT:</div><div class="line">                            mBrowserFrame.documentAsText((Message) msg.obj);</div><div class="line">                            <span class="keyword">break</span>;</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line"></div><div class="line">            &#125;;</div></pre></td></tr></table></figure>
+<p>从源码中可以看出，在这个方法里创建了一个Handler对象用于处理各种从native层发来的消息</p>
+<p>到此为止我们的源码分析就基本结束了，从上述分析中，我们知道了BrowserFrame这个Handler的子类确实持有的Activity的引用，由此就验证了我们一开始说的内存泄漏的原因。</p>
+<p>今天就先到这里，还有另一部分内容没有讲完，明天补上。</p>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/2017/08/07/Algorithm-45/" data-toggle="tooltip" data-placement="top" title="Algorithm_45">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                    <div class="comment">
+                        <div id="disqus_thread" class="disqus-thread"></div>
+                    </div>
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#android-43中发生的webview内存泄漏"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">Android 4.3中发生的WebView内存泄漏</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#可能产生内存泄漏的原因"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">可能产生内存泄漏的原因</span></a></li></ol></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#Android" title="Android">Android</a>
+                        
+                          <a class="tag" href="/tags/#WebView" title="WebView">WebView</a>
+                        
+                          <a class="tag" href="/tags/#内存泄漏" title="内存泄漏">内存泄漏</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus embedded js code start (one page only need to embed once) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "your-disqus-ID";
+    var disqus_identifier = "http://andfanswzp.pw/2017/08/08/WebView内存泄漏之惑/";
+    var disqus_url = "http://andfanswzp.pw/2017/08/08/WebView内存泄漏之惑/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus embedded js code start end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/flyings-sky">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Andfans 2017 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://andfanswzp.pw/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-XXXXXXXX-X';
+    var _gaDomain = 'yoursite';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="http://andfanswzp.pw/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
