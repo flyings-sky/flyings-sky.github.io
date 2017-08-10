@@ -136,14 +136,14 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -210,6 +210,74 @@
             
                 <!-- Main Content -->
 
+
+<div class="post-preview">
+
+    <a href="/2017/07/22/Algorithm-19/">
+        <h2 class="post-title">
+            Algorithm_19
+        </h2>
+        <h3 class="post-subtitle">
+            把数组排成最小的数
+        </h3>
+        <div class="post-content-preview">
+            题目描述
+输入一个正整数数组，把数组里面所有数字拼接起来排成一个数，打印能拼接出的所有数字中最小的一个。例如输入数组{3,32,321}，则打印出这三个数字能排成的最小数字为321323
+解题思路
+对于任意两个数字m，n，有两种组合方式mn和nm，我们可以通过判断mn和nm的大小来判断出数字n和数字m的一个排列的优先规则：
+
+如果mn &gt; nm，则n优先于m
+如果mn &lt; nm，......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Andfans on
+            2017-07-22
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#算法题" title="算法题">算法题</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2017/07/21/Activity浅析/">
+        <h2 class="post-title">
+            Activity浅析
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            Activity的生命周期
+在正式介绍Activity的生命周期之前，先来说一下Activity的几个常见状态：
+
+Active/Running：活动状态，此时Activity位于任务栈的栈顶，可见而且可交互，一般在onResume方法执行完毕后会到达此状态
+Paused：暂停状态，此时Activity仍然处于可见状态，但是不能与用户进行交互，一般在onPause方法执行完毕后会到达此状态，......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Andfans on
+            2017-07-21
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Activity" title="Activity">Activity</a>
+            
+              <a href="/tags/#Android" title="Android">Android</a>
+            
+        </div>
+    
+
+</div>
+<hr>
 
 <div class="post-preview">
 
@@ -478,76 +546,6 @@
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2017/07/15/Algorithm-10/">
-        <h2 class="post-title">
-            Algorithm_10
-        </h2>
-        <h3 class="post-subtitle">
-            二叉搜索树的后序遍历序列
-        </h3>
-        <div class="post-content-preview">
-            题目描述
-输入一个整数数组，判断该数组是不是某二叉搜索树的后序遍历结果，如果是则返回true，否则返回false，假设输入的数组任意两个数字都互不相同。
-题目考点
-二叉搜索树的特点，后序遍历的特点
-解题思路
-二叉搜索树的特点:左子树节点的值都小于根节点的值，右子树节点的值都大于根节点的值。
-后序遍历的特点：先遍历左子树，然后遍历右子树，最后遍历根。
-由后序遍历的特点可知：输入序列的最后一个数......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Andfans on
-            2017-07-15
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#算法题" title="算法题">算法题</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2017/07/15/Algorithm-9/">
-        <h2 class="post-title">
-            Algorithm_9
-        </h2>
-        <h3 class="post-subtitle">
-            层次遍历二叉树
-        </h3>
-        <div class="post-content-preview">
-            题目描述
-从上到下打印出二叉树的各个节点，同层节点从左到右打印。
-题目考点
-二叉树的层次遍历
-解题思路
-从根节点开始，每打印一个节点的值，就将这个结点左右孩子入队(先入左后入右)，因为队是先进先出的结构，所以从队里取出元素的时候，就是按照同层从左到右，下一层在上层后面的顺序取出的。
-实现代码
-12345678910111213141516171819202122232425262728293......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Andfans on
-            2017-07-15
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#算法题" title="算法题">算法题</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -594,7 +592,11 @@
             
         
             
-            <a href="/tags/#算法题" title="算法题" rel="45">算法题</a>
+            <a href="/tags/#算法题" title="算法题" rel="47">算法题</a>
+            
+        
+            
+        
             
         
             
@@ -605,10 +607,6 @@
         
             
             <a href="/tags/#Java" title="Java" rel="6">Java</a>
-            
-        
-            
-        
             
         
             
@@ -689,6 +687,14 @@
     <ul>
       
         <li>
+          <a href="/2017/08/10/Algorithm-47/">Algorithm_47</a>
+        </li>
+      
+        <li>
+          <a href="/2017/08/10/Algorithm-46/">Algorithm_46</a>
+        </li>
+      
+        <li>
           <a href="/2017/08/08/WebView内存泄漏之惑/">WebView内存泄漏之惑</a>
         </li>
       
@@ -700,14 +706,6 @@
           <a href="/2017/08/07/Algorithm-44/">Algorithm_44</a>
         </li>
       
-        <li>
-          <a href="/2017/08/06/谢希仁版计算机网络读书笔记第二章/">谢希仁版计算机网络读书笔记第二章</a>
-        </li>
-      
-        <li>
-          <a href="/2017/08/06/谢希仁版计算机网络读书笔记/">谢希仁版计算机网络读书笔记第一章</a>
-        </li>
-      
     </ul>
   </div>
 
@@ -716,7 +714,7 @@
         
     <h5>ARCHIVES</h5>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">15</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">42</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">7</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">17</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">42</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">7</span></li></ul>
     </div>
 
         <hr>

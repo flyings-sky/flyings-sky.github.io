@@ -136,14 +136,14 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -210,6 +210,76 @@
             
                 <!-- Main Content -->
 
+
+<div class="post-preview">
+
+    <a href="/2017/07/15/Algorithm-10/">
+        <h2 class="post-title">
+            Algorithm_10
+        </h2>
+        <h3 class="post-subtitle">
+            二叉搜索树的后序遍历序列
+        </h3>
+        <div class="post-content-preview">
+            题目描述
+输入一个整数数组，判断该数组是不是某二叉搜索树的后序遍历结果，如果是则返回true，否则返回false，假设输入的数组任意两个数字都互不相同。
+题目考点
+二叉搜索树的特点，后序遍历的特点
+解题思路
+二叉搜索树的特点:左子树节点的值都小于根节点的值，右子树节点的值都大于根节点的值。
+后序遍历的特点：先遍历左子树，然后遍历右子树，最后遍历根。
+由后序遍历的特点可知：输入序列的最后一个数......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Andfans on
+            2017-07-15
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#算法题" title="算法题">算法题</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2017/07/15/Algorithm-9/">
+        <h2 class="post-title">
+            Algorithm_9
+        </h2>
+        <h3 class="post-subtitle">
+            层次遍历二叉树
+        </h3>
+        <div class="post-content-preview">
+            题目描述
+从上到下打印出二叉树的各个节点，同层节点从左到右打印。
+题目考点
+二叉树的层次遍历
+解题思路
+从根节点开始，每打印一个节点的值，就将这个结点左右孩子入队(先入左后入右)，因为队是先进先出的结构，所以从队里取出元素的时候，就是按照同层从左到右，下一层在上层后面的顺序取出的。
+实现代码
+12345678910111213141516171819202122232425262728293......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Andfans on
+            2017-07-15
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#算法题" title="算法题">算法题</a>
+            
+        </div>
+    
+
+</div>
+<hr>
 
 <div class="post-preview">
 
@@ -505,73 +575,6 @@ Configuration Info for Java，显示虚拟机配置......
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2017/06/22/JAVA虚拟机之Full-GC/">
-        <h2 class="post-title">
-            JAVA虚拟机之Full GC
-        </h2>
-        <h3 class="post-subtitle">
-            Full GC的触发条件以及减少Full GC的方法
-        </h3>
-        <div class="post-content-preview">
-            1.System.gc()方法的调用
-这个方法会建议虚拟机做一些工作来努力回收没有用的对象，以便能够快速的重用这些对象当前占用的内存。当控制权从方法调用中返回时，虚拟机已经尽最大努力从所有没有用的对象中回收了空间。因此，可以简单地认为，System.gc()方法的调用会建议虚拟机调用一次Full GC，从而增加Full GC的频率，也增加了间歇性停顿的次数。
-减少这种Full GC发生的方法......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Andfans on
-            2017-06-22
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Java" title="Java">Java</a>
-            
-              <a href="/tags/#Jvm" title="Jvm">Jvm</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2017/06/19/JAVA虚拟机之垃圾回收机制与内存分配策略/">
-        <h2 class="post-title">
-            JAVA虚拟机之垃圾回收机制与内存分配策略
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            对象已死吗？
-引用计数法
-算法思想:给对象添加一个引用计数器，每当有一个地方引用它时，计数器值就加1；当引用失效时，计数器值就减1；任何时刻计数器为0的对象就是不可能被再使用的对象。
-这个算法虽然实现简单，判定效率也很高，但是它很难解决对象之间循环引用的问题，所以目前主流的Java虚拟机里面并未采用这种算法来管理内存。
-可达性分析算法
-算法思想:通过一系列的称为“GC Roots”的对象作为......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Andfans on
-            2017-06-19
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Java" title="Java">Java</a>
-            
-              <a href="/tags/#Jvm" title="Jvm">Jvm</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -618,7 +621,11 @@ Configuration Info for Java，显示虚拟机配置......
             
         
             
-            <a href="/tags/#算法题" title="算法题" rel="45">算法题</a>
+            <a href="/tags/#算法题" title="算法题" rel="47">算法题</a>
+            
+        
+            
+        
             
         
             
@@ -629,10 +636,6 @@ Configuration Info for Java，显示虚拟机配置......
         
             
             <a href="/tags/#Java" title="Java" rel="6">Java</a>
-            
-        
-            
-        
             
         
             
@@ -713,6 +716,14 @@ Configuration Info for Java，显示虚拟机配置......
     <ul>
       
         <li>
+          <a href="/2017/08/10/Algorithm-47/">Algorithm_47</a>
+        </li>
+      
+        <li>
+          <a href="/2017/08/10/Algorithm-46/">Algorithm_46</a>
+        </li>
+      
+        <li>
           <a href="/2017/08/08/WebView内存泄漏之惑/">WebView内存泄漏之惑</a>
         </li>
       
@@ -724,14 +735,6 @@ Configuration Info for Java，显示虚拟机配置......
           <a href="/2017/08/07/Algorithm-44/">Algorithm_44</a>
         </li>
       
-        <li>
-          <a href="/2017/08/06/谢希仁版计算机网络读书笔记第二章/">谢希仁版计算机网络读书笔记第二章</a>
-        </li>
-      
-        <li>
-          <a href="/2017/08/06/谢希仁版计算机网络读书笔记/">谢希仁版计算机网络读书笔记第一章</a>
-        </li>
-      
     </ul>
   </div>
 
@@ -740,7 +743,7 @@ Configuration Info for Java，显示虚拟机配置......
         
     <h5>ARCHIVES</h5>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">15</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">42</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">7</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">17</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">42</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">7</span></li></ul>
     </div>
 
         <hr>

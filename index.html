@@ -136,14 +136,14 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -210,6 +210,85 @@
             
                 <!-- Main Content -->
 
+
+<div class="post-preview">
+
+    <a href="/2017/08/10/Algorithm-47/">
+        <h2 class="post-title">
+            Algorithm_47
+        </h2>
+        <h3 class="post-subtitle">
+            两个队列实现一个栈
+        </h3>
+        <div class="post-content-preview">
+            题目描述
+用两个队列实现一个栈
+解题思路
+先将两个队列定义为A、B
+
+入栈时，直接将数据入队列A或B
+出栈时，先判断队A、B是否全为空，然后再判断你入栈时入的那个队列（假设这里是A）是否为空，
+
+如果队列A不为空，则将队A中的元素出队，加到队列B中，直到队列A剩余一个元素时，将这个元素返回。
+如果队列A为空，则将队列B中的元素出队，加入到队列A中，直到队列B中只剩余一个元素时，将这个元素返回......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Andfans on
+            2017-08-10
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#算法题" title="算法题">算法题</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2017/08/10/Algorithm-46/">
+        <h2 class="post-title">
+            Algorithm_46
+        </h2>
+        <h3 class="post-subtitle">
+            两个栈实现一个队列
+        </h3>
+        <div class="post-content-preview">
+            题目描述
+用两个栈实现一个队列
+解题思路
+假设这两个栈名为A、B，
+
+在入队时，直接入栈A或B
+在出队时，先判整个队列是否为空，然后再看栈B是否为空：
+
+如果为空，则将栈A中的元素全部放入栈B中，然后则将栈B的栈顶元素出栈并返回
+如果不为空，则将栈B的栈顶元素出栈并返回
+
+
+
+实现代码
+123456789101112131415161718192021222324import java.ut......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Andfans on
+            2017-08-10
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#算法题" title="算法题">算法题</a>
+            
+        </div>
+    
+
+</div>
+<hr>
 
 <div class="post-preview">
 
@@ -481,67 +560,6 @@
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2017/08/03/理解Window和WindowManager/">
-        <h2 class="post-title">
-            理解Window和WindowManager
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            Window表示一个窗口概念，在日常开发中直接接触Window的机会并不多，但是在某些特殊时候我们需要在桌面上显示一个类似于悬浮窗的东西，那么这种效果就需要用到Window来实现。Window是一个抽象类，它的具体实现是PhoneWindow。创建一个Window是很简单的事情，只需要通过WindowManager即可完成。WindowManager是外界访问Window的入口，Window......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Andfans on
-            2017-08-03
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Android" title="Android">Android</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2017/08/03/Algorithm-40/">
-        <h2 class="post-title">
-            Algorithm_40
-        </h2>
-        <h3 class="post-subtitle">
-            构建乘积数组
-        </h3>
-        <div class="post-content-preview">
-            题目描述
-给定一个数组A[0,1,…,n-1]，请构建一个数组B[0,1,…,n-1]，其中B的元素B[i] = A[0]*A[1]*…*A[i-1]*A[i+1]*…*A[n-1]。不能使用除法。
-解题思路
-既然题目要求不能用除法，那么我们就分为两步来做：先计算A[0]*A[1]*…*A[i-1]的积，再计算A[i+1]*…*A[n-1]的积，先将要求的部分分为两部分：
-
-令C[i] = ......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Andfans on
-            2017-08-03
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#算法题" title="算法题">算法题</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -584,7 +602,11 @@
             
         
             
-            <a href="/tags/#算法题" title="算法题" rel="45">算法题</a>
+            <a href="/tags/#算法题" title="算法题" rel="47">算法题</a>
+            
+        
+            
+        
             
         
             
@@ -595,10 +617,6 @@
         
             
             <a href="/tags/#Java" title="Java" rel="6">Java</a>
-            
-        
-            
-        
             
         
             
@@ -679,6 +697,14 @@
     <ul>
       
         <li>
+          <a href="/2017/08/10/Algorithm-47/">Algorithm_47</a>
+        </li>
+      
+        <li>
+          <a href="/2017/08/10/Algorithm-46/">Algorithm_46</a>
+        </li>
+      
+        <li>
           <a href="/2017/08/08/WebView内存泄漏之惑/">WebView内存泄漏之惑</a>
         </li>
       
@@ -690,14 +716,6 @@
           <a href="/2017/08/07/Algorithm-44/">Algorithm_44</a>
         </li>
       
-        <li>
-          <a href="/2017/08/06/谢希仁版计算机网络读书笔记第二章/">谢希仁版计算机网络读书笔记第二章</a>
-        </li>
-      
-        <li>
-          <a href="/2017/08/06/谢希仁版计算机网络读书笔记/">谢希仁版计算机网络读书笔记第一章</a>
-        </li>
-      
     </ul>
   </div>
 
@@ -706,7 +724,7 @@
         
     <h5>ARCHIVES</h5>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">15</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">42</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">7</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">17</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">42</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">7</span></li></ul>
     </div>
 
         <hr>

@@ -136,14 +136,14 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -210,6 +210,73 @@
             
                 <!-- Main Content -->
 
+
+<div class="post-preview">
+
+    <a href="/2017/07/26/View笔记/">
+        <h2 class="post-title">
+            View的事件体系
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            View基础知识
+什么是View?
+View是Android中所有控件的基类，View是一种界面层的控件的一种抽象，它代表了一个控件(View)，或者一个控件组(ViewGroup)。
+View的位置参数
+View的位置由它的四个顶点来决定，分别对应于View的四个属性：top(左上角纵坐标)、left(左上角横坐标)、right(右下角横坐标)、bottom(右下角纵坐标).这些坐标是相对......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Andfans on
+            2017-07-26
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Android" title="Android">Android</a>
+            
+              <a href="/tags/#View" title="View">View</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2017/07/26/Algorithm-25/">
+        <h2 class="post-title">
+            Algorithm_25
+        </h2>
+        <h3 class="post-subtitle">
+            二叉树的深度
+        </h3>
+        <div class="post-content-preview">
+            题目描述
+输入一棵二叉树，求该树的深度，从根节点到叶节点依次经过的结点(含根、叶节点)形成树的一条路径，最长路径的长度为树的深度。
+解题思路
+借助递归的思想，整个树的深度，其实就等于max(左子树深度,右子树深度)+1。
+实现代码
+12345678910111213141516171819202122/**public class TreeNode &#123;    int val = 0......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Andfans on
+            2017-07-26
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#算法题" title="算法题">算法题</a>
+            
+        </div>
+    
+
+</div>
+<hr>
 
 <div class="post-preview">
 
@@ -490,74 +557,6 @@ IPC的使用场景
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2017/07/22/Algorithm-19/">
-        <h2 class="post-title">
-            Algorithm_19
-        </h2>
-        <h3 class="post-subtitle">
-            把数组排成最小的数
-        </h3>
-        <div class="post-content-preview">
-            题目描述
-输入一个正整数数组，把数组里面所有数字拼接起来排成一个数，打印能拼接出的所有数字中最小的一个。例如输入数组{3,32,321}，则打印出这三个数字能排成的最小数字为321323
-解题思路
-对于任意两个数字m，n，有两种组合方式mn和nm，我们可以通过判断mn和nm的大小来判断出数字n和数字m的一个排列的优先规则：
-
-如果mn &gt; nm，则n优先于m
-如果mn &lt; nm，......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Andfans on
-            2017-07-22
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#算法题" title="算法题">算法题</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2017/07/21/Activity浅析/">
-        <h2 class="post-title">
-            Activity浅析
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            Activity的生命周期
-在正式介绍Activity的生命周期之前，先来说一下Activity的几个常见状态：
-
-Active/Running：活动状态，此时Activity位于任务栈的栈顶，可见而且可交互，一般在onResume方法执行完毕后会到达此状态
-Paused：暂停状态，此时Activity仍然处于可见状态，但是不能与用户进行交互，一般在onPause方法执行完毕后会到达此状态，......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Andfans on
-            2017-07-21
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Activity" title="Activity">Activity</a>
-            
-              <a href="/tags/#Android" title="Android">Android</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -604,7 +603,11 @@ Paused：暂停状态，此时Activity仍然处于可见状态，但是不能与
             
         
             
-            <a href="/tags/#算法题" title="算法题" rel="45">算法题</a>
+            <a href="/tags/#算法题" title="算法题" rel="47">算法题</a>
+            
+        
+            
+        
             
         
             
@@ -615,10 +618,6 @@ Paused：暂停状态，此时Activity仍然处于可见状态，但是不能与
         
             
             <a href="/tags/#Java" title="Java" rel="6">Java</a>
-            
-        
-            
-        
             
         
             
@@ -699,6 +698,14 @@ Paused：暂停状态，此时Activity仍然处于可见状态，但是不能与
     <ul>
       
         <li>
+          <a href="/2017/08/10/Algorithm-47/">Algorithm_47</a>
+        </li>
+      
+        <li>
+          <a href="/2017/08/10/Algorithm-46/">Algorithm_46</a>
+        </li>
+      
+        <li>
           <a href="/2017/08/08/WebView内存泄漏之惑/">WebView内存泄漏之惑</a>
         </li>
       
@@ -710,14 +717,6 @@ Paused：暂停状态，此时Activity仍然处于可见状态，但是不能与
           <a href="/2017/08/07/Algorithm-44/">Algorithm_44</a>
         </li>
       
-        <li>
-          <a href="/2017/08/06/谢希仁版计算机网络读书笔记第二章/">谢希仁版计算机网络读书笔记第二章</a>
-        </li>
-      
-        <li>
-          <a href="/2017/08/06/谢希仁版计算机网络读书笔记/">谢希仁版计算机网络读书笔记第一章</a>
-        </li>
-      
     </ul>
   </div>
 
@@ -726,7 +725,7 @@ Paused：暂停状态，此时Activity仍然处于可见状态，但是不能与
         
     <h5>ARCHIVES</h5>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">15</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">42</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">7</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">17</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">42</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">7</span></li></ul>
     </div>
 
         <hr>

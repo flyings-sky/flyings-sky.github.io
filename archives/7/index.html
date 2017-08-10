@@ -136,14 +136,14 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -210,6 +210,73 @@
             
                 <!-- Main Content -->
 
+
+<div class="post-preview">
+
+    <a href="/2017/06/22/JAVA虚拟机之Full-GC/">
+        <h2 class="post-title">
+            JAVA虚拟机之Full GC
+        </h2>
+        <h3 class="post-subtitle">
+            Full GC的触发条件以及减少Full GC的方法
+        </h3>
+        <div class="post-content-preview">
+            1.System.gc()方法的调用
+这个方法会建议虚拟机做一些工作来努力回收没有用的对象，以便能够快速的重用这些对象当前占用的内存。当控制权从方法调用中返回时，虚拟机已经尽最大努力从所有没有用的对象中回收了空间。因此，可以简单地认为，System.gc()方法的调用会建议虚拟机调用一次Full GC，从而增加Full GC的频率，也增加了间歇性停顿的次数。
+减少这种Full GC发生的方法......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Andfans on
+            2017-06-22
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Java" title="Java">Java</a>
+            
+              <a href="/tags/#Jvm" title="Jvm">Jvm</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2017/06/19/JAVA虚拟机之垃圾回收机制与内存分配策略/">
+        <h2 class="post-title">
+            JAVA虚拟机之垃圾回收机制与内存分配策略
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            对象已死吗？
+引用计数法
+算法思想:给对象添加一个引用计数器，每当有一个地方引用它时，计数器值就加1；当引用失效时，计数器值就减1；任何时刻计数器为0的对象就是不可能被再使用的对象。
+这个算法虽然实现简单，判定效率也很高，但是它很难解决对象之间循环引用的问题，所以目前主流的Java虚拟机里面并未采用这种算法来管理内存。
+可达性分析算法
+算法思想:通过一系列的称为“GC Roots”的对象作为......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Andfans on
+            2017-06-19
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Java" title="Java">Java</a>
+            
+              <a href="/tags/#Jvm" title="Jvm">Jvm</a>
+            
+        </div>
+    
+
+</div>
+<hr>
 
 <div class="post-preview">
 
@@ -493,69 +560,6 @@ Java中的clone()方法
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2017/05/19/加速Android项目构建/">
-        <h2 class="post-title">
-            加速Android项目构建
-        </h2>
-        <h3 class="post-subtitle">
-            Gradle编译速度优化
-        </h3>
-        <div class="post-content-preview">
-            开启Gradle单独的守护进程
-只优化单个项目
-修改项目下的gradle.properties文件:
-12345678910111213141516171819202122# Project-wide Gradle settings.# IDE (e.g. Android Studio) users:# Settings specified in this file will overrid......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Andfans on
-            2017-05-19
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Android" title="Android">Android</a>
-            
-              <a href="/tags/#Gradle" title="Gradle">Gradle</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2017/05/19/my-first-blog/">
-        <h2 class="post-title">
-            开篇
-        </h2>
-        <h3 class="post-subtitle">
-            新博客搭建完成的第一篇文章
-        </h3>
-        <div class="post-content-preview">
-            经过大半天的折腾，新博客终于搭建的差不多了。瞬间感觉动力满满，希望能尽快把博客搬迁过来，否则显得空荡荡的，最近有项目要赶，可能博客更新有限。
-时间宝贵，这篇博客就到这吧，等有时间再扯闲篇。
-...
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Andfans on
-            2017-05-19
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#随笔" title="随笔">随笔</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -566,6 +570,10 @@ Java中的clone()方法
             <a href="/archives/6/">&larr; Newer Posts</a>
         </li>
     
+    
+        <li class="next">
+            <a href="/archives/8/">Older Posts &rarr;</a>
+        </li>
     
 </ul>
 
@@ -598,7 +606,11 @@ Java中的clone()方法
             
         
             
-            <a href="/tags/#算法题" title="算法题" rel="45">算法题</a>
+            <a href="/tags/#算法题" title="算法题" rel="47">算法题</a>
+            
+        
+            
+        
             
         
             
@@ -609,10 +621,6 @@ Java中的clone()方法
         
             
             <a href="/tags/#Java" title="Java" rel="6">Java</a>
-            
-        
-            
-        
             
         
             
@@ -693,6 +701,14 @@ Java中的clone()方法
     <ul>
       
         <li>
+          <a href="/2017/08/10/Algorithm-47/">Algorithm_47</a>
+        </li>
+      
+        <li>
+          <a href="/2017/08/10/Algorithm-46/">Algorithm_46</a>
+        </li>
+      
+        <li>
           <a href="/2017/08/08/WebView内存泄漏之惑/">WebView内存泄漏之惑</a>
         </li>
       
@@ -704,14 +720,6 @@ Java中的clone()方法
           <a href="/2017/08/07/Algorithm-44/">Algorithm_44</a>
         </li>
       
-        <li>
-          <a href="/2017/08/06/谢希仁版计算机网络读书笔记第二章/">谢希仁版计算机网络读书笔记第二章</a>
-        </li>
-      
-        <li>
-          <a href="/2017/08/06/谢希仁版计算机网络读书笔记/">谢希仁版计算机网络读书笔记第一章</a>
-        </li>
-      
     </ul>
   </div>
 
@@ -720,7 +728,7 @@ Java中的clone()方法
         
     <h5>ARCHIVES</h5>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">15</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">42</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">7</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">17</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">42</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">7</span></li></ul>
     </div>
 
         <hr>

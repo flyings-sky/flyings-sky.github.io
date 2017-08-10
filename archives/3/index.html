@@ -136,14 +136,14 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -210,6 +210,75 @@
             
                 <!-- Main Content -->
 
+
+<div class="post-preview">
+
+    <a href="/2017/07/30/Algorithm-34/">
+        <h2 class="post-title">
+            Algorithm_34
+        </h2>
+        <h3 class="post-subtitle">
+            判断数组中的数字是否连续，0可以当做任意值
+        </h3>
+        <div class="post-content-preview">
+            题目描述
+从扑克牌中随机抽5张牌，判断是不是一个顺子，即这5张牌是不连续的。2~10为数字本身，A为1，J为11，Q为12，K为13，而大小王可以看做任意数字，但是在数组中用0表示。
+解题思路
+
+先将数组排序
+统计数组中0出现的个数count
+使用temp来记录总的间隔大小，判断数组中相邻两个数的间隔是否小于count，是的话更新temp，不是的话返回false
+判断temp与count的关......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Andfans on
+            2017-07-30
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#算法题" title="算法题">算法题</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2017/07/30/Algorithm-33/">
+        <h2 class="post-title">
+            Algorithm_33
+        </h2>
+        <h3 class="post-subtitle">
+            非排序数组中和为S的两个数字的下标
+        </h3>
+        <div class="post-content-preview">
+            题目描述
+给定一个整数数组，返回两个数字的索引，使他们相加的和等于S。注：对于每一个输入的数组只有一个解。
+解题思路
+使用一个HashMap来作为辅助存储，key为数组中的值，value为该值的下标
+
+遍历这个数组，对于每个元素，判断target-数组值是否是HashMap的键，如果是则表示这两个数字已经找到，退出循环
+如果在HashMap中不存在target-数组值的键，则将这个数组值和它......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Andfans on
+            2017-07-30
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#算法题" title="算法题">算法题</a>
+            
+        </div>
+    
+
+</div>
+<hr>
 
 <div class="post-preview">
 
@@ -483,73 +552,6 @@ ViewRoot对应于ViewRootImpl类，它是连接WindowManager和DecorView的纽�
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2017/07/26/View笔记/">
-        <h2 class="post-title">
-            View的事件体系
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            View基础知识
-什么是View?
-View是Android中所有控件的基类，View是一种界面层的控件的一种抽象，它代表了一个控件(View)，或者一个控件组(ViewGroup)。
-View的位置参数
-View的位置由它的四个顶点来决定，分别对应于View的四个属性：top(左上角纵坐标)、left(左上角横坐标)、right(右下角横坐标)、bottom(右下角纵坐标).这些坐标是相对......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Andfans on
-            2017-07-26
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Android" title="Android">Android</a>
-            
-              <a href="/tags/#View" title="View">View</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2017/07/26/Algorithm-25/">
-        <h2 class="post-title">
-            Algorithm_25
-        </h2>
-        <h3 class="post-subtitle">
-            二叉树的深度
-        </h3>
-        <div class="post-content-preview">
-            题目描述
-输入一棵二叉树，求该树的深度，从根节点到叶节点依次经过的结点(含根、叶节点)形成树的一条路径，最长路径的长度为树的深度。
-解题思路
-借助递归的思想，整个树的深度，其实就等于max(左子树深度,右子树深度)+1。
-实现代码
-12345678910111213141516171819202122/**public class TreeNode &#123;    int val = 0......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Andfans on
-            2017-07-26
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#算法题" title="算法题">算法题</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -596,7 +598,11 @@ View的位置由它的四个顶点来决定，分别对应于View的四个属性
             
         
             
-            <a href="/tags/#算法题" title="算法题" rel="45">算法题</a>
+            <a href="/tags/#算法题" title="算法题" rel="47">算法题</a>
+            
+        
+            
+        
             
         
             
@@ -607,10 +613,6 @@ View的位置由它的四个顶点来决定，分别对应于View的四个属性
         
             
             <a href="/tags/#Java" title="Java" rel="6">Java</a>
-            
-        
-            
-        
             
         
             
@@ -691,6 +693,14 @@ View的位置由它的四个顶点来决定，分别对应于View的四个属性
     <ul>
       
         <li>
+          <a href="/2017/08/10/Algorithm-47/">Algorithm_47</a>
+        </li>
+      
+        <li>
+          <a href="/2017/08/10/Algorithm-46/">Algorithm_46</a>
+        </li>
+      
+        <li>
           <a href="/2017/08/08/WebView内存泄漏之惑/">WebView内存泄漏之惑</a>
         </li>
       
@@ -702,14 +712,6 @@ View的位置由它的四个顶点来决定，分别对应于View的四个属性
           <a href="/2017/08/07/Algorithm-44/">Algorithm_44</a>
         </li>
       
-        <li>
-          <a href="/2017/08/06/谢希仁版计算机网络读书笔记第二章/">谢希仁版计算机网络读书笔记第二章</a>
-        </li>
-      
-        <li>
-          <a href="/2017/08/06/谢希仁版计算机网络读书笔记/">谢希仁版计算机网络读书笔记第一章</a>
-        </li>
-      
     </ul>
   </div>
 
@@ -718,7 +720,7 @@ View的位置由它的四个顶点来决定，分别对应于View的四个属性
         
     <h5>ARCHIVES</h5>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">15</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">42</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">7</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">17</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">42</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">7</span></li></ul>
     </div>
 
         <hr>
