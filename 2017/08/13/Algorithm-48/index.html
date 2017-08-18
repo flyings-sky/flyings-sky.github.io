@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          Intellij idea快速查看Java类字节码 - Andfans
+          Algorithm_48 - Andfans
         
     </title>
 
-    <link rel="canonical" href="http://andfanswzp.pw/2017/05/29/Intellij-idea快速查看Java类字节码/">
+    <link rel="canonical" href="http://andfanswzp.pw/2017/08/13/Algorithm-48/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -90,16 +90,14 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#Java" title="Java">Java</a>
-                            
-                              <a class="tag" href="/tags/#Tools" title="Tools">Tools</a>
+                              <a class="tag" href="/tags/#算法题" title="算法题">算法题</a>
                             
                         </div>
-                        <h1>Intellij idea快速查看Java类字节码</h1>
-                        <h2 class="subheading"></h2>
+                        <h1>Algorithm_48</h1>
+                        <h2 class="subheading">彩色砖块</h2>
                         <span class="meta">
                             Posted by Andfans on
-                            2017-05-29
+                            2017-08-13
                         </span>
                     </div>
                 
@@ -216,25 +214,29 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h2 id="前言">前言</h2>
-<p>最近在研究String类在堆中的对象和常量池中的对象的联系，然而在网上没有找到可以详细显示程序运行时内存变化状况的工具，所以就决定将代码反编译，从微观字节码角度来探索Java中的String对象的内存分配的详细情况，每次在cmd使用反编译命令javap来得到字节码，过程太过繁琐，于是就到网上找到了直接在Intellij idea中查看字节码的方法。</p>
-<h2 id="实现方式">实现方式</h2>
-<p>在idea内直接执行javap，将内容打印在idea的Console中。</p>
-<h2 id="实现方式">实现方式</h2>
-<p>1.打开File-Settings</p>
-<p><img src="http://ghost-blog.b0.upaiyun.com/image/9/2e/33bd6ca7fd4dc4da6a420a78f6fa7.jpg" alt="pic1"></p>
-<p>2.打开Tools-External Tools，右侧点击绿色的&quot;+&quot;号</p>
-<p><img src="http://ghost-blog.b0.upaiyun.com/image/4/75/0b13d82d4665425a8654314887e24.png" alt="pic2"></p>
-<p>3.添加规则如下</p>
-<p><img src="http://ghost-blog.b0.upaiyun.com/image/c/8c/63b58920dc5923ce68a2bf510e0c7.png" alt="pic3"></p>
-<p>4.代码处右键，即可找到添加的功能</p>
-<p><img src="http://ghost-blog.b0.upaiyun.com/image/7/c1/4e96cd4e3c89c3e4776d86951345e.png" alt="pic4"></p>
-<p>5.效果如下</p>
-<p><img src="http://oqnfoupsj.bkt.clouddn.com/17-5-29/51837374.jpg" alt="pic5"></p>
-<h2 id="注意">注意</h2>
-<p>每次代码修改完之后，如果立即使用步骤4的操作，得到的字节码还是修改之前的文件生成的字节码，因为反编译是对.class文件进行的，修改完之后并没有重新生成.class文件，所以如果想得到修改后文件的字节码，需要在使用步骤4之前，先运行一遍修改过的代码。</p>
-<h2 id="参考">参考</h2>
-<p><a href="http://allan.li/intellij-ideakuai-su-cha-kan-javalei-zi-jie-ma/" target="_blank" rel="external">Intellij idea快速查看Java类字节码</a></p>
+                <h2 id="题目描述">题目描述</h2>
+<p>小易有一些彩色的砖块。每种颜色由一个大写字母表示。各个颜色砖块看起来都完全一样。现在有一个给定的字符串s,s中每个字符代表小易的某个砖块的颜色。小易想把他所有的砖块排成一行。如果最多存在一对不同颜色的相邻砖块,那么这行砖块就很漂亮的。请你帮助小易计算有多少种方式将他所有砖块排成漂亮的一行。(如果两种方式所对应的砖块颜色序列是相同的,那么认为这两种方式是一样的。)<br>
+例如: s = “ABAB”,那么小易有六种排列的结果:<br>
+“AABB”,“ABAB”,“ABBA”,“BAAB”,“BABA”,&quot;BBAA&quot;<br>
+其中只有&quot;AABB&quot;和&quot;BBAA&quot;满足最多只有一对不同颜色的相邻砖块。<br>
+输入描述:<br>
+输入包括一个字符串s,字符串s的长度length(1 ≤ length ≤ 50),s中的每一个字符都为一个大写字母(A到Z)。</p>
+<p>输出描述:<br>
+输出一个整数,表示小易可以有多少种方式。</p>
+<p>输入例子1:<br>
+ABAB</p>
+<p>输出例子1:<br>
+2</p>
+<h2 id="解题思路">解题思路</h2>
+<p>这个题目简单来说就是要求出一个输入字符序列中最多出现一对相邻两个字母不同的排列的数量。</p>
+<p>因此解法就很简单了，使用一个List来存储遇到的不同的字符，然后统计出现的不同字符的数量count，</p>
+<ul>
+<li>如果count &gt;= 3，则不可能出现只有一对相邻两个字母不同的情况；</li>
+<li>如果count == 2，则就像例子中说的，只可能有两种</li>
+<li>如果count == 1，则只出现了一种字符，因此只有一种情况</li>
+</ul>
+<h2 id="实现代码">实现代码</h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.Scanner;</div><div class="line"><span class="keyword">import</span> java.util.ArrayList;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span></span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span></span>&#123;</div><div class="line">        Scanner in  = <span class="keyword">new</span> Scanner(System.in);</div><div class="line">        String s = in.nextLine();</div><div class="line">        <span class="keyword">int</span> len = s.length();</div><div class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</div><div class="line">        ArrayList&lt;Character&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; len;i++)&#123;</div><div class="line">            <span class="comment">//统计在字符串中出现的不同字母的个数</span></div><div class="line">            <span class="keyword">if</span> (!list.contains(s.charAt(i)))&#123;</div><div class="line">                list.add(s.charAt(i));</div><div class="line">                count++;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (count &gt;= <span class="number">3</span>)&#123;</div><div class="line">            System.out.println(<span class="number">0</span>);</div><div class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (count == <span class="number">2</span>)&#123;</div><div class="line">            System.out.println(<span class="number">2</span>);</div><div class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(count == <span class="number">1</span>)&#123;</div><div class="line">            System.out.println(<span class="number">1</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
                 
 
@@ -243,12 +245,12 @@
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/2017/06/07/生词本/" data-toggle="tooltip" data-placement="top" title="生词本">&larr; Previous Post</a>
+                            <a href="/2017/08/13/Algorithm-49/" data-toggle="tooltip" data-placement="top" title="Algorithm_49">&larr; Previous Post</a>
                         </li>
                     
                     
                         <li class="next">
-                            <a href="/2017/05/27/探索Java中的深复制和浅复制/" data-toggle="tooltip" data-placement="top" title="图解Java中的深拷贝和浅拷贝">Next Post &rarr;</a>
+                            <a href="/2017/08/10/Algorithm-47/" data-toggle="tooltip" data-placement="top" title="Algorithm_47">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -278,7 +280,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#前言"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">前言</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#实现方式"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">实现方式</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#实现方式"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">实现方式</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#注意"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">注意</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#参考"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">参考</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#题目描述"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">题目描述</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#解题思路"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">解题思路</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#实现代码"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">实现代码</span></a></li></ol>
         
         </div>
       </aside>
@@ -298,9 +300,7 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#Java" title="Java">Java</a>
-                        
-                          <a class="tag" href="/tags/#Tools" title="Tools">Tools</a>
+                          <a class="tag" href="/tags/#算法题" title="算法题">算法题</a>
                         
                     </div>
                 </section>
@@ -329,8 +329,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "your-disqus-ID";
-    var disqus_identifier = "http://andfanswzp.pw/2017/05/29/Intellij-idea快速查看Java类字节码/";
-    var disqus_url = "http://andfanswzp.pw/2017/05/29/Intellij-idea快速查看Java类字节码/";
+    var disqus_identifier = "http://andfanswzp.pw/2017/08/13/Algorithm-48/";
+    var disqus_url = "http://andfanswzp.pw/2017/08/13/Algorithm-48/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

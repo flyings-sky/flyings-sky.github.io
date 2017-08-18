@@ -213,6 +213,75 @@
 
 <div class="post-preview">
 
+    <a href="/2017/07/23/IPC浅析/">
+        <h2 class="post-title">
+            IPC浅析
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            概述
+IPC：含义为进程间通信或者跨进程通信，是指两个进程之间进行数据交换的过程。
+Windows中常见的IPC方式：剪切板、管道和邮槽
+Linux中常见的IPC方式：命名管道、共享内容、信号量
+Android中常见的IPC方式：Binder、AIDL、Messenger、ContentProvider、Socket、Bundle、文件等
+IPC的使用场景
+
+为了加大一个应用可以使用的内存空......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Andfans on
+            2017-07-23
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Android" title="Android">Android</a>
+            
+              <a href="/tags/#IPC" title="IPC">IPC</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2017/07/23/Algorithm-20/">
+        <h2 class="post-title">
+            Algorithm_20
+        </h2>
+        <h3 class="post-subtitle">
+            丑数
+        </h3>
+        <div class="post-content-preview">
+            题目描述
+把只包含因子2、3和5的数称作是丑数，例如6、8是丑数，但14不是，因为它只包含因子7，习惯上我们把1当做是第一个丑数。求按从小到大顺序的第index个丑数。
+解题思路
+思路一
+一开始先来介绍一下因子的概念：所谓一个数是另一个数的因子，是指n能被m整除，也就是n%m==0，根据丑数的定义，丑数只能被2、3和5整除，也就是说如果一个数能被2整除时，就将它连续除以2，直到得到的数不能再......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Andfans on
+            2017-07-23
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#算法题" title="算法题">算法题</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
     <a href="/2017/07/22/Algorithm-19/">
         <h2 class="post-title">
             Algorithm_19
@@ -479,73 +548,6 @@ Paused：暂停状态，此时Activity仍然处于可见状态，但是不能与
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2017/07/16/Algorithm-12/">
-        <h2 class="post-title">
-            Algorithm_12
-        </h2>
-        <h3 class="post-subtitle">
-            求二叉树中和为某一值的所有路径
-        </h3>
-        <div class="post-content-preview">
-            题目描述
-输入一棵二叉树和一个整数，打印出二叉树中结点值的和为输入整数的所有路径。路径定义为从树的根节点开始往下一直到叶节点所经过的结点形成一条路径。
-题目考点
-二叉树的先序遍历
-解题思路
-根据路径的定义我们得知，我们是要求几条从根节点到叶子结点的路径，而路径中经过的所有节点的和要与给定的值相同。所以我们要找遍历时从根节点开始的遍历方式，所以应该选择先序遍历，而且我们需要使用一种数据结构来存......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Andfans on
-            2017-07-16
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#算法题" title="算法题">算法题</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2017/07/16/Algorithm-11/">
-        <h2 class="post-title">
-            Algorithm_11
-        </h2>
-        <h3 class="post-subtitle">
-            旋转数组最小值
-        </h3>
-        <div class="post-content-preview">
-            题目描述
-把一个数组中最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。输入一个非递减排序的数组的一个旋转，输出旋转数组的最小元素。(sp：给出的所有元素都大于0，若数组大小为0，则返回0)
-解题思路
-思路1
-因为数组一开始是有序的，则经过旋转之后，数组也是分段有序的，最小值则是两个有序子数组的分界线，所以可以参考二分查找算法的思想，
-
-用两个指针low，high分别指向数组的第一个元......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Andfans on
-            2017-07-16
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#算法题" title="算法题">算法题</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -592,11 +594,7 @@ Paused：暂停状态，此时Activity仍然处于可见状态，但是不能与
             
         
             
-            <a href="/tags/#算法题" title="算法题" rel="47">算法题</a>
-            
-        
-            
-        
+            <a href="/tags/#算法题" title="算法题" rel="49">算法题</a>
             
         
             
@@ -605,6 +603,10 @@ Paused：暂停状态，此时Activity仍然处于可见状态，但是不能与
         
             
             <a href="/tags/#Java" title="Java" rel="6">Java</a>
+            
+        
+            
+        
             
         
             
@@ -687,6 +689,14 @@ Paused：暂停状态，此时Activity仍然处于可见状态，但是不能与
     <ul>
       
         <li>
+          <a href="/2017/08/13/Algorithm-49/">Algorithm_49</a>
+        </li>
+      
+        <li>
+          <a href="/2017/08/13/Algorithm-48/">Algorithm_48</a>
+        </li>
+      
+        <li>
           <a href="/2017/08/10/Algorithm-47/">Algorithm_47</a>
         </li>
       
@@ -698,14 +708,6 @@ Paused：暂停状态，此时Activity仍然处于可见状态，但是不能与
           <a href="/2017/08/08/WebView内存泄漏之惑/">WebView内存泄漏之惑</a>
         </li>
       
-        <li>
-          <a href="/2017/08/07/Algorithm-45/">Algorithm_45</a>
-        </li>
-      
-        <li>
-          <a href="/2017/08/07/Algorithm-44/">Algorithm_44</a>
-        </li>
-      
     </ul>
   </div>
 
@@ -714,7 +716,7 @@ Paused：暂停状态，此时Activity仍然处于可见状态，但是不能与
         
     <h5>ARCHIVES</h5>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">17</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">42</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">7</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">19</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">42</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">7</span></li></ul>
     </div>
 
         <hr>

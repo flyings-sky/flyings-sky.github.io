@@ -213,6 +213,73 @@
 
 <div class="post-preview">
 
+    <a href="/2017/07/16/Algorithm-12/">
+        <h2 class="post-title">
+            Algorithm_12
+        </h2>
+        <h3 class="post-subtitle">
+            求二叉树中和为某一值的所有路径
+        </h3>
+        <div class="post-content-preview">
+            题目描述
+输入一棵二叉树和一个整数，打印出二叉树中结点值的和为输入整数的所有路径。路径定义为从树的根节点开始往下一直到叶节点所经过的结点形成一条路径。
+题目考点
+二叉树的先序遍历
+解题思路
+根据路径的定义我们得知，我们是要求几条从根节点到叶子结点的路径，而路径中经过的所有节点的和要与给定的值相同。所以我们要找遍历时从根节点开始的遍历方式，所以应该选择先序遍历，而且我们需要使用一种数据结构来存......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Andfans on
+            2017-07-16
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#算法题" title="算法题">算法题</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2017/07/16/Algorithm-11/">
+        <h2 class="post-title">
+            Algorithm_11
+        </h2>
+        <h3 class="post-subtitle">
+            旋转数组最小值
+        </h3>
+        <div class="post-content-preview">
+            题目描述
+把一个数组中最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。输入一个非递减排序的数组的一个旋转，输出旋转数组的最小元素。(sp：给出的所有元素都大于0，若数组大小为0，则返回0)
+解题思路
+思路1
+因为数组一开始是有序的，则经过旋转之后，数组也是分段有序的，最小值则是两个有序子数组的分界线，所以可以参考二分查找算法的思想，
+
+用两个指针low，high分别指向数组的第一个元......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Andfans on
+            2017-07-16
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#算法题" title="算法题">算法题</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
     <a href="/2017/07/15/Algorithm-10/">
         <h2 class="post-title">
             Algorithm_10
@@ -490,91 +557,6 @@ i &lt;= j &lt; n
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2017/07/12/Algorithm-2/">
-        <h2 class="post-title">
-            Algorithm_2
-        </h2>
-        <h3 class="post-subtitle">
-            链表逆置
-        </h3>
-        <div class="post-content-preview">
-            题目描述
-输入一个单链表，得到该单链表的反转链表。
-题目考点
-链表的基本操作
-解题思路
-使用四个引用(即指针)pNode、pPre、pNext、pNewHead，其中pNode用于遍历原链表，pPre用于记录前驱结点，pNext用于记录后继结点，pNewHead用来表示反转之后新链表的头。
-重点代码解释
-123456789101112131415//循环遍历单链表while(pNode !=......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Andfans on
-            2017-07-12
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#算法题" title="算法题">算法题</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2017/06/23/JAVA虚拟机之性能监控与故障处理工具/">
-        <h2 class="post-title">
-            JAVA虚拟机之性能监控与故障处理工具
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            JDK命令行工具
-Sun JDK监控和故障处理工具
-
-
-
-名称
-主要作用
-
-
-
-
-jps
-JVM Process Status Tool，显示指定系统内所有的HotSpot虚拟机进程
-
-
-jstat
-JVM Statistics Monitoring Tool，用于收集HotSpot虚拟机各方面的运行数据
-
-
-jinfo
-Configuration Info for Java，显示虚拟机配置......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Andfans on
-            2017-06-23
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Java" title="Java">Java</a>
-            
-              <a href="/tags/#Jvm" title="Jvm">Jvm</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -621,11 +603,7 @@ Configuration Info for Java，显示虚拟机配置......
             
         
             
-            <a href="/tags/#算法题" title="算法题" rel="47">算法题</a>
-            
-        
-            
-        
+            <a href="/tags/#算法题" title="算法题" rel="49">算法题</a>
             
         
             
@@ -634,6 +612,10 @@ Configuration Info for Java，显示虚拟机配置......
         
             
             <a href="/tags/#Java" title="Java" rel="6">Java</a>
+            
+        
+            
+        
             
         
             
@@ -716,6 +698,14 @@ Configuration Info for Java，显示虚拟机配置......
     <ul>
       
         <li>
+          <a href="/2017/08/13/Algorithm-49/">Algorithm_49</a>
+        </li>
+      
+        <li>
+          <a href="/2017/08/13/Algorithm-48/">Algorithm_48</a>
+        </li>
+      
+        <li>
           <a href="/2017/08/10/Algorithm-47/">Algorithm_47</a>
         </li>
       
@@ -727,14 +717,6 @@ Configuration Info for Java，显示虚拟机配置......
           <a href="/2017/08/08/WebView内存泄漏之惑/">WebView内存泄漏之惑</a>
         </li>
       
-        <li>
-          <a href="/2017/08/07/Algorithm-45/">Algorithm_45</a>
-        </li>
-      
-        <li>
-          <a href="/2017/08/07/Algorithm-44/">Algorithm_44</a>
-        </li>
-      
     </ul>
   </div>
 
@@ -743,7 +725,7 @@ Configuration Info for Java，显示虚拟机配置......
         
     <h5>ARCHIVES</h5>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">17</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">42</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">7</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">19</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">42</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">7</span></li></ul>
     </div>
 
         <hr>

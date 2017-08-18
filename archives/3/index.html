@@ -213,6 +213,75 @@
 
 <div class="post-preview">
 
+    <a href="/2017/07/31/Algorithm-36/">
+        <h2 class="post-title">
+            Algorithm_36
+        </h2>
+        <h3 class="post-subtitle">
+            求1+2+3+...+n
+        </h3>
+        <div class="post-content-preview">
+            题目描述
+求1+2+3…+n，要求不能使用乘除法、for、while、if、else、switch、case等关键字及条件判断语句(A?B:C)
+解题思路
+解法1：利用构造函数求解
+我们先定义一个类，接着创建n个该类型的实例，那么这个类型的构造函数将确定会被调用n次。我们可以将累加的代码逻辑放到构造函数里
+解法2：利用虚函数求解
+既然不能在一个函数中判断是不是应该终止递归，那我们不妨定义两个......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Andfans on
+            2017-07-31
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#算法题" title="算法题">算法题</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2017/07/31/Algorithm-35/">
+        <h2 class="post-title">
+            Algorithm_35
+        </h2>
+        <h3 class="post-subtitle">
+            圆圈中剩下的数字
+        </h3>
+        <div class="post-content-preview">
+            题目描述
+0,1,…,n-1这n个数字排成一个圆圈，从数字0开始每次从这个圆圈里删除第m个数字。求出这个圆圈里剩下的最后一个数字。
+解题思路
+思路1：
+
+使用一个ArrayList来建立一个index(下标)到每个数字的映射
+使用一个临时变量t来记录当前计数数字的下标值，当t = n-1时，将t重置为-1
+使用count来统计计数的数值，当count等于m时，从ArrayList中删除下标为......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Andfans on
+            2017-07-31
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#算法题" title="算法题">算法题</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
     <a href="/2017/07/30/Algorithm-34/">
         <h2 class="post-title">
             Algorithm_34
@@ -481,77 +550,6 @@ ViewRoot对应于ViewRootImpl类，它是连接WindowManager和DecorView的纽�
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2017/07/27/Algorithm-27/">
-        <h2 class="post-title">
-            Algorithm_27
-        </h2>
-        <h3 class="post-subtitle">
-            二叉搜索树的插入
-        </h3>
-        <div class="post-content-preview">
-            题目描述
-给定一棵二叉排序树，将给定的值正确插入到该树中。
-解题思路
-二叉排序树的特点是左子树的值比都比根小，右子树的值都比根大，借助这个特点，可以利用折半查找的思想，每次比较根节点的值与给定的值的大小关系：
-
-如果要插入的值大于根节点的值，就去右子树继续查找
-如果要插入的值小于根节点的值，就去左子树继续查找
-直到找到一个结点为null，就将该值插入到这个地方
-
-实现代码
-123456789......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Andfans on
-            2017-07-27
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#算法题" title="算法题">算法题</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2017/07/27/Algorithm-26/">
-        <h2 class="post-title">
-            Algorithm_26
-        </h2>
-        <h3 class="post-subtitle">
-            判断平衡二叉树
-        </h3>
-        <div class="post-content-preview">
-            题目描述
-输入一棵二叉树的根节点，判断该树是不是平衡二叉树。如果某二叉树中任意结点的左右子树的深度相差不超过1，那么它就是一棵平衡二叉树。
-解题思路
-采用后序遍历的方式遍历二叉树的每一个节点，在遍历到每个结点之前就已经将它的左右结点遍历到了，只要在遍历每个节点时记录它的深度(某一节点的深度等于它到叶子结点的路径的长度)，我们就可以一边遍历一边判断每个结点是不是平衡的。
-
-设置一个全局的标志变......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Andfans on
-            2017-07-27
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#算法题" title="算法题">算法题</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -598,11 +596,7 @@ ViewRoot对应于ViewRootImpl类，它是连接WindowManager和DecorView的纽�
             
         
             
-            <a href="/tags/#算法题" title="算法题" rel="47">算法题</a>
-            
-        
-            
-        
+            <a href="/tags/#算法题" title="算法题" rel="49">算法题</a>
             
         
             
@@ -611,6 +605,10 @@ ViewRoot对应于ViewRootImpl类，它是连接WindowManager和DecorView的纽�
         
             
             <a href="/tags/#Java" title="Java" rel="6">Java</a>
+            
+        
+            
+        
             
         
             
@@ -693,6 +691,14 @@ ViewRoot对应于ViewRootImpl类，它是连接WindowManager和DecorView的纽�
     <ul>
       
         <li>
+          <a href="/2017/08/13/Algorithm-49/">Algorithm_49</a>
+        </li>
+      
+        <li>
+          <a href="/2017/08/13/Algorithm-48/">Algorithm_48</a>
+        </li>
+      
+        <li>
           <a href="/2017/08/10/Algorithm-47/">Algorithm_47</a>
         </li>
       
@@ -704,14 +710,6 @@ ViewRoot对应于ViewRootImpl类，它是连接WindowManager和DecorView的纽�
           <a href="/2017/08/08/WebView内存泄漏之惑/">WebView内存泄漏之惑</a>
         </li>
       
-        <li>
-          <a href="/2017/08/07/Algorithm-45/">Algorithm_45</a>
-        </li>
-      
-        <li>
-          <a href="/2017/08/07/Algorithm-44/">Algorithm_44</a>
-        </li>
-      
     </ul>
   </div>
 
@@ -720,7 +718,7 @@ ViewRoot对应于ViewRootImpl类，它是连接WindowManager和DecorView的纽�
         
     <h5>ARCHIVES</h5>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">17</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">42</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">7</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">19</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">42</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">7</span></li></ul>
     </div>
 
         <hr>
