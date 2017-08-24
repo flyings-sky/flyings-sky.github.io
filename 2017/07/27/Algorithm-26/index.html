@@ -14,7 +14,7 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          Algorithm_26 - Andfans
+          Algorithm_26(判断平衡二叉树) - Andfans
         
     </title>
 
@@ -93,8 +93,8 @@
                               <a class="tag" href="/tags/#算法题" title="算法题">算法题</a>
                             
                         </div>
-                        <h1>Algorithm_26</h1>
-                        <h2 class="subheading">判断平衡二叉树</h2>
+                        <h1>Algorithm_26(判断平衡二叉树)</h1>
+                        <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by Andfans on
                             2017-07-27
@@ -224,7 +224,8 @@
 <li>判断左右子树的深度差，如果大于1，将标志置为false</li>
 </ul>
 <h2 id="实现代码">实现代码</h2>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> isBalance = <span class="keyword">true</span>;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">IsBalanced_Solution</span><span class="params">(TreeNode root)</span> </span>&#123;</div><div class="line">       	isBalances(root);</div><div class="line">        <span class="keyword">return</span> isBalance;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">isBalances</span><span class="params">(TreeNode root)</span></span>&#123;</div><div class="line">        <span class="keyword">if</span>(root == <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">int</span> left = isBalances(root.left);</div><div class="line">        <span class="keyword">int</span> right = isBalances(root.right);</div><div class="line">        </div><div class="line">        <span class="keyword">if</span>(Math.abs(left-right) &gt; <span class="number">1</span>)&#123;</div><div class="line">            isBalance = <span class="keyword">false</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> (left &gt; right) ? left + <span class="number">1</span>:right + <span class="number">1</span>;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> isBalance = <span class="keyword">true</span>;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">IsBalanced_Solution</span><span class="params">(TreeNode root)</span> </span>&#123;</div><div class="line">       	isBalances(root);</div><div class="line">        <span class="keyword">return</span> isBalance;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">isBalances</span><span class="params">(TreeNode root)</span></span>&#123;</div><div class="line">        <span class="keyword">if</span>(root == <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">int</span> left = isBalances(root.left);</div><div class="line">        <span class="keyword">int</span> right = isBalances(root.right);</div><div class="line"></div><div class="line">        <span class="keyword">if</span>(Math.abs(left-right) &gt; <span class="number">1</span>)&#123;</div><div class="line">            isBalance = <span class="keyword">false</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">return</span> (left &gt; right) ? left + <span class="number">1</span>:right + <span class="number">1</span>;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+
                 
 
                 <hr>
@@ -232,7 +233,7 @@
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/2017/07/27/Algorithm-27/" data-toggle="tooltip" data-placement="top" title="Algorithm_27">&larr; Previous Post</a>
+                            <a href="/2017/07/27/Algorithm-27/" data-toggle="tooltip" data-placement="top" title="Algorithm_27(二叉搜索树的插入)">&larr; Previous Post</a>
                         </li>
                     
                     

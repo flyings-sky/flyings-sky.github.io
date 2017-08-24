@@ -14,7 +14,7 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          Algorithm_8 - Andfans
+          Algorithm_8(镜像二叉树) - Andfans
         
     </title>
 
@@ -93,8 +93,8 @@
                               <a class="tag" href="/tags/#算法题" title="算法题">算法题</a>
                             
                         </div>
-                        <h1>Algorithm_8</h1>
-                        <h2 class="subheading">镜像二叉树</h2>
+                        <h1>Algorithm_8(镜像二叉树)</h1>
+                        <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by Andfans on
                             2017-07-15
@@ -216,13 +216,14 @@
 
                 <h2 id="题目描述">题目描述</h2>
 <p>操作给定的二叉树，将其变换为源二叉树的镜像。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">二叉树的镜像定义：源二叉树 </div><div class="line">    	    8</div><div class="line">    	   /  \</div><div class="line">    	  6   10</div><div class="line">    	 / \  / \</div><div class="line">    	5  7 9 11</div><div class="line">    	镜像二叉树</div><div class="line">    	    8</div><div class="line">    	   /  \</div><div class="line">    	  10   6</div><div class="line">    	 / \  / \</div><div class="line">    	11 9 7  5</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">二叉树的镜像定义：源二叉树</div><div class="line">    	    8</div><div class="line">    	   /  \</div><div class="line">    	  6   10</div><div class="line">    	 / \  / \</div><div class="line">    	5  7 9 11</div><div class="line">    	镜像二叉树</div><div class="line">    	    8</div><div class="line">    	   /  \</div><div class="line">    	  10   6</div><div class="line">    	 / \  / \</div><div class="line">    	11 9 7  5</div></pre></td></tr></table></figure>
 <h2 id="题目考点">题目考点</h2>
 <p>二叉树的遍历</p>
 <h2 id="解题思路">解题思路</h2>
 <p>层次遍历该二叉树的每个非叶子结点，并且交换这些节点的左右子树。</p>
 <h2 id="实现代码">实现代码</h2>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">public class TreeNode &#123;</div><div class="line">    int val = 0;</div><div class="line">    TreeNode left = null;</div><div class="line">    TreeNode right = null;</div><div class="line"></div><div class="line">    public TreeNode(int val) &#123;</div><div class="line">        this.val = val;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line">*/</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Mirror</span><span class="params">(TreeNode root)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(root == <span class="keyword">null</span>||(root.left ==<span class="keyword">null</span> &amp;&amp; root.right == <span class="keyword">null</span>))&#123;</div><div class="line">            <span class="keyword">return</span> ;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        TreeNode temp = root.left;</div><div class="line">        root.left = root.right;</div><div class="line">        root.right = temp;</div><div class="line">        <span class="keyword">if</span>(root.left != <span class="keyword">null</span>)&#123;</div><div class="line">            Mirror(root.left);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(root.right != <span class="keyword">null</span>)&#123;</div><div class="line">            Mirror(root.right);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">public class TreeNode &#123;</div><div class="line">    int val = 0;</div><div class="line">    TreeNode left = null;</div><div class="line">    TreeNode right = null;</div><div class="line"></div><div class="line">    public TreeNode(int val) &#123;</div><div class="line">        this.val = val;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line">*/</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Mirror</span><span class="params">(TreeNode root)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(root == <span class="keyword">null</span>||(root.left ==<span class="keyword">null</span> &amp;&amp; root.right == <span class="keyword">null</span>))&#123;</div><div class="line">            <span class="keyword">return</span> ;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        TreeNode temp = root.left;</div><div class="line">        root.left = root.right;</div><div class="line">        root.right = temp;</div><div class="line">        <span class="keyword">if</span>(root.left != <span class="keyword">null</span>)&#123;</div><div class="line">            Mirror(root.left);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(root.right != <span class="keyword">null</span>)&#123;</div><div class="line">            Mirror(root.right);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
                 
 
                 <hr>
@@ -230,12 +231,12 @@
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/2017/07/15/Algorithm-9/" data-toggle="tooltip" data-placement="top" title="Algorithm_9">&larr; Previous Post</a>
+                            <a href="/2017/07/15/Algorithm-9/" data-toggle="tooltip" data-placement="top" title="Algorithm_9(层次遍历二叉树)">&larr; Previous Post</a>
                         </li>
                     
                     
                         <li class="next">
-                            <a href="/2017/07/15/Algorithm-7/" data-toggle="tooltip" data-placement="top" title="Algorithm_7">Next Post &rarr;</a>
+                            <a href="/2017/07/15/Algorithm-7/" data-toggle="tooltip" data-placement="top" title="Algorithm_7(树的子结构)">Next Post &rarr;</a>
                         </li>
                     
                 </ul>

@@ -14,7 +14,7 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          Algorithm_29 - Andfans
+          Algorithm_29(和为S的连续正数序列) - Andfans
         
     </title>
 
@@ -93,8 +93,8 @@
                               <a class="tag" href="/tags/#算法题" title="算法题">算法题</a>
                             
                         </div>
-                        <h1>Algorithm_29</h1>
-                        <h2 class="subheading">和为S的连续正数序列</h2>
+                        <h1>Algorithm_29(和为S的连续正数序列)</h1>
+                        <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by Andfans on
                             2017-07-28
@@ -227,6 +227,7 @@
 </ul>
 <h2 id="实现代码">实现代码</h2>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.ArrayList;</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="keyword">public</span> ArrayList&lt;ArrayList&lt;Integer&gt;&gt; FindContinuousSequence(<span class="keyword">int</span> sum) &#123;</div><div class="line">        ArrayList&lt;ArrayList&lt;Integer&gt;&gt; result = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">        ArrayList&lt;Integer&gt; temp = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">       	<span class="keyword">int</span> left = <span class="number">1</span>,right = <span class="number">2</span>,end = (<span class="number">1</span>+sum)/<span class="number">2</span>;</div><div class="line">        <span class="keyword">int</span> count = left + right;</div><div class="line">        temp.add(left);</div><div class="line">        temp.add(right);</div><div class="line">        <span class="keyword">while</span>(left &lt;= end)&#123;</div><div class="line">            <span class="keyword">if</span>(count &gt; sum)&#123;</div><div class="line">                count -= left;</div><div class="line">                left++;</div><div class="line">                temp.remove(<span class="number">0</span>);</div><div class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(count &lt; sum)&#123;</div><div class="line">                right++;</div><div class="line">                count += right;</div><div class="line">                temp.add(right);</div><div class="line">            &#125;<span class="keyword">else</span> &#123;</div><div class="line">                count -= left;</div><div class="line">                left++;</div><div class="line">                result.add(<span class="keyword">new</span> ArrayList&lt;Integer&gt;(temp));</div><div class="line">				temp.remove(<span class="number">0</span>);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">         <span class="keyword">return</span> result;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
                 
 
                 <hr>
@@ -239,7 +240,7 @@
                     
                     
                         <li class="next">
-                            <a href="/2017/07/28/Algorithm-28/" data-toggle="tooltip" data-placement="top" title="Algorithm_28">Next Post &rarr;</a>
+                            <a href="/2017/07/28/Algorithm-28/" data-toggle="tooltip" data-placement="top" title="Algorithm_28(排序数组中和为S的两个数字)">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
