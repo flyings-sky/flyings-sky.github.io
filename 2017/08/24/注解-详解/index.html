@@ -146,14 +146,14 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -359,7 +359,7 @@
 <h3 id="butterknife的工作流程">ButterKnife的工作流程</h3>
 <p>在编译你的Android工程时，ButterKnife工程中ButterKnifeProcessor类的process()方法会执行以下的操作：</p>
 <ul>
-<li>1.开始它会扫描Java代码中的所有ButterKnife注解，然后生成以TypeElement为Key，BingingClass为value的Map;</li>
+<li>1.开始它会扫描Java代码中的所有ButterKnife注解，然后生成以TypeElement为Key，BindingClass为value的Map;</li>
 <li>2.遍历生成的Map，当发现其中含有任何一个ButterKnife支持的注解后，会通过Filer来生成对应辅助类的.java文件，这个辅助类是以$$ViewBinder为后缀的，并且实现了ViewBinder<t>接口(bind(包含了控件的实例化和设置点击事件等操作的代码)和unbind方法)</t></li>
 <li>3.最后当Activity启动，ButterKnife.bind(this)执行时，会根据类对应的Class类型去查找对应类的ViewBinder类是否存在于缓存(是使用LinkedHashMap来实现缓存的)中，如果不存在就通过反射创建该ViewBinder类的实例，并将其加入到LinkedHashMap中进行缓存，如果存在就直接从缓存中取出来，然后调用它的bind方法。</li>
 <li>4.在bind方法中，会进行控件实例化和设置点击事件等操作。</li>
@@ -371,6 +371,10 @@
                 <hr>
                 <!-- Pager -->
                 <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2017/09/15/Algorithm-50/" data-toggle="tooltip" data-placement="top" title="Algorithm_50(二维数组中的查找)">&larr; Previous Post</a>
+                        </li>
                     
                     
                         <li class="next">
