@@ -221,13 +221,13 @@
 <p>旋转之后，可以看成是两个排序的数组，用一个left指针来遍历第一个排序数组，用right指针来遍历第二个排序数组，则当right指针和left指针间距为1时，right指针指向的就是第二个排序数组的最小值，即整个数组的最小值。</p>
 <ul>
 <li>1.用left指针指向第一个数组的第一个元素，用right指针指向第二个数组的最后一个元素</li>
-<li>判断mid(mid = (right+left)/2)指针与left指针指向元素的大小关系
+<li>2.判断mid(mid = (right+left)/2)指针与left指针指向元素的大小关系
 <ul>
 <li>如果mid值大于等于left，则mid仍在第一个排序数组中，因此更新left的值为mid</li>
 <li>如果mid值小于left，则mid在第二个排序数组中，因此更新right的值为mid</li>
 </ul>
 </li>
-<li>持续更新left和right直到，left和right指针间距为1，输出right指针对应的值</li>
+<li>3.持续更新left和right直到，left和right指针间距为1，输出right指针对应的值</li>
 </ul>
 <h2 id="实现代码">实现代码</h2>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">minNumberInRotateArray</span><span class="params">(<span class="keyword">int</span> [] array)</span> </span>&#123;</div><div class="line">    	<span class="keyword">if</span>(array == <span class="keyword">null</span>||array.length == <span class="number">0</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">int</span> left = <span class="number">0</span>,right = array.length - <span class="number">1</span>;</div><div class="line">        <span class="keyword">while</span>(right - left &gt; <span class="number">1</span>)&#123;</div><div class="line">            <span class="keyword">int</span> mid = (right + left) / <span class="number">2</span>;</div><div class="line">            <span class="keyword">if</span>(array[mid] &gt;= array[left])&#123;</div><div class="line">                left = mid;</div><div class="line">            &#125;<span class="keyword">else</span> &#123;</div><div class="line">                right = mid;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> array[right];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
