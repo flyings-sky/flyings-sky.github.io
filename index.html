@@ -213,6 +213,37 @@
 
 <div class="post-preview">
 
+    <a href="/2017/09/18/Algorithm-56/">
+        <h2 class="post-title">
+            Algorithm_56
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            题目描述
+一只青蛙一次可以跳上1级台阶，也可以跳上2级。求该青蛙跳上一个n级的台阶总共有多少种跳法。
+解题思路
+我们将n级台阶的跳法看做f(n)，如果第一次跳一级的话，就剩下n-1级台阶的跳法，如果跳两级的话就剩下n-2级台阶的跳法，即n级台阶总的跳法f(n) = f(n-1) + f(n-2)，且当n = 1时，只有一种跳法，当n = 2时，存在两种跳法，因此该问题可以利用斐波那契数列模型......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Andfans on
+            2017-09-18
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#算法题" title="算法题">算法题</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
     <a href="/2017/09/18/Algorithm-55/">
         <h2 class="post-title">
             Algorithm_55(斐波那契数列)
@@ -515,43 +546,6 @@
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2017/08/10/Algorithm-47/">
-        <h2 class="post-title">
-            Algorithm_47(两个队列实现一个栈)
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            题目描述
-用两个队列实现一个栈
-解题思路
-先将两个队列定义为A、B
-
-入栈时，直接将数据入队列A或B
-出栈时，先判断队A、B是否全为空，然后再判断你入栈时入的那个队列（假设这里是A）是否为空，
-
-如果队列A不为空，则将队A中的元素出队，加到队列B中，直到队列A剩余一个元素时，将这个元素返回。
-如果队列A为空，则将队列B中的元素出队，加入到队列A中，直到队列B中只剩余一个元素时，将这个元素返回......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Andfans on
-            2017-08-10
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#算法题" title="算法题">算法题</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -594,7 +588,7 @@
             
         
             
-            <a href="/tags/#算法题" title="算法题" rel="55">算法题</a>
+            <a href="/tags/#算法题" title="算法题" rel="56">算法题</a>
             
         
             
@@ -689,6 +683,10 @@
     <ul>
       
         <li>
+          <a href="/2017/09/18/Algorithm-56/">Algorithm_56</a>
+        </li>
+      
+        <li>
           <a href="/2017/09/18/Algorithm-55/">Algorithm_55(斐波那契数列)</a>
         </li>
       
@@ -704,10 +702,6 @@
           <a href="/2017/09/16/Algorithm-52/">Algorithm_52(从尾到头打印链表)</a>
         </li>
       
-        <li>
-          <a href="/2017/09/16/Algorithm-51/">Algorithm_51(替换空格)</a>
-        </li>
-      
     </ul>
   </div>
 
@@ -716,7 +710,7 @@
         
     <h5>ARCHIVES</h5>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">20</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">42</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">7</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">20</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">42</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">7</span></li></ul>
     </div>
 
         <hr>
