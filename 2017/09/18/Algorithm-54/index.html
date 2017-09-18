@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          Algorithm_34(判断数组中的数字是否连续，0可以当做任意值) - Andfans
+          Algorithm_54(旋转数组的最小值) - Andfans
         
     </title>
 
-    <link rel="canonical" href="http://andfanswzp.pw/2017/07/30/Algorithm-34/">
+    <link rel="canonical" href="http://andfanswzp.pw/2017/09/18/Algorithm-54/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -93,11 +93,11 @@
                               <a class="tag" href="/tags/#算法题" title="算法题">算法题</a>
                             
                         </div>
-                        <h1>Algorithm_34(判断数组中的数字是否连续，0可以当做任意值)</h1>
+                        <h1>Algorithm_54(旋转数组的最小值)</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by Andfans on
-                            2017-07-30
+                            2017-09-18
                         </span>
                     </div>
                 
@@ -215,17 +215,22 @@
                 post-container">
 
                 <h2 id="题目描述">题目描述</h2>
-<p>从扑克牌中随机抽5张牌，判断是不是一个顺子，即这5张牌是不连续的。2~10为数字本身，A为1，J为11，Q为12，K为13，而大小王可以看做任意数字，但是在数组中用0表示。</p>
+<p>把一个数组最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。 输入一个非递减排序的数组的一个旋转，输出旋转数组的最小元素。 例如数组{3,4,5,1,2}为{1,2,3,4,5}的一个旋转，该数组的最小值为1。 NOTE：给出的所有元素都大于0，若数组大小为0，请返回0。</p>
 <h2 id="解题思路">解题思路</h2>
+<p>由于旋转之前是一个排好序的数组，因此，这里我们可以借助二分查找的思想去实现该算法。</p>
+<p>旋转之后，可以看成是两个排序的数组，用一个left指针来遍历第一个排序数组，用right指针来遍历第二个排序数组，则当right指针和left指针间距为1时，right指针指向的就是第二个排序数组的最小值，即整个数组的最小值。</p>
 <ul>
-<li>先将数组排序</li>
-<li>统计数组中0出现的个数count</li>
-<li>使用temp来记录总的间隔大小，判断数组中相邻两个数的间隔是否小于count，是的话更新temp，不是的话返回false</li>
-<li>判断temp与count的关系，大于返回false，小于等于返回true</li>
-<li>如果数组中相邻两个数相等也返回false</li>
+<li>1.用left指针指向第一个数组的第一个元素，用right指针指向第二个数组的最后一个元素</li>
+<li>判断mid(mid = (right+left)/2)指针与left指针指向元素的大小关系
+<ul>
+<li>如果mid值大于等于left，则mid仍在第一个排序数组中，因此更新left的值为mid</li>
+<li>如果mid值小于left，则mid在第二个排序数组中，因此更新right的值为mid</li>
+</ul>
+</li>
+<li>持续更新left和right直到，left和right指针间距为1，输出right指针对应的值</li>
 </ul>
 <h2 id="实现代码">实现代码</h2>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.Arrays;</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isContinuous</span><span class="params">(<span class="keyword">int</span> [] numbers)</span> </span>&#123;</div><div class="line">		<span class="keyword">if</span>(numbers == <span class="keyword">null</span>||numbers.length == <span class="number">0</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">int</span> temp = <span class="number">0</span>;</div><div class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;    </div><div class="line">        Arrays.sort(numbers);</div><div class="line"></div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; numbers.length - <span class="number">1</span>;i++)&#123;</div><div class="line">          	<span class="comment">//统计0的个数</span></div><div class="line">            <span class="keyword">if</span>(numbers[i] == <span class="number">0</span>)&#123;</div><div class="line">                count++;</div><div class="line">                <span class="keyword">continue</span>;</div><div class="line">            &#125;</div><div class="line">            <span class="comment">//求相邻元素的间隔</span></div><div class="line">            <span class="keyword">int</span> t = numbers[i+<span class="number">1</span>] - numbers[i] - <span class="number">1</span>;</div><div class="line">          	<span class="comment">//判断相邻元素是否相同，或者间隔过大</span></div><div class="line">            <span class="keyword">if</span>(t &gt; count||t == -<span class="number">1</span>)&#123;</div><div class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">            &#125;<span class="keyword">else</span> &#123;</div><div class="line">                temp += t;</div><div class="line">                <span class="keyword">if</span>(temp &gt; count)&#123;</div><div class="line">           			<span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">        		&#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">minNumberInRotateArray</span><span class="params">(<span class="keyword">int</span> [] array)</span> </span>&#123;</div><div class="line">    	<span class="keyword">if</span>(array == <span class="keyword">null</span>||array.length == <span class="number">0</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">int</span> left = <span class="number">0</span>,right = array.length - <span class="number">1</span>;</div><div class="line">        <span class="keyword">while</span>(right - left &gt; <span class="number">1</span>)&#123;</div><div class="line">            <span class="keyword">int</span> mid = (right + left) / <span class="number">2</span>;</div><div class="line">            <span class="keyword">if</span>(array[mid] &gt;= array[left])&#123;</div><div class="line">                left = mid;</div><div class="line">            &#125;<span class="keyword">else</span> &#123;</div><div class="line">                right = mid;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> array[right];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
                 
 
@@ -233,13 +238,9 @@
                 <!-- Pager -->
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2017/07/31/Algorithm-35/" data-toggle="tooltip" data-placement="top" title="Algorithm_35(圆圈中剩下的数字)">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/2017/07/30/Algorithm-33/" data-toggle="tooltip" data-placement="top" title="Algorithm_33(非排序数组中和为S的两个数字的下标)">Next Post &rarr;</a>
+                            <a href="/2017/09/18/Algorithm-53/" data-toggle="tooltip" data-placement="top" title="Algorithm_53(重建二叉树)">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -318,8 +319,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "your-disqus-ID";
-    var disqus_identifier = "http://andfanswzp.pw/2017/07/30/Algorithm-34/";
-    var disqus_url = "http://andfanswzp.pw/2017/07/30/Algorithm-34/";
+    var disqus_identifier = "http://andfanswzp.pw/2017/09/18/Algorithm-54/";
+    var disqus_url = "http://andfanswzp.pw/2017/09/18/Algorithm-54/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

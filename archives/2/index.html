@@ -136,6 +136,13 @@
 
                         
                         <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
                             <a href="/archive/">Archives</a>
                         </li>
                         
@@ -144,13 +151,6 @@
                         
                         <li>
                             <a href="/tags/">Tags</a>
-                        </li>
-                        
-                    
-
-                        
-                        <li>
-                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -210,6 +210,41 @@
             
                 <!-- Main Content -->
 
+
+<div class="post-preview">
+
+    <a href="/2017/08/08/WebView内存泄漏之惑/">
+        <h2 class="post-title">
+            WebView内存泄漏之惑
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            
+本文所写均属作者个人理解，如有错误，望能指出。
+
+昨天面试时被问到了一个问题：WebView造成内存泄露的原因？我便很机械的回答了&quot;长生命周期的对象引用了短声明周期的对象，导致短生命周期的对象的工作在执行完后，无法在GC时，被正常回收&quot;，然后面试官接着问我那在这个场景中谁是长生命周期的对象，谁是短生命周期的对象呢？我竟一时语塞，不知该如何回答，于是今天就想把我自己挖的这......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Andfans on
+            2017-08-08
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Android" title="Android">Android</a>
+            
+              <a href="/tags/#WebView" title="WebView">WebView</a>
+            
+              <a href="/tags/#内存泄漏" title="内存泄漏">内存泄漏</a>
+            
+        </div>
+    
+
+</div>
+<hr>
 
 <div class="post-preview">
 
@@ -507,39 +542,6 @@
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2017/08/02/Android中的动画/">
-        <h2 class="post-title">
-            Android中的动画
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            Android的动画可以分为三种：View动画、帧动画和属性动画，其实帧动画也属于View动画的一种，只不过它和平移、旋转等常见的View动画在表现形式上略有不同。
-
-View动画通过对场景里的对象不断做图像变换(平移、缩放、旋转、透明度)从而产生动画效果，它是一种渐进式的动画，并且View动画支持自定义。
-帧动画通过顺序播放一系列图像从而产生动画效果，可以简单的理解为图片的切换动画，很显然......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Andfans on
-            2017-08-02
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Android" title="Android">Android</a>
-            
-              <a href="/tags/#动画" title="动画">动画</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -586,7 +588,7 @@ View动画通过对场景里的对象不断做图像变换(平移、缩放、旋
             
         
             
-            <a href="/tags/#算法题" title="算法题" rel="53">算法题</a>
+            <a href="/tags/#算法题" title="算法题" rel="54">算法题</a>
             
         
             
@@ -681,7 +683,11 @@ View动画通过对场景里的对象不断做图像变换(平移、缩放、旋
     <ul>
       
         <li>
-          <a href="/2017/09/18/Algorithm-53/">Algorithm_53</a>
+          <a href="/2017/09/18/Algorithm-54/">Algorithm_54(旋转数组的最小值)</a>
+        </li>
+      
+        <li>
+          <a href="/2017/09/18/Algorithm-53/">Algorithm_53(重建二叉树)</a>
         </li>
       
         <li>
@@ -696,10 +702,6 @@ View动画通过对场景里的对象不断做图像变换(平移、缩放、旋
           <a href="/2017/09/15/Algorithm-50/">Algorithm_50(二维数组中的查找)</a>
         </li>
       
-        <li>
-          <a href="/2017/08/24/注解-详解/">注解-详解</a>
-        </li>
-      
     </ul>
   </div>
 
@@ -708,7 +710,7 @@ View动画通过对场景里的对象不断做图像变换(平移、缩放、旋
         
     <h5>ARCHIVES</h5>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">20</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">42</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">7</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">20</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">42</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">7</span></li></ul>
     </div>
 
         <hr>
