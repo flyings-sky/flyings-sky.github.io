@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          Algorithm_24(数字在排序数组中出现的次数) - Andfans
+          Algorithm_53 - Andfans
         
     </title>
 
-    <link rel="canonical" href="http://andfanswzp.pw/2017/07/26/Algorithm-24/">
+    <link rel="canonical" href="http://andfanswzp.pw/2017/09/18/Algorithm-53/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -93,11 +93,11 @@
                               <a class="tag" href="/tags/#算法题" title="算法题">算法题</a>
                             
                         </div>
-                        <h1>Algorithm_24(数字在排序数组中出现的次数)</h1>
+                        <h1>Algorithm_53</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by Andfans on
-                            2017-07-26
+                            2017-09-18
                         </span>
                     </div>
                 
@@ -215,34 +215,16 @@
                 post-container">
 
                 <h2 id="题目描述">题目描述</h2>
-<p>统计一个数字在排序数组中出现的次数。</p>
+<p>输入某二叉树的前序遍历和中序遍历的结果，请重建出该二叉树。假设输入的前序遍历和中序遍历的结果中都不含重复的数字。例如输入前序遍历序列{1,2,4,7,3,5,6,8}和中序遍历序列{4,7,2,1,5,3,8,6}，则重建二叉树并返回。</p>
 <h2 id="解题思路">解题思路</h2>
-<p>当这种题在面试官出现，那么如果你只给出一个时间复杂度为O(N)的算法的话，那么很难令面试官满意，因此需要时间复杂度更小的算法来实现这道题目。</p>
-<p>一看到&quot;排序&quot;两个字，有没有觉得题目是在暗示你什么？8成要用二分查找来做，由于在这个题目中是可能存在重复数据的情况，求出现次数，换言之，也就是求数字出现的开始和结束的位置，因为每次二分查找只能找到一个下标，所以我们要使用两次二分查找来实现。</p>
-<p>找开始位置算法：</p>
+<p>我们知道先序遍历是按照:根-左-右的顺序去遍历的，中序遍历是按照:左-根-右的顺序去遍历的。</p>
 <ul>
-<li>如果array[mid]值大于k值，则说明k是出现在左半部分，因此将right值更新为mid-1</li>
-<li>如果array[mid]值小于k值，则说明k是出现在右半部分，因此将left值更新为mid+1</li>
-<li>如果相等，则要考虑重复值的问题，因为这是找开始位置的算法，所以应该是往前找：
-<ul>
-<li>判断前一个数(mid-1)是否存在且值是否为k(注意这两个判断条件的先后位置不能颠倒，因此&amp;&amp;具有短路性)，如果是，则还需要继续下一次二分查找，将right更新为mid-1;</li>
-<li>如果上述两个条件不成立，则说明不存在重复值，直接返回mid，作为开始位置</li>
-</ul>
-</li>
-</ul>
-<p>找结束位置的算法：</p>
-<ul>
-<li>如果array[mid]值大于k值，则说明k是出现在左半部分，因此将right值更新为mid-1</li>
-<li>如果array[mid]值小于k值，则说明k是出现在右半部分，因此将left值更新为mid+1</li>
-<li>如果相等，则要考虑重复值的问题，因为这是找结束位置的算法，所以应该是往后找：
-<ul>
-<li>判断后一个数(mid+1)是否存在且值是否为k(注意这两个判断条件的先后位置不能颠倒，因此&amp;&amp;具有短路性)，如果是，则还需要继续下一次二分查找，将left更新为mid+1;</li>
-<li>如果上述两个条件不成立，则说明不存在重复值，直接返回mid，作为开始位置</li>
-</ul>
-</li>
+<li>1.根据先序遍历的第一个数字，我们就可以找到在中序遍历中根节点的位置；</li>
+<li>2.知道了这个根节点的位置，就可以知道左子树和右子树结点的先序和中序遍历序列；</li>
+<li>3.根据左子树和右子树的先序和中序遍历序列就可以构造出左子树和右子树，就这样不断递归就可以得到最终的树；</li>
 </ul>
 <h2 id="实现代码">实现代码</h2>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">GetNumberOfK</span><span class="params">(<span class="keyword">int</span> [] array , <span class="keyword">int</span> k)</span> </span>&#123;</div><div class="line">       	<span class="keyword">int</span> len = array.length;</div><div class="line">        <span class="keyword">if</span>(len == <span class="number">0</span>||array == <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">int</span> left = GetNumLeft(array,<span class="number">0</span>,len-<span class="number">1</span>,k);</div><div class="line">        <span class="keyword">int</span> right = GetNumRight(array,<span class="number">0</span>,len-<span class="number">1</span>,k);</div><div class="line">        <span class="keyword">if</span>(left != -<span class="number">1</span>&amp;&amp;right != -<span class="number">1</span>)&#123;</div><div class="line">            <span class="keyword">return</span> right - left + <span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">GetNumRight</span><span class="params">(<span class="keyword">int</span> [] array,<span class="keyword">int</span> left,<span class="keyword">int</span> right,<span class="keyword">int</span> k)</span></span>&#123;</div><div class="line">        <span class="keyword">while</span>(left &lt;= right)&#123;</div><div class="line">            <span class="keyword">int</span> mid = (left + right) / <span class="number">2</span>;</div><div class="line">            <span class="keyword">if</span>(array[mid] &gt; k)&#123;</div><div class="line">                right = mid - <span class="number">1</span>;</div><div class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(array[mid] &lt; k)&#123;</div><div class="line">                left = mid + <span class="number">1</span>;</div><div class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(mid + <span class="number">1</span> &lt; array.length&amp;&amp;(array[mid + <span class="number">1</span>]  == k))&#123;</div><div class="line">                left = mid + <span class="number">1</span>;</div><div class="line">            &#125;<span class="keyword">else</span> &#123;</div><div class="line">                <span class="keyword">return</span> mid;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">GetNumLeft</span><span class="params">(<span class="keyword">int</span> [] array,<span class="keyword">int</span> left,<span class="keyword">int</span> right,<span class="keyword">int</span> k)</span></span>&#123;</div><div class="line">        <span class="keyword">while</span>(left &lt;= right)&#123;</div><div class="line">            <span class="keyword">int</span> mid = (left + right) / <span class="number">2</span>;</div><div class="line">            <span class="keyword">if</span>(array[mid] &gt; k)&#123;</div><div class="line">                right = mid - <span class="number">1</span>;</div><div class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(array[mid] &lt; k)&#123;</div><div class="line">                left = mid + <span class="number">1</span>;</div><div class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>((mid - <span class="number">1</span> &gt;= <span class="number">0</span>)&amp;&amp;(array[mid - <span class="number">1</span>]  == k))&#123;</div><div class="line">                right = mid - <span class="number">1</span>;</div><div class="line">            &#125;<span class="keyword">else</span> &#123;</div><div class="line">                <span class="keyword">return</span> mid;</div><div class="line">            &#125;</div><div class="line">        &#125;  </div><div class="line">        <span class="keyword">return</span> -<span class="number">1</span>;      </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * Definition for binary tree</div><div class="line"> * public class TreeNode &#123;</div><div class="line"> *     int val;</div><div class="line"> *     TreeNode left;</div><div class="line"> *     TreeNode right;</div><div class="line"> *     TreeNode(int x) &#123; val = x; &#125;</div><div class="line"> * &#125;</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> TreeNode <span class="title">reConstructBinaryTree</span><span class="params">(<span class="keyword">int</span> [] pre,<span class="keyword">int</span> [] in)</span> </span>&#123;</div><div class="line">        TreeNode root = reConstructBinaryTree(pre,<span class="number">0</span>,pre.length-<span class="number">1</span>,in,<span class="number">0</span>,in.length-<span class="number">1</span>);</div><div class="line">        <span class="keyword">return</span> root;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">private</span> TreeNode <span class="title">reConstructBinaryTree</span><span class="params">(<span class="keyword">int</span> [] pre,<span class="keyword">int</span> preBegin,<span class="keyword">int</span> preEnd,<span class="keyword">int</span> [] in,<span class="keyword">int</span> inBegin,<span class="keyword">int</span> inEnd)</span></span>&#123;</div><div class="line">        <span class="keyword">if</span>(preEnd &lt; preBegin||inEnd &lt; inBegin)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        TreeNode root = <span class="keyword">new</span> TreeNode(pre[preBegin]);</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = inBegin;i &lt;= inEnd;i++)&#123;</div><div class="line">            <span class="keyword">if</span>(pre[preBegin] == in[i])&#123;</div><div class="line">                root.left = reConstructBinaryTree(pre,preBegin+<span class="number">1</span>,i-inBegin+preBegin,in,inBegin,i-<span class="number">1</span>);</div><div class="line">                root.right = reConstructBinaryTree(pre,i-inBegin+preBegin+<span class="number">1</span>,preEnd,in,i+<span class="number">1</span>,inEnd);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> root;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
                 
 
@@ -250,13 +232,9 @@
                 <!-- Pager -->
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2017/07/26/Algorithm-25/" data-toggle="tooltip" data-placement="top" title="Algorithm_25(二叉树的深度)">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/2017/07/26/Algorithm-23/" data-toggle="tooltip" data-placement="top" title="Algorithm_23(两个链表的第一个公共结点)">Next Post &rarr;</a>
+                            <a href="/2017/09/16/Algorithm-52/" data-toggle="tooltip" data-placement="top" title="Algorithm_52(从尾到头打印链表)">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -335,8 +313,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "your-disqus-ID";
-    var disqus_identifier = "http://andfanswzp.pw/2017/07/26/Algorithm-24/";
-    var disqus_url = "http://andfanswzp.pw/2017/07/26/Algorithm-24/";
+    var disqus_identifier = "http://andfanswzp.pw/2017/09/18/Algorithm-53/";
+    var disqus_url = "http://andfanswzp.pw/2017/09/18/Algorithm-53/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
